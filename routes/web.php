@@ -24,5 +24,10 @@ Route::get('/', function () {
 Route::get('/login', [LoginUserController::class, 'login'])->name('auth.login');
 Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
 
+//shift
+Route::get('/shift', function () {
+    return view('Card.shift');
+});
+
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'dash']);
