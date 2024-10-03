@@ -106,7 +106,8 @@
                             </div> <!-- /.info-box -->
                         </div> <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box"> <span class="info-box-icon text-bg-danger shadow-sm"> <i class="bi bi-alarm"></i> </span>
+                            <div class="info-box"> <span class="info-box-icon text-bg-danger shadow-sm"> <i
+                                        class="bi bi-alarm"></i> </span>
                                 <div class="info-box-content"> <span class="info-box-text">Pulang Kerja</span> <span
                                         class="info-box-number">
                                         04:00
@@ -115,15 +116,18 @@
                         </div>
                         <!-- <div class="clearfix hidden-md-up"></div> -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box"> <span class="info-box-icon text-bg-success shadow-sm"> <i class="bi bi-people-fill"></i> </span>
-                                <div class="info-box-content"> <span class="info-box-text">Total yang masuk</span> <span
-                                        class="info-box-number">15 Orang</span> </div> <!-- /.info-box-content -->
+                            <div class="info-box"> <span class="info-box-icon text-bg-success shadow-sm"> <i
+                                        class="bi bi-people-fill"></i> </span>
+                                <div class="info-box-content"> <span class="info-box-text">Total yang masuk</span>
+                                    <span class="info-box-number">15 Orang</span> </div> <!-- /.info-box-content -->
                             </div> <!-- /.info-box -->
                         </div> <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box"> <span class="info-box-icon text-bg-warning shadow-sm"> <i class="bi bi-person-fill-down"></i> </span>
-                                <div class="info-box-content"> <span class="info-box-text">Total yang tidak masuk</span> <span
-                                        class="info-box-number">3 Orang</span> </div> <!-- /.info-box-content -->
+                            <div class="info-box"> <span class="info-box-icon text-bg-warning shadow-sm"> <i
+                                        class="bi bi-person-fill-down"></i> </span>
+                                <div class="info-box-content"> <span class="info-box-text">Total yang tidak
+                                        masuk</span> <span class="info-box-number">3 Orang</span> </div>
+                                <!-- /.info-box-content -->
                             </div> <!-- /.info-box -->
                         </div> <!-- /.col -->
                     </div> <!-- /.row --> <!--begin::Row-->
@@ -174,7 +178,8 @@
                                                     <div class="progress-bar text-bg-danger" style="width: 75%"></div>
                                                 </div>
                                             </div> <!-- /.progress-group -->
-                                            <div class="progress-group"> <span class="progress-text">Total yang masuk</span> <span class="float-end"><b>480</b>/800</span>
+                                            <div class="progress-group"> <span class="progress-text">Total yang
+                                                    masuk</span> <span class="float-end"><b>480</b>/800</span>
                                                 <div class="progress progress-sm">
                                                     <div class="progress-bar text-bg-success" style="width: 60%">
                                                     </div>
@@ -196,15 +201,14 @@
                                         <div class="col-md-6 col-6">
                                             <div class="text-center border-end"> <span class="text-success"> <i
                                                         class="bi bi-caret-up-fill"></i> 17%
-                                                </span> <span
-                                                    class="text-uppercase">PENINGKATAN</span>
+                                                </span> <span class="text-uppercase">PENINGKATAN</span>
                                             </div>
                                         </div> <!-- /.col -->
                                         <div class="col-md-6 col-6">
-                                            <div class="text-center border-end"> <span class="text-danger"> <i class="bi bi-caret-down-fill"></i> 0%
+                                            <div class="text-center border-end"> <span class="text-danger"> <i
+                                                        class="bi bi-caret-down-fill"></i> 0%
                                                 </span>
-                                                 <span
-                                                    class="text-uppercase">PENURUNAN</span>
+                                                <span class="text-uppercase">PENURUNAN</span>
                                             </div>
                                         </div> <!-- /.col -->
                                     </div> <!--end::Row-->
@@ -325,79 +329,27 @@
                                         <table class="table m-0">
                                             <thead>
                                                 <tr>
-                                                    <th>ID Karyawan</th>
+                                                    <th>No.</th>
                                                     <th>Nama</th>
                                                     <th>Posisi/Divisi</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td> <a href="pages/examples/invoice.html"
-                                                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">1</a>
-                                                    </td>
-                                                    <td>Fajar</td>
-                                                    <td>Human Resource (HR)</td>
-                                                    <td> <span class="badge text-bg-success">
-                                                            Tepat
-                                                        </span> </td>
-                                                </tr>
-                                                <tr>
-                                                    <td> <a href="pages/examples/invoice.html"
-                                                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">2</a>
-                                                    </td>
-                                                    <td>Akmal</td>
-                                                    <td>Programmer</td>
-                                                    <td> <span class="badge text-bg-success">Tepat</span> </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td> <a href="pages/examples/invoice.html"
-                                                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">2</a>
-                                                    </td>
-                                                    <td>Aji Setiawan</td>
-                                                    <td>Programmer</td>
-                                                    <td> <span class="badge text-bg-success">Tepat</span> </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td> <a href="pages/examples/invoice.html"
-                                                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">4</a>
-                                                    </td>
-                                                    <td>Sendi J.A</td>
-                                                    <td>IT Support</td>
-                                                    <td> <span class="badge text-bg-danger">Terlambat</span> </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td> <a href="pages/examples/invoice.html"
-                                                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">5</a>
-                                                    </td>
-                                                    <td>Aditya</td>
-                                                    <td>Programmer</td>
-                                                    <td> <span class="badge text-bg-danger">Terlambat</span> </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td> <a href="pages/examples/invoice.html"
-                                                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">6</a>
-                                                    </td>
-                                                    <td>Fajar Zulfiansyah</td>
-                                                    <td>Marketing</td>
-                                                    <td> <span class="badge text-bg-success">
-                                                            Tepat
-                                                        </span> </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td> <a href="pages/examples/invoice.html"
-                                                            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">7</a>
-                                                    </td>
-                                                    <td>Afrizal</td>
-                                                    <td>IT Support</td>
-                                                    <td> <span class="badge text-bg-success">Tepat</span> </td>
-
-                                                </tr>
+                                                @foreach ($usrs as $index => $user)
+                                                    <tr>
+                                                        <td class="text-dark-100">
+                                                            {{ $index + 1 }}
+                                                        </td>
+                                                        <td>{{ $user->name }}</td>
+                                                        <td>{{ $user->divisi }}</td>
+                                                        <td>
+                                                            <span class="badge text-bg-success">
+                                                                Tepat
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div> <!-- /.table-responsive -->

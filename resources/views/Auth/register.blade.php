@@ -26,13 +26,12 @@
     @vite('resources/css/app.css')
     <style>
         body {
-            background-image: url('./image/src/hd-bd.jpg');
+            background: linear-gradient(to bottom right, #d30f0f, #ffacac);
             background-size: cover;
             background-position: center;
             z-index: -100;
             position: relative;
             background-repeat: no-repeat;
-            backdrop-filter: blur(5px);
         }
     </style>
 </head>
@@ -40,7 +39,7 @@
 <body class="login-page">
     <div class="login-box">
         <div class="card">
-            <div class="card-body login-card-body">
+            <div class="card-body login-card-body rounded">
                 <div class="login-logo flex justify-center mt-3 mb-5"> <img
                         src="{{ asset('./tdash/dist/assets/img/logo-company/tms.png') }}" alt="Logo TMS" width="60"
                         style="background-blend-mode: color-burn; border-radius: 100px;">

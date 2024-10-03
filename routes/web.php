@@ -16,13 +16,15 @@ use App\Http\Controllers\Pages\Dashboard\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::get('/login', [LoginUserController::class, 'login'])->name('auth.login');
 Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
 
+Route::post('/proses-login', [LoginUserController::class, 'proses_login'])->name('proses.login');
+
 // Dashboard
-Route::get('/dashboard', [DashboardController::class, 'dash']);
+Route::get('/dashboard', [DashboardController::class, 'dash'])->name('dashboard');
