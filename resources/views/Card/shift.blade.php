@@ -31,7 +31,7 @@
             <img class="w-full h-60 object-cover" src="{{ asset('./image/src/sunset.jpeg') }}" alt="Shift Sore">
             <div class="p-4">
                 <h2 class="text-xl font-bold">Shift Sore</h2>
-                <p class="text-gray-700 mt-2">Bekerja dari pukul 16:00 hingga
+                <p class="text-gray-700 mt-2">Bekerja dari pukulini 16:00 hingga
                     00:00.</p>
             </div>
             <div class="p-4 border-t border-gray-200">
