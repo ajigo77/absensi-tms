@@ -26,5 +26,10 @@ Route::get('/register', [RegisterUserController::class, 'register'])->name('auth
 
 Route::post('/proses-login', [LoginUserController::class, 'proses_login'])->name('proses.login');
 
+//shift
+Route::get('/shift', function () {
+    return view('Card.shift');
+});
+
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'dash'])->name('dashboard');
