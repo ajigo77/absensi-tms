@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>TMS | Login</title><!--begin::Primary Meta Tags-->
+    <title>Register</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE 4 | Login Page">
     <meta name="author" content="ColorlibHQ">
@@ -44,19 +44,68 @@
                         src="{{ asset('./tdash/dist/assets/img/logo-company/tms.png') }}" alt="Logo TMS" width="60"
                         style="background-blend-mode: color-burn; border-radius: 100px;">
                 </div> <!-- /.login-logo -->
-                <form action="../index3.html" method="post">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nama Lengkap">
-                        <div class="input-group-text">
-                            <span class="bi bi-person"></span>
+                <form action="{{ route('proses.register') }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nama Lengkap" name="nama_lengkap"
+                                value="{{ old('nama_lengkap') }}">
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
                         </div>
+                        @error('nama_lengkap')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3"> <input type="email" class="form-control" placeholder="Email">
-                        <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <select class="form-control" name="divisi">
+                                <option value="">Pilih Divisi</option>
+                                <option value="IT Support" {{ old('divisi') == 'IT Support' ? 'selected' : '' }}>
+                                    IT Support
+                                </option>
+                                <option value="Programmer" {{ old('divisi') == 'Programmer' ? 'selected' : '' }}>
+                                    Programmer
+                                </option>
+                                <option value="Marketing" {{ old('divisi') == 'Marketing' ? 'selected' : '' }}>
+                                    Marketing
+                                </option>
+                                <option value="Customer Service"
+                                    {{ old('divisi') == 'Customer Service' ? 'selected' : '' }}>
+                                    Customer Service
+                                </option>
+                                <option value="HRD" {{ old('divisi') == 'HRD' ? 'selected' : '' }}>
+                                    HRD
+                                </option>
+                            </select>
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
+                        </div>
+                        @error('divisi')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3"> <input type="password" class="form-control" placeholder="Password">
-                        <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
-                    </div> <!--begin::Row-->
+
+                    <div class="mb-3">
+                        <div class="input-group"> <input type="email" class="form-control" placeholder="Email"
+                                name="email" value="{{ old('email') }}">
+                            <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
+                        </div>
+                        @error('email')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group"> <input type="password" class="form-control" placeholder="Password"
+                                name="password">
+                            <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
+                        </div>
+                        @error('password')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="row">
                         <div class="flex justify-between items-center">
                             <div class="form-check">

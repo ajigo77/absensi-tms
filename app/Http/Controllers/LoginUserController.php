@@ -23,9 +23,14 @@ class LoginUserController extends Controller
         ];
 
         if(Auth::attempt($data)){
-            return redirect()->route('dashboard');
+            return redirect()->route('user.shift');
         } else {
             return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('auth.login')->with('success', 'Anda berhasil logout');
     }
 }

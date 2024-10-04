@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>TMS | Login</title><!--begin::Primary Meta Tags-->
+    <title>Login</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE 4 | Login Page">
     <meta name="author" content="ColorlibHQ">
@@ -33,7 +33,6 @@
             background-repeat: no-repeat;
         }
     </style>
-
 </head>
 
 <body class="login-page">
@@ -93,18 +92,7 @@
             </div>
         </div>
     </div>
-
-        {{-- Sweetalert2 --}}
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js"
-            integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script>
-        <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script>
-        <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-        <script src="../../../dist/js/adminlte.js"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+        @include('components.script')
         <script>
             const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
             const Default = {
@@ -134,6 +122,16 @@
                     title: "Gagal",
                     text: "{{ $pesan_error }}",
                     icon: "error"
+                });
+            </script>
+        @endif
+
+        @if ($pesan_sukses_logout = Session::get('success'))
+            <script>
+                Swal.fire({
+                    title: "Sukses",
+                    text: "{{ $pesan_sukses_logout }}",
+                    icon: "success"
                 });
             </script>
         @endif
