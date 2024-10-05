@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\RegisterUserController;
@@ -40,5 +41,5 @@ Route::get('/webcamp', function () {
     return view('Leaflet.webcam');
 })->name('absensi.karyawan');
 
-
+require __DIR__ . '/Uploaded/upload.php';
 require __DIR__ . '/Auth/auth.php';

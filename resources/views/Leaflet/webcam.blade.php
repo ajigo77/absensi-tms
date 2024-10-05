@@ -3,6 +3,7 @@
 
 <head>
     <title>Absensi Karyawan</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('components.link-cdn')
 </head>
 <style>
@@ -62,7 +63,6 @@
                     Buka Camera
                 </button>
 
-
                 <!-- Tombol Capture -->
                 <button id="capture"
                     class="w-full bg-red-100 flex items-center justify-center text-white-100 font-bold py-3 rounded-lg shadow-lg hover:bg-red-50 transition col-span-1">
@@ -71,16 +71,26 @@
                 </button>
 
                 <!-- Tombol Submit -->
-                <button id="submit"
-                    class="w-full bg-red-100 flex items-center justify-center text-white-100 font-bold py-3 rounded-lg shadow-lg sm:col-span-1 hover:bg-red-50 transition">
-                    <i class="bi bi-send-fill text-2xl text-white-100 mr-2"></i>
-                    Submit
-                </button>
+                <form action="{{ route('image.upload') }}" method="POST" enctype="multipart/form-data"
+                    id="upload-form">
+                    @csrf <!-- Tambahkan CSRF token untuk keamanan -->
+                    {{-- @error('image')
+                        <span class="text-red-50">{{ $message }}</span>
+                    @enderror --}}
+                    <input type="hidden" name="image" id="image-data"> <!-- Input tersembunyi untuk gambar -->
+                    <input type="hidden" name="latitude" id="latitude"> <!-- Input tersembunyi untuk gambar -->
+                    <input type="hidden" name="longitude" id="longitude"> <!-- Input tersembunyi untuk gambar -->
+                    <button id="submit"
+                        class="w-full bg-red-100 flex items-center justify-center text-white-100 font-bold py-3 rounded-lg shadow-lg sm:col-span-1 hover:bg-red-50 transition"
+                        type="submit">
+                        <i class="bi bi-send-fill text-2xl text-white-100 mr-2"></i>
+                        Submit
+                    </button>
+                </form>
             </div>
-
         </div>
     </div>
-    <input type="text" id="serlok" name="serlok" readonly hidden>
+    {{-- <input type="text" id="serlok" name="serlok" readonly hidden> --}}
     <x-dashboard.footer></x-dashboard.footer>
 </body>
 <script>
@@ -130,11 +140,80 @@
 
         const context = canvas.getContext('2d');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
         canvas.style.display = 'block';
         document.querySelector('#video').style.display = 'none';
 
-        stop();
+        // Konversi canvas menjadi Blob (file gambar)
+        canvas.toBlob(function(blob) {
+            const file = new File([blob], 'captured_image.jpg', {
+                type: 'image/jpeg'
+            });
+
+            // Siapkan FormData untuk pengiriman file gambar ke Laravel
+            const formData = new FormData();
+            formData.append('image', file);
+
+            // Kirimkan file ke route Laravel menggunakan fetch (AJAX)
+            fetch('/upload', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }, 'image/jpeg');
+
+        stop(); // Hentikan video setelah gambar diambil
+    }
+
+
+    function uploadImage(file) {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Set nilai ke input tersembunyi
+                document.getElementById('latitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
+            });
+        }
+
+        // Siapkan FormData untuk pengiriman file gambar
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('latitude', latitude);
+        formData.append('latitude', longitude);
+
+        // Kirim file gambar ke server menggunakan AJAX atau form submit
+        fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data di upload! ${data}",
+                    icon: "success"
+                });
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Upss Kesalahan",
+                    text: "Data gagal di upload! ${error}",
+                    icon: "error"
+                });
+            });
     }
 
     function stop() {
@@ -154,8 +233,13 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-                const googleMapsLink = `${latitude},${longitude}`;
-                lokasiInput.value = googleMapsLink;
+
+                // Set nilai ke input tersembunyi
+                document.getElementById('latitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
+
+                // const googleMapsLink = `${latitude},${longitude}`;
+                // lokasiInput.value = googleMapsLink;
                 showMap(latitude, longitude);
 
                 if (showMap) {
@@ -164,10 +248,19 @@
                         'border-4', 'border-gray-10', 'border-dashed');
                 }
             }, function(error) {
-                console.log("Lokasi tidak bisa diakses: ", error);
+                console.log(": ", error);
+                Swal.fire({
+                    title: "Upss",
+                    text: "Lokasi tidak bisa diakses",
+                    icon: "error"
+                });
             });
         } else {
-            console.log("Geolocation tidak didukung oleh browser ini.");
+            Swal.fire({
+                title: "Upss",
+                text: "Lokasi tidak bisa bisa di akses oleh browser!",
+                icon: "error"
+            });
         }
     });
 
@@ -200,8 +293,29 @@
         // Tambahkan marker pada koordinat pengguna
         const marker = L.marker([lat, lon]).addTo(map)
             .bindPopup('Lokasi Anda').openPopup();
+
+
+        // Kirim file gambar ke server menggunakan AJAX atau form submit
+        // fetch('/upload', {
+        //         method: 'POST',
+        //         body: formData,
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         Swal.fire({
+        //             title: "Sukses",
+        //             text: "Lokasi berhasil di upload! ${data}",
+        //             icon: "success"
+        //         });
+        //     })
+        //     .catch(error => {
+        //         Swal.fire({
+        //             title: "Upss Kesalahan",
+        //             text: "Lokasi gagal di upload! ${error}",
+        //             icon: "error"
+        //         });
+        //     });
     }
 </script>
-
 
 </html>

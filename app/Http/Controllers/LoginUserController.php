@@ -13,12 +13,12 @@ class LoginUserController extends Controller
 
     public function proses_login(Request $request){
         $request->validate([
-            'email'=>'required|email',
+            'member_id'=>'required|numeric',
             'password'=>'required'
         ]);
 
         $data = [
-            'email'=> $request->email,
+            'member_id'=> $request->member_id,
             'password'=> $request->password
         ];
 

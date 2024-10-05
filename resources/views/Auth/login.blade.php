@@ -46,11 +46,11 @@
                 <form action="{{ route('proses.login') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <div class="input-group"> <input type="email" class="form-control" placeholder="Email"
-                                name="email">
-                            <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
+                        <div class="input-group"> <input type="number" class="form-control" placeholder="Id Member"
+                                name="member_id">
+                            <div class="input-group-text"> <span class="bi bi-hash"></span> </div>
                         </div>
-                        @error('email')
+                        @error('member_id')
                             <span class="text-red-50">{{ $message }}</span>
                         @enderror
                     </div>
@@ -82,12 +82,12 @@
                             </div>
                         </div> <!-- /.col -->
                     </div> <!--end::Row-->
-                    <span class="flex text-center justify-center mt-3">Or</span>
+                    {{-- <span class="flex text-center justify-center mt-3">Or</span>
                     <a href="#"
                         class="flex items-center justify-center w-full px-4 py-2 mt-3 bg-gray-100 hover:bg-gray-50 hover:transition rounded-lg border border-gray-50">
                         <img src="{{ asset('./image/src/google.png') }}" alt="Google Logo" class="w-6 h-6 mr-3">
                         <span class="text-sm font-medium text-dark-50">Login with Google</span>
-                    </a>
+                    </a> --}}
                 </form>
             </div>
         </div>

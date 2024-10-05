@@ -9,7 +9,7 @@ use App\Models\User;
 class DashboardController extends Controller
 {
     public function dash(){
-        $usrs = User::get();
+        $usrs = User::limit(10)->get();
         return view('dashboard', compact('usrs'));
     }
 }

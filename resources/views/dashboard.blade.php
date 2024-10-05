@@ -60,8 +60,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>Nama</th>
-                                                    <th>Email</th>
+                                                    <th>Id Member</th>
+                                                    <th>Id Jabatan</th>
                                                     <th>Waktu Masuk</th>
                                                     <th>Waktu Keluar</th>
                                                     <th>Posisi/Divisi</th>
@@ -75,41 +75,31 @@
                                                         <td class="text-dark-100">
                                                             {{ $index + 1 }}
                                                         </td>
-                                                        <td>{{ $user->name }}</td>
-                                                        <td>{{ $user->email }}</td>
+                                                        <td>{{ $user->member_id }}</td>
+                                                        <td>{{ $user->jabatan_id }}</td>
                                                         <td>{{ $user->created_at }}</td>
                                                         <td>{{ $user->created_at }}</td>
-                                                        <td>{{ $user->divisi }}</td>
+                                                        <td>{{ $user->divisi_id }}</td>
                                                         <td>
                                                             <a href="#" class="text-blue-600 underline">Belum
                                                                 ada</a>
                                                         </td>
-                                                        @if (isset($status))
-                                                            <td>
-                                                                <span
-                                                                    class="badge {{ $status == 'Terlambat' ? 'text-bg-danger' : 'text-bg-success' }}">
-                                                                    {{ $status }}
-                                                                </span>
-                                                            </td>
-                                                        @else
-                                                            <td>
-                                                                <span class="text-dark-100">
-                                                                    Tidak ada
-                                                                </span>
-                                                            </td>
-                                                        @endif
+                                                        <td>{{ $user->status }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div> <!-- /.table-responsive -->
                                 </div> <!-- /.card-body -->
-                                <div class="card-footer clearfix"> <a href="javascript:void(0)"
-                                        class="btn btn-sm btn-primary float-start">
-                                        Place New Order
-                                    </a> <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-end">
-                                        View All Orders
-                                    </a> </div>
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination float-end  mt-2 mb-2 mx-2">
+                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>

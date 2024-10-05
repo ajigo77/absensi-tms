@@ -48,13 +48,13 @@
                     @csrf
                     <div class="mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Nama Lengkap" name="nama_lengkap"
-                                value="{{ old('nama_lengkap') }}">
+                            <input type="number" class="form-control" placeholder="Id Member" name="member_id"
+                                value="{{ old('member_id') }}">
                             <div class="input-group-text">
-                                <span class="bi bi-person"></span>
+                                <span class="bi bi-hash"></span>
                             </div>
                         </div>
-                        @error('nama_lengkap')
+                        @error('member_id')
                             <span class="text-red-50">{{ $message }}</span>
                         @enderror
                     </div>
@@ -62,21 +62,24 @@
                         <div class="input-group">
                             <select class="form-control" name="divisi">
                                 <option value="">Pilih Divisi</option>
-                                <option value="IT Support" {{ old('divisi') == 'IT Support' ? 'selected' : '' }}>
-                                    IT Support
+                                <option value="2" {{ old('divisi') == 'IT Support' ? 'selected' : '' }}>
+                                    SDM
                                 </option>
-                                <option value="Programmer" {{ old('divisi') == 'Programmer' ? 'selected' : '' }}>
-                                    Programmer
+                                <option value="3" {{ old('divisi') == 'Programmer' ? 'selected' : '' }}>
+                                    UMB
                                 </option>
-                                <option value="Marketing" {{ old('divisi') == 'Marketing' ? 'selected' : '' }}>
-                                    Marketing
+                                <option value="4" {{ old('divisi') == 'Marketing' ? 'selected' : '' }}>
+                                    ACK
                                 </option>
-                                <option value="Customer Service"
+                                <option value="5"
                                     {{ old('divisi') == 'Customer Service' ? 'selected' : '' }}>
-                                    Customer Service
+                                    ITS
                                 </option>
-                                <option value="HRD" {{ old('divisi') == 'HRD' ? 'selected' : '' }}>
-                                    HRD
+                                <option value="6" {{ old('divisi') == 'HRD' ? 'selected' : '' }}>
+                                    RPU
+                                </option>
+                                <option value="7" {{ old('divisi') == 'HRD' ? 'selected' : '' }}>
+                                    MPJ
                                 </option>
                             </select>
                             <div class="input-group-text">
@@ -84,16 +87,6 @@
                             </div>
                         </div>
                         @error('divisi')
-                            <span class="text-red-50">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="input-group"> <input type="email" class="form-control" placeholder="Email"
-                                name="email" value="{{ old('email') }}">
-                            <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
-                        </div>
-                        @error('email')
                             <span class="text-red-50">{{ $message }}</span>
                         @enderror
                     </div>
