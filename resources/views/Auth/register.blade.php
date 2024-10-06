@@ -60,25 +60,25 @@
                     </div>
                     <div class="mb-3">
                         <div class="input-group">
-                            <select class="form-control" name="divisi">
+                            <select class="form-control" name="divisi_id">
                                 <option value="">Pilih Divisi</option>
-                                <option value="2" {{ old('divisi') == 'IT Support' ? 'selected' : '' }}>
+                                <option value="2" {{ old('divisi_id') == '2' ? 'selected' : '' }}>
                                     SDM
                                 </option>
-                                <option value="3" {{ old('divisi') == 'Programmer' ? 'selected' : '' }}>
+                                <option value="3" {{ old('divisi_id') == '3' ? 'selected' : '' }}>
                                     UMB
                                 </option>
-                                <option value="4" {{ old('divisi') == 'Marketing' ? 'selected' : '' }}>
+                                <option value="4" {{ old('divisi_id') == '4' ? 'selected' : '' }}>
                                     ACK
                                 </option>
                                 <option value="5"
-                                    {{ old('divisi') == 'Customer Service' ? 'selected' : '' }}>
+                                    {{ old('divisi_id') == '5' ? 'selected' : '' }}>
                                     ITS
                                 </option>
-                                <option value="6" {{ old('divisi') == 'HRD' ? 'selected' : '' }}>
+                                <option value="6" {{ old('divisi_id') == '6' ? 'selected' : '' }}>
                                     RPU
                                 </option>
-                                <option value="7" {{ old('divisi') == 'HRD' ? 'selected' : '' }}>
+                                <option value="7" {{ old('divisi_id') == '7' ? 'selected' : '' }}>
                                     MPJ
                                 </option>
                             </select>
@@ -86,7 +86,96 @@
                                 <span class="bi bi-person"></span>
                             </div>
                         </div>
-                        @error('divisi')
+                        @error('divisi_id')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <select class="form-control" name="jabatan_id">
+                                <option value="">Pilih Jabatan</option>
+                                <option value="2" {{ old('jabatan_id') == '2' ? 'selected' : '' }}>
+                                    Owner
+                                </option>
+                                <option value="3" {{ old('jabatan_id') == '3' ? 'selected' : '' }}>
+                                    Penasihat
+                                </option>
+                                <option value="4" {{ old('jabatan_id') == '4' ? 'selected' : '' }}>
+                                    Komisaris
+                                </option>
+                                <option value="5"
+                                    {{ old('jabatan_id') == '5' ? 'selected' : '' }}>
+                                    Direktur Utama
+                                </option>
+                                <option value="6" {{ old('jabatan_id') == '6' ? 'selected' : '' }}>
+                                    Direktur Keuangan
+                                </option>
+                                <option value="7" {{ old('jabatan_id') == '7' ? 'selected' : '' }}>
+                                    Direktur Operasional
+                                </option>
+                                <option value="8" {{ old('jabatan_id') == '8' ? 'selected' : '' }}>
+                                    Direktur Pengembangan
+                                </option>
+                                <option value="9" {{ old('jabatan_id') == '9' ? 'selected' : '' }}>
+                                    General Manager
+                                </option>
+                                <option value="10" {{ old('jabatan_id') == '10' ? 'selected' : '' }}>
+                                    Marketing Manager
+                                </option>
+                                <option value="11" {{ old('jabatan_id') == '11' ? 'selected' : '' }}>
+                                    Manager Personalia
+                                </option>
+                                <option value="12" {{ old('jabatan_id') == '12' ? 'selected' : '' }}>
+                                    Manager Teknologi
+                                </option>
+                                <option value="13" {{ old('jabatan_id') == '13' ? 'selected' : '' }}>
+                                    Kadiv ACK
+                                </option>
+                                <option value="14" {{ old('jabatan_id') == '14' ? 'selected' : '' }}>
+                                    Kadiv MPJ
+                                </option>
+                                <option value="15" {{ old('jabatan_id') == '15' ? 'selected' : '' }}>
+                                    Kadiv SDM
+                                </option>
+                                <option value="16" {{ old('jabatan_id') == '16' ? 'selected' : '' }}>
+                                    Kadiv UMB
+                                </option>
+                                <option value="17" {{ old('jabatan_id') == '17' ? 'selected' : '' }}>
+                                    Kadiv ITS
+                                </option>
+                                <option value="18" {{ old('jabatan_id') == '18' ? 'selected' : '' }}>
+                                    Kadiv RPU
+                                </option>
+                                <option value="19" {{ old('jabatan_id') == '19' ? 'selected' : '' }}>
+                                    Staff ACK
+                                </option>
+                                <option value="20" {{ old('jabatan_id') == '20' ? 'selected' : '' }}>
+                                    Staff MPJ
+                                </option>
+                                <option value="21" {{ old('jabatan_id') == '21' ? 'selected' : '' }}>
+                                    Staff SDM
+                                </option>
+                                <option value="22" {{ old('jabatan_id') == '22' ? 'selected' : '' }}>
+                                    Staff UMB
+                                </option>
+                                <option value="23" {{ old('jabatan_id') == '23' ? 'selected' : '' }}>
+                                    Staff ITS
+                                </option>
+                                <option value="24" {{ old('jabatan_id') == '24' ? 'selected' : '' }}>
+                                    Staff RPU
+                                </option>
+                                <option value="25" {{ old('jabatan_id') == '25' ? 'selected' : '' }}>
+                                    MF
+                                </option>
+                                <option value="26" {{ old('jabatan_id') == '26' ? 'selected' : '' }}>
+                                    TS
+                                </option>
+                            </select>
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
+                        </div>
+                        @error('jabatan_id')
                             <span class="text-red-50">{{ $message }}</span>
                         @enderror
                     </div>
@@ -107,7 +196,6 @@
                                     Ingatkan Saya
                                 </label>
                             </div>
-
                             <a href="{{ route('auth.login') }}" class="text-sm text-blue-500 hover:underline">
                                 Sudah punya akun?
                             </a>

@@ -16,18 +16,20 @@ class RegisterUserController extends Controller
     public function proses_register(Request $request){
         $request->validate([
             'member_id'=>'required|numeric',
-            'divisi'=>'required',
+            'divisi_id'=>'required',
+            'jabatan_id'=>'required',
             'password'=>'required|min:5|max:8'
         ]);
 
-        $data_user_register['member_id'] = $request->nama_lengkap;
-        $data_user_register['divisi'] = $request->divisi;
+        $data_user_register['member_id'] = $request->member_id;
+        $data_user_register['divisi_id'] = $request->divisi_id;
+        $data_user_register['jabatan_id'] = $request->jabatan_id;
         $data_user_register['password'] = Hash::make($request->password);
 
         User::create($data_user_register);
 
         $user_langsung_login = [
-            'member_id'=> $request->email,
+            'member_id'=> $request->member_id,
             'password'=> $request->password
         ];
 

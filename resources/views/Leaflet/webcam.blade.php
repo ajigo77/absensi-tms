@@ -203,7 +203,7 @@
             .then(data => {
                 Swal.fire({
                     title: "Sukses",
-                    text: "Data di upload! ${data}",
+                    text: "Data berhasil di upload! ${data}",
                     icon: "success"
                 });
             })
