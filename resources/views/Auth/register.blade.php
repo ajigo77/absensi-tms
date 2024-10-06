@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>TMS | Login</title><!--begin::Primary Meta Tags-->
+    <title>Register</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE 4 | Login Page">
     <meta name="author" content="ColorlibHQ">
@@ -26,13 +26,12 @@
     @vite('resources/css/app.css')
     <style>
         body {
-            background-image: url('./image/src/hd-bd.jpg');
+            background: linear-gradient(to bottom right, #d30f0f, #ffacac);
             background-size: cover;
             background-position: center;
             z-index: -100;
             position: relative;
             background-repeat: no-repeat;
-            backdrop-filter: blur(5px);
         }
     </style>
 </head>
@@ -40,24 +39,155 @@
 <body class="login-page">
     <div class="login-box">
         <div class="card">
-            <div class="card-body login-card-body">
+            <div class="card-body login-card-body rounded">
                 <div class="login-logo flex justify-center mt-3 mb-5"> <img
                         src="{{ asset('./tdash/dist/assets/img/logo-company/tms.png') }}" alt="Logo TMS" width="60"
                         style="background-blend-mode: color-burn; border-radius: 100px;">
                 </div> <!-- /.login-logo -->
-                <form action="../index3.html" method="post">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nama Lengkap">
-                        <div class="input-group-text">
-                            <span class="bi bi-person"></span>
+                <form action="{{ route('proses.register') }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Id Member" name="member_id"
+                                value="{{ old('member_id') }}">
+                            <div class="input-group-text">
+                                <span class="bi bi-hash"></span>
+                            </div>
                         </div>
+                        @error('member_id')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3"> <input type="email" class="form-control" placeholder="Email">
-                        <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <select class="form-control" name="divisi_id">
+                                <option value="">Pilih Divisi</option>
+                                <option value="2" {{ old('divisi_id') == '2' ? 'selected' : '' }}>
+                                    SDM
+                                </option>
+                                <option value="3" {{ old('divisi_id') == '3' ? 'selected' : '' }}>
+                                    UMB
+                                </option>
+                                <option value="4" {{ old('divisi_id') == '4' ? 'selected' : '' }}>
+                                    ACK
+                                </option>
+                                <option value="5"
+                                    {{ old('divisi_id') == '5' ? 'selected' : '' }}>
+                                    ITS
+                                </option>
+                                <option value="6" {{ old('divisi_id') == '6' ? 'selected' : '' }}>
+                                    RPU
+                                </option>
+                                <option value="7" {{ old('divisi_id') == '7' ? 'selected' : '' }}>
+                                    MPJ
+                                </option>
+                            </select>
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
+                        </div>
+                        @error('divisi_id')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3"> <input type="password" class="form-control" placeholder="Password">
-                        <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
-                    </div> <!--begin::Row-->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <select class="form-control" name="jabatan_id">
+                                <option value="">Pilih Jabatan</option>
+                                <option value="2" {{ old('jabatan_id') == '2' ? 'selected' : '' }}>
+                                    Owner
+                                </option>
+                                <option value="3" {{ old('jabatan_id') == '3' ? 'selected' : '' }}>
+                                    Penasihat
+                                </option>
+                                <option value="4" {{ old('jabatan_id') == '4' ? 'selected' : '' }}>
+                                    Komisaris
+                                </option>
+                                <option value="5"
+                                    {{ old('jabatan_id') == '5' ? 'selected' : '' }}>
+                                    Direktur Utama
+                                </option>
+                                <option value="6" {{ old('jabatan_id') == '6' ? 'selected' : '' }}>
+                                    Direktur Keuangan
+                                </option>
+                                <option value="7" {{ old('jabatan_id') == '7' ? 'selected' : '' }}>
+                                    Direktur Operasional
+                                </option>
+                                <option value="8" {{ old('jabatan_id') == '8' ? 'selected' : '' }}>
+                                    Direktur Pengembangan
+                                </option>
+                                <option value="9" {{ old('jabatan_id') == '9' ? 'selected' : '' }}>
+                                    General Manager
+                                </option>
+                                <option value="10" {{ old('jabatan_id') == '10' ? 'selected' : '' }}>
+                                    Marketing Manager
+                                </option>
+                                <option value="11" {{ old('jabatan_id') == '11' ? 'selected' : '' }}>
+                                    Manager Personalia
+                                </option>
+                                <option value="12" {{ old('jabatan_id') == '12' ? 'selected' : '' }}>
+                                    Manager Teknologi
+                                </option>
+                                <option value="13" {{ old('jabatan_id') == '13' ? 'selected' : '' }}>
+                                    Kadiv ACK
+                                </option>
+                                <option value="14" {{ old('jabatan_id') == '14' ? 'selected' : '' }}>
+                                    Kadiv MPJ
+                                </option>
+                                <option value="15" {{ old('jabatan_id') == '15' ? 'selected' : '' }}>
+                                    Kadiv SDM
+                                </option>
+                                <option value="16" {{ old('jabatan_id') == '16' ? 'selected' : '' }}>
+                                    Kadiv UMB
+                                </option>
+                                <option value="17" {{ old('jabatan_id') == '17' ? 'selected' : '' }}>
+                                    Kadiv ITS
+                                </option>
+                                <option value="18" {{ old('jabatan_id') == '18' ? 'selected' : '' }}>
+                                    Kadiv RPU
+                                </option>
+                                <option value="19" {{ old('jabatan_id') == '19' ? 'selected' : '' }}>
+                                    Staff ACK
+                                </option>
+                                <option value="20" {{ old('jabatan_id') == '20' ? 'selected' : '' }}>
+                                    Staff MPJ
+                                </option>
+                                <option value="21" {{ old('jabatan_id') == '21' ? 'selected' : '' }}>
+                                    Staff SDM
+                                </option>
+                                <option value="22" {{ old('jabatan_id') == '22' ? 'selected' : '' }}>
+                                    Staff UMB
+                                </option>
+                                <option value="23" {{ old('jabatan_id') == '23' ? 'selected' : '' }}>
+                                    Staff ITS
+                                </option>
+                                <option value="24" {{ old('jabatan_id') == '24' ? 'selected' : '' }}>
+                                    Staff RPU
+                                </option>
+                                <option value="25" {{ old('jabatan_id') == '25' ? 'selected' : '' }}>
+                                    MF
+                                </option>
+                                <option value="26" {{ old('jabatan_id') == '26' ? 'selected' : '' }}>
+                                    TS
+                                </option>
+                            </select>
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
+                        </div>
+                        @error('jabatan_id')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group"> <input type="password" class="form-control" placeholder="Password"
+                                name="password">
+                            <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
+                        </div>
+                        @error('password')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="row">
                         <div class="flex justify-between items-center">
                             <div class="form-check">
@@ -66,7 +196,6 @@
                                     Ingatkan Saya
                                 </label>
                             </div>
-
                             <a href="{{ route('auth.login') }}" class="text-sm text-blue-500 hover:underline">
                                 Sudah punya akun?
                             </a>
