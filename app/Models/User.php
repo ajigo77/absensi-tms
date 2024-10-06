@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Jabatan;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -45,4 +45,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+//soal cari relasi ini 😈
+    public function Member(){
+
+    }
+//relasi kan bahwa uswr hanya meiliki 1 Devisi
+    public function Devisi(){
+        return $this->belongsTo(Devisi::class);
+    }
+//relasi kan bahwa user hanya memiliki 1 Jabatan
+    public function Jabatan(){
+        return $this->belongsTo(Jabatan::class ,'jabatan_id');
+    }
 }

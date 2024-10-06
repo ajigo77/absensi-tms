@@ -10,6 +10,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Image extends Model
 {
+    /**
+     * JIE INI APA MASA ADA API TOKEN
+     * Sama authenticable
+     *  Sama notfilable
+     *  Berarti INi bisa Login
+     *
+     */
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = ['image_path'];  // Sesuaikan nama kolomnya
