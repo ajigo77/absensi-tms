@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\CustomLogin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -17,9 +18,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-
-// Add this import statement for CustomLogin
-use App\Filament\Auth\CustomLogin; // Ensure the correct namespace for CustomLogin
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,9 +30,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login(CustomLogin::class) // Custom login class
+            ->login(CustomLogin::class) // Perbaiki di sini
             ->colors([
-                'danger' => Color::Amber,
+                'danger' => Color::Red,
                 'gray' => Color::Zinc,
                 'info' => Color::Blue,
                 'primary' => Color::Red,
@@ -61,6 +62,39 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
+                return $builder
+                    ->item(
+                        NavigationItem::make('Dashboard')
+                            ->icon('heroicon-o-home')
+                            ->url(route('filament.admin.pages.dashboard'))
+                    )
+                    ->group('Office Management', [
+                        NavigationItem::make('Offices')
+                            ->icon('heroicon-o-building-office')
+                            ->url(route('filament.admin.resources.offices.index')),
+                        NavigationItem::make('Permissions')
+                            ->icon('heroicon-o-key')
+                            ->url(route('filament.admin.resources.permissions.index')),
+                        NavigationItem::make('Shifts')
+                            ->icon('heroicon-o-clock')
+                            ->url(route('filament.admin.resources.shifts.index')),
+                        NavigationItem::make('Users')
+                            ->icon('heroicon-o-users')
+                            ->url(route('filament.admin.resources.users.index')),
+                    ])
+                    ->group('Attendance Management', [
+                        NavigationItem::make('Schedules')
+                            ->icon('heroicon-o-calendar')
+                            ->url(route('filament.admin.resources.schedules.index')),
+                        NavigationItem::make('Attendances')
+                            ->icon('heroicon-o-clipboard-document-list')
+                            ->url(route('filament.admin.resources.attendances.index')),
+                        NavigationItem::make('Leaves')
+                            ->icon('heroicon-o-x-circle')
+                            ->url(route('filament.admin.resources.leaves.index')),
+                    ]);
+            });
     }
 }
