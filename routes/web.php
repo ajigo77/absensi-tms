@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\Pages\Dashboard\DashboardController;
+use App\Http\Controllers\AbsenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,5 @@ Route::get('/webcamp', function () {
 
 require __DIR__ . '/Uploaded/upload.php';
 require __DIR__ . '/Auth/auth.php';
+
+Route::get('/absen/stats', [AbsenController::class, 'getStats']);

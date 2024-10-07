@@ -152,13 +152,14 @@
             // Siapkan FormData untuk pengiriman file gambar ke Laravel
             const formData = new FormData();
             formData.append('image', file);
+            formData.append('latitude', document.getElementById('latitude').value);
+            formData.append('longitude', document.getElementById('longitude').value);
 
             // Kirimkan file ke route Laravel menggunakan fetch (AJAX)
             fetch('/upload', {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
                     body: formData,
                 })
@@ -176,44 +177,51 @@
 
 
     function uploadImage(file) {
+        let latitude, longitude; // Deklarasikan variabel di sini
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
+                latitude = position.coords.latitude; // Simpan nilai latitude
+                longitude = position.coords.longitude; // Simpan nilai longitude
 
                 // Set nilai ke input tersembunyi
                 document.getElementById('latitude').value = latitude;
                 document.getElementById('longitude').value = longitude;
+
+                // Siapkan FormData untuk pengiriman file gambar
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('latitude', latitude);
+                formData.append('longitude', longitude); // Perbaiki penambahan longitude
+
+                // Kirim file gambar ke server menggunakan AJAX atau form submit
+                fetch('/upload', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        Swal.fire({
+                            title: "Sukses",
+                            text: "Data berhasil di upload! ${data}",
+                            icon: "success"
+                        });
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            title: "Upss Kesalahan",
+                            text: "Data gagal di upload! ${error}",
+                            icon: "error"
+                        });
+                    });
+            });
+        } else {
+            Swal.fire({
+                title: "Upss",
+                text: "Lokasi tidak bisa diakses",
+                icon: "error"
             });
         }
-
-        // Siapkan FormData untuk pengiriman file gambar
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('latitude', latitude);
-        formData.append('latitude', longitude);
-
-        // Kirim file gambar ke server menggunakan AJAX atau form submit
-        fetch('/upload', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Data berhasil di upload! ${data}",
-                    icon: "success"
-                });
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: "Upss Kesalahan",
-                    text: "Data gagal di upload! ${error}",
-                    icon: "error"
-                });
-            });
     }
 
     function stop() {
