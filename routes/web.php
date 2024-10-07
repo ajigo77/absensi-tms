@@ -13,6 +13,8 @@ use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\IzinKaryawanController;
+use App\Http\Controllers\CutiTahunanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,6 @@ use App\Http\Controllers\LeaveController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
 
 Route::get('/', [LoginUserController::class, 'login'])->name('auth.login');
 Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
@@ -61,3 +62,10 @@ Route::resource('shifts', ShiftController::class);
 Route::resource('schedules', ScheduleController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
+Route::resource('izinkaryawan', IzinKaryawanController::class);
+Route::resource('cutitahunan', CutiTahunanController::class);
+
+Route::prefix('filament/admin/resources')->group(function () {
+    Route::get('izin-karyawan', [IzinKaryawanController::class, 'index'])->name('filament.admin.resources.izin-karyawan.index');
+    Route::get('cuti-tahunan', [CutiTahunanController::class, 'index'])->name('filament.admin.resources.cuti-tahunan.index');
+});

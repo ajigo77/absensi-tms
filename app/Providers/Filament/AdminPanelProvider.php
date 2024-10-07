@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\CustomLogin;
+use App\Filament\Resources\IzinkaryawanResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -21,6 +22,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationItem;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -91,9 +93,14 @@ class AdminPanelProvider extends PanelProvider
                         NavigationItem::make('Attendances')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
-                        NavigationItem::make('Leaves')
-                            ->icon('heroicon-o-x-circle')
-                            ->url(route('filament.admin.resources.leaves.index')),
+                    ])
+                    ->group('Surat Pengajuan TMS', [
+                        NavigationItem::make('Izin Karyawan')
+                            ->icon('heroicon-o-user') // Ikon untuk Izin Karyawan
+                            ->url(route('filament.admin.resources.izin-karyawan.index')),
+                        NavigationItem::make('Cuti Tahunan')
+                            ->icon('heroicon-o-calendar') // Ikon untuk Cuti Tahunan
+                            ->url(route('filament.admin.resources.cuti-tahunan.index')),
                     ]);
             });
     }
