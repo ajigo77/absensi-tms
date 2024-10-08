@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\CustomLogin;
 use App\Filament\Resources\IzinkaryawanResource;
+use App\Filament\Resources\CutiTahunanResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -19,10 +20,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationItem;
-
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -72,35 +71,35 @@ class AdminPanelProvider extends PanelProvider
                             ->icon('heroicon-o-home')
                             ->url(route('filament.admin.pages.dashboard'))
                     )
-                    ->group('Office Management', [
-                        NavigationItem::make('Offices')
+                    ->group('Manajemen Kantor', [
+                        NavigationItem::make('Kantor')
                             ->icon('heroicon-o-building-office')
                             ->url(route('filament.admin.resources.offices.index')),
                         NavigationItem::make('Permissions')
                             ->icon('heroicon-o-key')
                             ->url(route('filament.admin.resources.permissions.index')),
-                        NavigationItem::make('Shifts')
+                        NavigationItem::make('Shift/Jam Kerja')
                             ->icon('heroicon-o-clock')
                             ->url(route('filament.admin.resources.shifts.index')),
-                        NavigationItem::make('Users')
+                        NavigationItem::make('Karyawan')
                             ->icon('heroicon-o-users')
                             ->url(route('filament.admin.resources.users.index')),
                     ])
-                    ->group('Attendance Management', [
-                        NavigationItem::make('Schedules')
+                    ->group('Manajemen Kehadiran', [
+                        NavigationItem::make('Jadwal Kerja')
                             ->icon('heroicon-o-calendar')
                             ->url(route('filament.admin.resources.schedules.index')),
-                        NavigationItem::make('Attendances')
+                        NavigationItem::make('Kehadiran')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
                     ])
-                    ->group('Surat Pengajuan TMS', [
+                    ->group('Perizinan TMS', [
                         NavigationItem::make('Izin Karyawan')
-                            ->icon('heroicon-o-user') // Ikon untuk Izin Karyawan
-                            ->url(route('filament.admin.resources.izin-karyawan.index')),
+                            ->icon('heroicon-o-document-check')
+                            ->url(IzinkaryawanResource::getUrl()),
                         NavigationItem::make('Cuti Tahunan')
-                            ->icon('heroicon-o-calendar') // Ikon untuk Cuti Tahunan
-                            ->url(route('filament.admin.resources.cuti-tahunan.index')),
+                            ->icon('heroicon-o-document-check')
+                            ->url(CutiTahunanResource::getUrl()),
                     ]);
             });
     }

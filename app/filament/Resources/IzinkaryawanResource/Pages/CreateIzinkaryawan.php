@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\IzinkaryawanResource\Pages;
+namespace App\Filament\Resources\IzinKaryawanResource\Pages;
 
-use App\Filament\Resources\IzinkaryawanResource;
+use App\Filament\Resources\IzinKaryawanResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateIzinkaryawan extends CreateRecord
+class CreateIzinKaryawan extends CreateRecord
 {
-    protected static string $resource = IzinkaryawanResource::class;
+    protected static string $resource = IzinKaryawanResource::class;
 }

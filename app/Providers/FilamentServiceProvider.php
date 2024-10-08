@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Filament\Facades\Filament;
+use App\Filament\Resources\IzinKaryawanResource;
+use App\Filament\Resources\CutiTahunanResource;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,9 @@ class FilamentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Filament::registerResources([
+            IzinKaryawanResource::class,
+            CutiTahunanResource::class,
+        ]);
     }
 }
