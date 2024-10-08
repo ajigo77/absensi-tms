@@ -1,7 +1,7 @@
 <div class="flex items-center justify-center">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-14 max-w-5xl w-full p-4 mt-16">
         <!-- Add margin-top to avoid content overlap -->
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div class="bg-white-100 rounded-2xl shadow-md overflow-hidden">
             <img class="w-full h-60 object-cover" src="{{ asset('./image/src/beautiful_sunrise.jpg') }}" alt="Shift Pagi">
             <div class="p-4">
                 <h2 class="text-xl font-bold">Absen Pagi</h2>

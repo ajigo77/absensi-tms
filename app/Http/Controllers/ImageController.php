@@ -5,33 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use App\Models\Alokases;
+use Illuminate\Support\Str;
+
 class ImageController extends Controller
 {
-    public function send_image(Request $request)
+    public function send_image_and_location(Request $request)
     {
         // Validasi bahwa file gambar telah diupload
-        // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
-
         // Simpan gambar ke folder 'public/uploads'
-        $image = $request->file('image');
-        $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('uploads'), $imageName);
-
-        // Jika Anda ingin menyimpan path ke database:
-        Image::create(['image_path' => $imageName]); // Sesuaikan model dan field database
-
-        return response()->json(['success' => 'Image uploaded successfully', 'path' => $imageName]);
-    }
-
-    public function send_location(Request $request)
-    {
+        // $image = $request->file('image');
+        // $imageName = time() . '-' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+        // $image->move(public_path('uploads'), $imageName);
 
         // Simpan lokasi
-        Alokases::create([
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-        ]);
+        // Alokases::create([
+        //     'latitude' => $request->latitude,
+        //     'longitude' => $request->longitude,
+        // ]);
+
+        // Image::create([
+        //     'image_path' =>$imageName
+        // ]);
+        // if ($request->hasFile('image')) {
+
+        //     return response()->json(['success' => 'Data berhasil di absen', 'path' => $imageName]);
+        // } else {
+        //     return response()->json(['error' => 'Tidak ada gambar'], 400);
+        // }
+        dd($request->all());
+        dd($request->file('image'));
     }
 }

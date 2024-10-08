@@ -1,16 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Pages\Dashboard\DashboardController;
+    use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\Pages\Dashboard\DashboardController;
 
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], function () {
-    //shift
+// Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], function () {
+// });
 
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'dash'])->name('dashboard');
-});
-Route::get('/shift', function () {
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'dash'])->name('admin.dashboard');
+// Shift
+Route::get('/user/shift', function () {
     return view('Card.shift');
-})->name('shift');
+})->name('user.shift');
 

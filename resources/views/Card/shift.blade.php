@@ -16,9 +16,14 @@
         integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
     <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
+    <!-- Alpine Js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    {{-- Icons Bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    @vite('resources/css/app.css')
 </head>
 
-<body class="h-screen bg-gray-50">
+<body class="">
     {{-- Navbar --}}
     <div class="wrapper">
         {{-- Navbar --}}
@@ -26,7 +31,9 @@
 
         <!-- Main Content -->
         <x-card-component.content-card></x-card-component.content-card>
+
+        {{-- Footer --}}
+        <x-dashboard.footer></x-dashboard.footer>
     </div>
 </body>
-
 </html>

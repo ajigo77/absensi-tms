@@ -12,5 +12,6 @@ class Image extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $tabel = 'images';
     protected $fillable = ['image_path'];  // Sesuaikan nama kolomnya
 }
