@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UsersResource\Pages\CreateUser;
 use App\Filament\Resources\UsersResource\Pages\EditUser;
@@ -35,7 +36,8 @@ class UsersResource extends Resource
                 Forms\Components\DateTimePicker::make('email_verified_at')
                     ->label('Email Verified At'),
                 Forms\Components\TextInput::make('jabatan_id')
-                    ->label('Jabatan ID'),
+                    ->label('Jabatan ID')
+                    ->required(), // Ensure this is set to the correct type
                 Forms\Components\TextInput::make('divisi_id')
                     ->label('Divisi ID'),
                 Forms\Components\Select::make('status')

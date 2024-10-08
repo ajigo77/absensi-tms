@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Office;
 
 class OfficeController extends Controller
 {
@@ -13,12 +14,25 @@ class OfficeController extends Controller
 
     public function create()
     {
-        // Logic to show the form for creating a new office
+        return view('offices.create');
     }
 
     public function store(Request $request)
     {
-        // Logic to store a newly created office in storage
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'radius' => 'required|numeric',
+        ]);
+
+        // Simpan data ke database
+        Office::create($request->all());
+
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect()->route('offices.index')->with('success', 'Office created successfully.');
     }
 
     public function show($id)
