@@ -48,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -90,6 +91,15 @@ class AdminPanelProvider extends PanelProvider
                         NavigationItem::make('Attendance')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
+                    ])
+                    ->group('Management Izin TMS', [
+                        NavigationItem::make('Izin')
+                            ->icon('heroicon-o-document-text')
+                            ->url(route('filament.admin.resources.izinkaryawans.index')),
+                        NavigationItem::make('Cuti')
+                            ->icon('heroicon-o-document-text')
+                            ->url(route('filament.admin.resources.cutikaryawans.index')),
+
                     ]);
             });
     }
