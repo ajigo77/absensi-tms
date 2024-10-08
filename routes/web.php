@@ -13,8 +13,6 @@ use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveController;
-use App\Http\Controllers\IzinKaryawanController;
-use App\Http\Controllers\izintahunanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,4 +60,3 @@ Route::resource('shifts', ShiftController::class);
 Route::resource('schedules', ScheduleController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
-Route::resource('izinkaryawan', IzinKaryawanController::class);

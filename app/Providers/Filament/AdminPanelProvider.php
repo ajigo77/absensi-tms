@@ -3,8 +3,6 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\CustomLogin;
-use App\Filament\Resources\IzinkaryawanResource;
-use App\Filament\Resources\CutiTahunanResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -92,14 +90,6 @@ class AdminPanelProvider extends PanelProvider
                         NavigationItem::make('Attendance')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
-                    ])
-                    ->group('Permission Management', [
-                        NavigationItem::make('Employee Permission')
-                            ->icon('heroicon-o-document-check')
-                            ->url(IzinkaryawanResource::getUrl()),
-                        NavigationItem::make('Annual Leave')
-                            ->icon('heroicon-o-document-check')
-                            ->url(CutiTahunanResource::getUrl()),
                     ]);
             });
     }
