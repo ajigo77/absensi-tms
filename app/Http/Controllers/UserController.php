@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index()
     {
-        // Logic to display the list of users
+        $users = User::all(); // Fetch all users
+        return view('users.index', compact('users')); // Pass users to the view
     }
 
     public function create()

@@ -71,33 +71,33 @@ class AdminPanelProvider extends PanelProvider
                             ->icon('heroicon-o-home')
                             ->url(route('filament.admin.pages.dashboard'))
                     )
-                    ->group('Manajemen Kantor', [
-                        NavigationItem::make('Kantor')
+                    ->group('Attendance Management', [
+                        NavigationItem::make('Office')
                             ->icon('heroicon-o-building-office')
                             ->url(route('filament.admin.resources.offices.index')),
                         NavigationItem::make('Permissions')
                             ->icon('heroicon-o-key')
                             ->url(route('filament.admin.resources.permissions.index')),
-                        NavigationItem::make('Shift/Jam Kerja')
+                        NavigationItem::make('Shift')
                             ->icon('heroicon-o-clock')
                             ->url(route('filament.admin.resources.shifts.index')),
-                        NavigationItem::make('Karyawan')
+                        NavigationItem::make('Users')
                             ->icon('heroicon-o-users')
                             ->url(route('filament.admin.resources.users.index')),
                     ])
-                    ->group('Manajemen Kehadiran', [
-                        NavigationItem::make('Jadwal Kerja')
+                    ->group('Attendance Management', [
+                        NavigationItem::make('Schedule')
                             ->icon('heroicon-o-calendar')
                             ->url(route('filament.admin.resources.schedules.index')),
-                        NavigationItem::make('Kehadiran')
+                        NavigationItem::make('Attendance')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
                     ])
-                    ->group('Perizinan TMS', [
-                        NavigationItem::make('Izin Karyawan')
+                    ->group('Permission Management', [
+                        NavigationItem::make('Employee Permission')
                             ->icon('heroicon-o-document-check')
                             ->url(IzinkaryawanResource::getUrl()),
-                        NavigationItem::make('Cuti Tahunan')
+                        NavigationItem::make('Annual Leave')
                             ->icon('heroicon-o-document-check')
                             ->url(CutiTahunanResource::getUrl()),
                     ]);
