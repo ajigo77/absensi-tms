@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('tanggal_izin'); // Menambahkan kolom tanggal izin
             $table->time('jam_pulang_awal'); // Menambahkan kolom jam pulang awal
             $table->text('alasan'); // Menambahkan kolom alasan
+            $table->boolean('approved')->default(false); // Kolom untuk status approval
+            $table->string('signature')->nullable(); // Kolom untuk tanda tangan
             $table->timestamps();
         });
     }

@@ -93,10 +93,10 @@ class AdminPanelProvider extends PanelProvider
                             ->url(route('filament.admin.resources.attendances.index')),
                     ])
                     ->group('Management Izin TMS', [
-                        NavigationItem::make('Izin')
+                        NavigationItem::make('Izin Karyawan')
                             ->icon('heroicon-o-document-text')
                             ->url(route('filament.admin.resources.izinkaryawans.index')),
-                        NavigationItem::make('Cuti')
+                        NavigationItem::make('Cuti Tahunan')
                             ->icon('heroicon-o-document-text')
                             ->url(route('filament.admin.resources.cutikaryawans.index')),
 

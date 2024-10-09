@@ -23,7 +23,7 @@ class DataAbsensiOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-down')
                 ->chart([4, 1, 2, 6, 14, 21, 33]) // Ganti dengan data real-time
                 ->color('danger'),
-            Stat::make('Karyawan Lembur', $stats['lembur'])
+            Stat::make('Karyawan Lembur', $stats['lembur']) // Ubah 'Karyawan On time' menjadi 'Karyawan Lembur'
                 ->description('43% increase') // Hitung ini secara dinamis
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17]) // Ganti dengan data real-time

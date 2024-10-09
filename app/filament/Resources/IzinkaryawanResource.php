@@ -32,7 +32,26 @@ class IzinkaryawanResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('jenis_izin')->label('Jenis Izin'),
+                Tables\Columns\TextColumn::make('nama_karyawan')->label('Nama Karyawan'),
+                Tables\Columns\TextColumn::make('divisi')->label('Divisi'),
+                Tables\Columns\TextColumn::make('jabatan')->label('Jabatan'),
+                Tables\Columns\TextColumn::make('tanggal_izin')->label('Tanggal Izin'),
+                Tables\Columns\TextColumn::make('jam_pulang_awal')->label('Jam Pulang Awal'),
+                Tables\Columns\TextColumn::make('alasan')->label('Alasan'),
+                Tables\Columns\BadgeColumn::make('approved')
+                    ->label('Status Persetujuan')
+                    ->getStateUsing(fn ($record) => match ($record->approved) {
+                        'menunggu' => 'Menunggu Persetujuan',
+                        'disetujui' => 'Sudah Disetujui',
+                        'ditolak' => 'Ditolak',
+                        default => 'Tidak Diketahui',
+                    })
+                    ->colors([
+                        'menunggu' => 'warning', // Warna kuning
+                        'disetujui' => 'success', // Warna hijau
+                        'ditolak' => 'danger', // Warna merah
+                    ]),
             ])
             ->filters([
                 //
