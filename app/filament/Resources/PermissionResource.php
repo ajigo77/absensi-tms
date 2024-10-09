@@ -30,6 +30,8 @@ class PermissionResource extends Resource
                     ->options([
                         'Superadmin' => 'Superadmin',
                         'Admin' => 'Admin',
+                        'Manager' => 'Manager',
+                        'Kadiv' => 'Kadiv',
                         'Karyawan' => 'Karyawan',
                     ])
                     ->reactive()
@@ -47,7 +49,8 @@ class PermissionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('User'),
                 Tables\Columns\TextColumn::make('role'),
-                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('description')
+                    ->getStateUsing(fn (Permission $record): string => self::getDescriptionForRole($record->role)),
             ])
             ->filters([
                 //
@@ -84,6 +87,8 @@ class PermissionResource extends Resource
         return match ($role) {
             'Superadmin' => 'Can do everything, including adding a signature',
             'Admin' => 'Can edit and view',
+            'Manager' => 'Can Sign a Signature for Cuti / Izin Approval, but Cannot EDIT / DELETE / CREATE new Permission',
+            'Kadiv' => 'Can Sign a Signature for Cuti / Izin Approval, Cannot EDIT / DELETE / CREATE new Permission',
             'Karyawan' => 'Can only view',
             default => '',
         };
