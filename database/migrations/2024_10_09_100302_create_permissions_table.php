@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cutikaryawans', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->text('reason');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('name');
+            $table->string('role'); // Admin, Superadmin, Karyawan, etc.
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cutikaryawans');
+        Schema::dropIfExists('permissions');
     }
 };
