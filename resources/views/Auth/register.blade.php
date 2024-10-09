@@ -5,12 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Register</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="AdminLTE 4 | Login Page">
-    <meta name="author" content="ColorlibHQ">
-    <meta name="description"
-        content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS.">
-    <meta name="keywords"
-        content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard">
     <!--end::Primary Meta Tags--><!--begin::Fonts-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
         integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
@@ -41,7 +35,7 @@
         <div class="card">
             <div class="card-body login-card-body rounded">
                 <div class="login-logo flex justify-center mt-3 mb-5"> <img
-                        src="{{ asset('./tdash/dist/assets/img/logo-company/tms.png') }}" alt="Logo TMS" width="60"
+                        src="{{ asset('./logo-company/tms.png') }}" alt="Logo TMS" width="60"
                         style="background-blend-mode: color-burn; border-radius: 100px;">
                 </div> <!-- /.login-logo -->
                 <form action="{{ route('proses.register') }}" method="post">

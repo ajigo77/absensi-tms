@@ -44,7 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
+  
+    // Menyatakan bahwa id_member akan digunakan sebagai field login
+    public function getAuthIdentifierName()
+    {
+        return 'id_member';
 
 //soal cari relasi ini 😈
     public function Member(){

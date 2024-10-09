@@ -40,7 +40,7 @@
         <div class="card">
             <div class="card-body login-card-body rounded">
                 <div class="login-logo flex justify-center mt-3 mb-5"> <img
-                        src="{{ asset('./tdash/dist/assets/img/logo-company/tms.png') }}" alt="Logo TMS" width="60"
+                        src="{{ asset('./logo-company/tms.png') }}" alt="Logo TMS" width="60"
                         style="background-blend-mode: color-burn; border-radius: 100px;">
                 </div> <!-- /.login-logo -->
                 <form action="{{ route('proses.login') }}" method="POST">
