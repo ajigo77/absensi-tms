@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Devisi;
+use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -10,14 +12,17 @@ use Illuminate\Support\Facades\Hash;
 class RegisterUserController extends Controller
 {
     public function register(){
-        return view('Auth.register');
+
+     $jabatan = Jabatan::all();
+        $devisi = Devisi::all();
+        return view('Auth.register',compact('jabatan','devisi'));
     }
 
     public function proses_register(Request $request){
         $request->validate([
             'member_id'=>'required|numeric',
-            'divisi_id'=>'required',
-            'jabatan_id'=>'required',
+            'divisi_id'=>'required|exists:divisis,id_divisi',
+            'jabatan_id'=>'required|exists:jabatan,id_jabatan',
             'password'=>'required|min:5|max:8'
         ]);
 
