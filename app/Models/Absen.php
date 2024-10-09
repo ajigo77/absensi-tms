@@ -10,6 +10,7 @@ class Absen extends Model
     use HasFactory;
 
     protected $table = 'absens';
+    protected $primaryKey = 'id_absen'; // Pastikan ini sesuai dengan nama kolom di database
 
     // Tambahkan metode untuk mengambil data
     public static function getStats()
