@@ -12,6 +12,7 @@ use Filament\Tables\Enums\FiltersLayout; // Import FiltersLayout
 use Filament\Tables\Filters\Filter; // Import Filter
 use Filament\Forms\Components\DatePicker; // Import DatePicker
 use Illuminate\Database\Eloquent\Builder; // Import Builder
+use Filament\Tables\Actions\Action; // Import Action
 
 class DataAbsenTMS extends BaseWidget
 {
@@ -29,9 +30,33 @@ class DataAbsenTMS extends BaseWidget
             ->columns([
                 TextColumn::make('user_id')->label('User ID'), // Display User ID
                 TextColumn::make('type')->label('Tipe Absensi'), // Display Attendance Type
-                TextColumn::make('status')->label('Status'), // Display Status
+                TextColumn::make('status')
+                    ->label('Status') // Display Status
+                    ->badge() // Use badge for status
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'on time' => 'Tepat Waktu',
+                        'terlambat' => 'Terlambat',
+                        'Izin' => 'Izin',
+                        'Sakit' => 'Sakit',
+                        'Cuti' => 'Cuti',
+                        default => 'Tidak Diketahui',
+                    })
+                    ->color(fn ($state) => match ($state) {
+                        'on time' => 'success', // Green
+                        'terlambat' => 'danger', // Red
+                        'Izin' => 'warning', // Orange
+                        'Sakit' => 'info', // Blue
+                        'Cuti' => 'primary', // Purple
+                        default => 'secondary', // Gray
+                    }),
                 TextColumn::make('created_at')->label('Tanggal Masuk'), // Display Entry Date
-                // ... add other columns as needed
+            ])
+            ->actions([
+                Action::make('view') // Define the view action
+                    ->label('View') // Label for the action
+                    ->url(fn ($record) => route('absen.show', $record->id_absen)) // Define the URL to the detail page
+                    ->icon('heroicon-o-eye') // Optional: Add an icon
+                    ->color('primary'), // Optional: Set the color
             ])
             ->filters([
                 Filter::make('created_at')
@@ -55,9 +80,6 @@ class DataAbsenTMS extends BaseWidget
                             );
                     }),
             ], layout: FiltersLayout::AboveContentCollapsible) // Set filters layout to above content and collapsible
-            ->actions([
-                // Define your actions here
-            ])
             ->bulkActions([
                 // Define your bulk actions here
             ]);
