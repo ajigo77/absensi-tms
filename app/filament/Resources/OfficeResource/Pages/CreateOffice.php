@@ -13,7 +13,7 @@ class CreateOffice extends CreateRecord
     protected function getHeaderActions(): array
     {
         return [
-            // Remove DeleteAction as it is not applicable here
+            // Menghapus DeleteAction karena tidak relevan di sini
             // Actions\DeleteAction::make(),
         ];
     }
@@ -35,15 +35,15 @@ class CreateOffice extends CreateRecord
                             const latitude = position.coords.latitude;
                             const longitude = position.coords.longitude;
 
-                            // Update the latitude and longitude fields
+                            // Memperbarui field latitude dan longitude
                             document.querySelector('input[name="latitude"]').value = latitude;
-                            document.querySelector('input[name="longitude"]')..value = longitude;
+                            document.querySelector('input[name="longitude"]').value = longitude;
 
-                            // Optionally, update the Leaflet map here
-                            // Example: updateMap(latitude, longitude);
+                            // Opsional, perbarui peta Leaflet di sini
+                            // Contoh: updateMap(latitude, longitude);
                         });
                     } else {
-                        alert("Geolocation is not supported by this browser.");
+                        alert("Geolocation tidak didukung oleh browser ini.");
                     }
                 });
             </script>
