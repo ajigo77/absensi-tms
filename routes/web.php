@@ -24,10 +24,24 @@ Route::get('/', function () {
 Route::get('/login', [LoginUserController::class, 'login'])->name('auth.login');
 Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
 
-//shift
+// shift
 Route::get('/shift', function () {
     return view('Card.shift');
 });
 
+// webcam
+Route::get('webcam', function () {
+    return view('Absensi.webcam');
+});
+
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'dash']);
+
+// izin
+Route::get('/izinkaryawan', function () {
+    return view('Pengajuanizin.izinkaryawan');
+});
+
+Route::get('/izincuti', function () {
+    return view('Pengajuanizin.izincuti');
+});
