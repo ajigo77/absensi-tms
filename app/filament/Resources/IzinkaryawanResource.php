@@ -12,8 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-
 class IzinkaryawanResource extends Resource
 {
     protected static ?string $model = Izinkaryawan::class;
@@ -48,16 +46,29 @@ class IzinkaryawanResource extends Resource
                         default => 'Tidak Diketahui',
                     })
                     ->colors([
-                        'menunggu' => 'warning', // Warna kuning
-                        'disetujui' => 'success', // Warna hijau
-                        'ditolak' => 'danger', // Warna merah
+                        'menunggu' => 'warning', // Yellow
+                        'disetujui' => 'success', // Green
+                        'ditolak' => 'danger', // Use custom class for "ditolak"
                     ]),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('view') // Action to view details
+                    ->action(function ($record) {
+                        return redirect()->route('izinkaryawan.show', $record->id); // Adjust the route as needed
+                    }),
+                Tables\Actions\Action::make('approve') // Action for approval
+                    ->action(function ($record) {
+                        $record->update(['approved' => 'disetujui']);
+                        // Optionally, add a notification here
+                    }),
+                Tables\Actions\Action::make('reject') // Action for rejection
+                    ->action(function ($record) {
+                        $record->update(['approved' => 'ditolak']);
+                        // Optionally, add a notification here
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -78,7 +89,7 @@ class IzinkaryawanResource extends Resource
         return [
             'index' => Pages\ListIzinkaryawans::route('/'),
             'create' => Pages\CreateIzinkaryawan::route('/create'),
-            'edit' => Pages\EditIzinkaryawan::route('/{record}/edit'),
+            'edit' => Pages\EditIzinkaryawan::route('/{record}/edit'), // You can keep this if you still need an edit page
         ];
     }
 }

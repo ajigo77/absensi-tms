@@ -65,3 +65,5 @@ Route::resource('leaves', LeaveController::class);
 // Route::middleware(['auth'])->group(function () {
 //     AttendanceResource::routes();
 // });
+
+Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
