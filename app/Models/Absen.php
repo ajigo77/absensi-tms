@@ -19,10 +19,13 @@ class Absen extends Model
         $today = Carbon::today();
 
         return [
-            'masuk' => self::whereDate('created_at', $today)->where('status', 'on time')->count(), // Adjusted to match your status
-            'terlambat' => self::whereDate('created_at', $today)->where('status', 'terlambat')->count(),
-            'lembur' => self::whereDate('created_at', $today)->where('status', 'lembur')->count(),
-            'tidak_masuk' => self::whereDate('created_at', $today)->where('status', 'tidak masuk')->count(),
+            'on_time' => self::whereDate('created_at', $today)->where('status', 'on time')->count(), // On time count
+            'terlambat' => self::whereDate('created_at', $today)->where('status', 'terlambat')->count(), // Late count
+            'masuk' => self::whereDate('created_at', $today)->where('type', 'masuk kerja')->count(), // Present count
+            'tidak_masuk' => self::whereDate('created_at', $today)->where('type', 'tidak masuk')->count(), // Absent count
+            'izin' => self::whereDate('created_at', $today)->where('status', 'Izin')->count(),
+            'sakit' => self::whereDate('created_at', $today)->where('status', 'Sakit')->count(),
+            'cuti' => self::whereDate('created_at', $today)->where('status', 'Cuti')->count(),
         ];
     }
 }

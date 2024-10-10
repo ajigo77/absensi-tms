@@ -17,19 +17,16 @@ class DataAbsensiOverview extends BaseWidget
         return [
             Stat::make('Karyawan Masuk', $stats['masuk'])
                 ->description('Total Karyawan Masuk Hari Ini')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->color('success'),
-            Stat::make('Karyawan Terlambat', $stats['terlambat'])
-                ->description('Total Karyawan Terlambat Hari Ini')
-                ->descriptionIcon('heroicon-m-arrow-trending-down')
-                ->color('danger'),
-            Stat::make('Karyawan Lembur', $stats['lembur'])
-                ->description('Total Karyawan Lembur Hari Ini')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
             Stat::make('Karyawan Tidak Masuk', $stats['tidak_masuk'])
                 ->description('Total Karyawan Tidak Masuk Hari Ini')
-                ->descriptionIcon('heroicon-m-arrow-trending-down')
+                ->descriptionIcon('')
+                ->color('danger'),
+            Stat::make('Karyawan On Time', $stats['on_time'])
+                ->description('Total Karyawan On Time Hari Ini')
+                ->color('success'),
+            Stat::make('Karyawan Terlambat', $stats['terlambat'])
+                ->description('Total Karyawan Terlambat Hari Ini')
                 ->color('danger'),
         ];
     }
