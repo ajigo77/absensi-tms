@@ -14,6 +14,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveController;
 use App\Filament\Resources\AttendanceResource;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +70,5 @@ Route::resource('leaves', LeaveController::class);
 Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
 
 Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');
+
+Route::get('/view/{id}', [ViewController::class, 'show'])->name('view.show');

@@ -24,12 +24,22 @@ class DataAbsenTMS extends BaseWidget
     {
         return $table
             ->query(
-                Absen::query()
-                    ->whereDate('created_at', Carbon::today()) // Filter to show only today's data
+                Absen::query() // Show all attendance records
             )
             ->columns([
                 TextColumn::make('user_id')->label('User ID'), // Display User ID
                 TextColumn::make('type')->label('Tipe Absensi'), // Display Attendance Type
+                TextColumn::make('shift_id')->label('Shift ID'), // Display Shift ID
+                TextColumn::make('foto')
+                ->badge()
+                    ->label('Foto') // Display Photo
+                    ->formatStateUsing(fn ($state) => 
+                        '<a href="' . $state . '" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">Lihat Foto</a>' // Create clickable link
+                        
+                    )
+                    ->html(), // Enable HTML rendering
+                TextColumn::make('latitude')->label('Latitude'), // Display Latitude
+                TextColumn::make('longitude')->label('Longitude'), // Display Longitude
                 TextColumn::make('status')
                     ->label('Status') // Display Status
                     ->badge() // Use badge for status

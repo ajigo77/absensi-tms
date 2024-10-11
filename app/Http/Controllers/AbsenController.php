@@ -25,6 +25,6 @@ class AbsenController extends Controller
     public function show($id)
     {
         $absen = Absen::findOrFail($id);
-        return view('absen.show', compact('absen')); // Adjust the view name as necessary
+        return view('view.show', compact('absen')); // Adjust the view name as necessary
     }
 }
