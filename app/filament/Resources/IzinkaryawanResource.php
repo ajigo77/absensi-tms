@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
+
 class IzinkaryawanResource extends Resource
 {
     protected static ?string $model = Izinkaryawan::class;
@@ -39,7 +40,8 @@ class IzinkaryawanResource extends Resource
                 Tables\Columns\TextColumn::make('alasan')->label('Alasan'),
                 Tables\Columns\BadgeColumn::make('approved')
                     ->label('Status Persetujuan')
-                    ->getStateUsing(fn ($record) => match ($record->approved) {
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => match ($state) {
                         'menunggu' => 'Menunggu Persetujuan',
                         'disetujui' => 'Sudah Disetujui',
                         'ditolak' => 'Ditolak',
@@ -48,7 +50,8 @@ class IzinkaryawanResource extends Resource
                     ->colors([
                         'menunggu' => 'warning', // Yellow
                         'disetujui' => 'success', // Green
-                        'ditolak' => 'danger', // Use custom class for "ditolak"
+                        'ditolak' => 'danger', // Red
+                        'default' => 'secondary', // Gray for unknown status
                     ]),
             ])
             ->filters([

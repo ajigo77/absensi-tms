@@ -67,3 +67,5 @@ Route::resource('leaves', LeaveController::class);
 // });
 
 Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
+
+Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');

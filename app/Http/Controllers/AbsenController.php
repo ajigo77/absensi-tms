@@ -21,4 +21,10 @@ class AbsenController extends Controller
 
         return response()->json($stats);
     }
+
+    public function show($id)
+    {
+        $absen = Absen::findOrFail($id);
+        return view('absen.show', compact('absen')); // Adjust the view name as necessary
+    }
 }
