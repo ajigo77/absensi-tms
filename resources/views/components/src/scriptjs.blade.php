@@ -24,12 +24,13 @@
                     video.srcObject = mediaStream;
                     video.onloadedmetadata = function(e) {
                         video.play();
-
                         const classVideo = document.querySelector('.border-4.border-gray-10.border-dashed');
-
                         if (video.play()) {
                             document.getElementById('place').style.display = 'none';
                             classVideo.classList.remove('border-4', 'border-gray-10', 'border-dashed');
+                            video.style.borderRadius = '8px';
+                            video.style.border = 'none';
+                            video.style.outline = 'none';
                         }
                     };
                 })
@@ -77,8 +78,6 @@
                 // Set nilai ke input tersembunyi
                 latitudeInput.value = latitudeValue;
                 longitudeInput.value = longitudeValue;
-
-                console.log(`Latitude: ${latitudeInput.value}, Longitude: ${longitudeInput.value}`);
 
             }, function(error) {
                 // Tangani error saat tidak bisa mendapatkan posisi
@@ -186,7 +185,6 @@
             let lat = $('#lattitude').val();
             let lon = $('#longtitude').val();
 
-            console.log(lat, lon);
             // Jika validasi sukses, siapkan FormData untuk submit
             let formData = new FormData();
 
@@ -208,7 +206,7 @@
                     contentType: false, // Agar tidak mengubah tipe konten
                     success: function(response) {
                         if (response.success) {
-                            alert('Data berhasil disimpan.');
+                            console.log('Data berhasil disimpan.');
                         }
                     },
                     error: function(xhr) {

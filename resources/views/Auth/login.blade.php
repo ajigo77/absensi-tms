@@ -126,16 +126,5 @@
                 });
             </script>
         @endif
-
-        @if ($pesan_sukses_logout = Session::get('success'))
-            <script>
-                Swal.fire({
-                    title: "Sukses",
-                    text: "{{ $pesan_sukses_logout }}",
-                    icon: "success"
-                });
-            </script>
-        @endif
-</body><!--end::Body-->
-
+</body>
 </html>

@@ -33,7 +33,7 @@ class LoginUserController extends Controller
 
         if (Auth::attempt($data)) {
             // dd('Login berhasil');
-            return redirect()->route('shift')->with('success','Login berhasail');
+            return redirect()->route('shift');
         } else {
             // dd('Login gagal');
             return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');
