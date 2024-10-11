@@ -7,23 +7,24 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menjalankan migrasi.
      */
     public function up(): void
     {
         Schema::create('cutikaryawans', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->text('reason');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('nama_karyawan'); // Nama Karyawan
+            $table->string('divisi'); // Divisi
+            $table->string('jabatan'); // Jabatan
+            $table->date('tanggal_cuti'); // Tanggal Cuti
+            $table->text('alasan'); // Alasan       
+            $table->boolean('approved')->default(false); // Status Persetujuan
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Membalikkan migrasi.
      */
     public function down(): void
     {

@@ -10,15 +10,15 @@ class Cutikaryawan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'employee_name',
-        'start_date',
-        'end_date',
-        'reason',
-        'status',
+        'nama_karyawan', // Nama Karyawan
+        'divisi', // Divisi
+        'jabatan', // Jabatan
+        'tanggal_cuti', // Tanggal Cuti
+        'alasan', // Alasan
+        'approved', // Status Persetujuan
     ];
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'tanggal_cuti' => 'date', // Tanggal Cuti
     ];
 }

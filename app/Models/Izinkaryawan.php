@@ -13,7 +13,7 @@ class Izinkaryawan extends Model
         'jenis_izin',
         'nama_karyawan',
         'divisi',
-        'jabatan',
+        'jabatan', 
         'tanggal_izin',
         'jam_pulang_awal',
         'alasan',
