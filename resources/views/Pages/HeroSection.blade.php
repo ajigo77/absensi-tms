@@ -8,6 +8,8 @@
     <title>Halaman Utama</title>
     {{-- Favicon --}}
     <link rel="shortcut icon" href="{{ asset('./logo-company/favicon-tms.png') }}" type="image/x-icon">
+    {{-- Icons Bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     @vite('resources/css/app.css')
 </head>
 
@@ -18,7 +20,7 @@
                 <div class="flex lg:flex-1">
                     <a href="#" class="flex items-center text-center">
                         <img class="w-12 h-auto" src="{{ asset('./logo-company/tms.png') }}" alt="Logo Company">
-                        <span class="ml-3 font-bold text-sm sm:text-base lg:text-lg text-dark-system">PT. Tecnology
+                        <span class="ml-3 font-bold text-sm sm:text-base lg:text-lg text-dark-10">PT. Tecnology
                             Multi System
                         </span>
                     </a>
@@ -27,7 +29,7 @@
                 <!-- Burger Menu for Mobile -->
                 <div class="flex lg:hidden">
                     <button type="button"
-                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-dark-10"
                         id="mobile-menu-button">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -40,12 +42,12 @@
                 <!-- Menu Items for Desktop -->
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-5">
                     <a href="{{ route('auth.register') }}"
-                        class="text-sm font-semibold leading-6 text-gray-900 px-5 py-2 border-2 border-gray-50 hover:border-dark-system rounded-full text-center align-middle flex justify-center transition text-dark-50 hover:text-dark-system">
+                        class="text-sm font-semibold leading-6 text-white-100 px-5 py-2 rounded-full text-center align-middle flex justify-center transition bg-red-100 hover:bg-red-50 items-center">
                         Daftar
                     </a>
                     <a href="{{ route('auth.login') }}"
-                        class="text-sm font-semibold leading-6 text-gray-900 px-5 py-2 border-2 border-gray-50 hover:border-dark-system rounded-full text-center align-middle flex justify-center transition text-dark-50 hover:text-dark-system">
-                        Masuk <span aria-hidden="true" class="ml-2 text-dark-50 hover:text-dark-system">&rarr;</span>
+                        class="text-sm font-semibold leading-6 text-red-10 px-5 py-2 border-2 border-red-10 hover:border-red-50 rounded-full text-center items-center flex justify-center transition hover:text-red-50">
+                        Masuk
                     </a>
                 </div>
             </nav>
@@ -56,7 +58,7 @@
                     <!-- Close Button -->
                     <div class="flex justify-end">
                         <button type="button" id="close-menu-button"
-                            class="text-gray-700 p-2.5 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-300">
+                            class="text-dark-10 p-2.5 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-dark-10">
                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -65,14 +67,14 @@
                     </div>
 
                     <!-- Mobile Menu Links -->
-                    <div class="flex flex-col space-y-4">
+                    <div class="flex flex-col space-y-5">
                         <a href="{{ route('auth.register') }}"
-                            class="flex justify-between items-center text-base font-semibold leading-6 text-gray-900 px-5 py-3 rounded-md bg-gray-100 hover:bg-gray-50 transition">
-                            Daftar <span class="ml-2 text-gray-500">&rarr;</span>
+                            class="flex justify-between items-center text-base font-semibold leading-6 text-white-100 px-5 py-3 rounded-md bg-red-50 hover:bg-red-100 transition">
+                            Daftar <span class="ml-2 text-white-100 text-md">&rarr;</span>
                         </a>
                         <a href="{{ route('auth.login') }}"
-                            class="flex justify-between items-center text-base font-semibold leading-6 text-gray-900 px-5 py-3 rounded-md bg-gray-100 hover:bg-gray-50 transition">
-                            Masuk <i class="bi bi-box-arrow-right"></i>
+                            class="flex justify-between items-center text-base font-semibold leading-6 text-red-50 px-5 py-3 rounded-md border-2 border-red-50 transition">
+                            Masuk <i class="bi bi-box-arrow-right text-md"></i>
                         </a>
                     </div>
                 </div>
@@ -81,13 +83,13 @@
         <div class="relative isolate px-6 pt-5 lg:px-8">
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true">
-                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#FFE5E1] to-red-soft opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#FFE5E1] to-red-soft sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                     style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                 </div>
             </div>
             <div class="mx-auto max-w-3xl mt-40 sm:py-10 lg:mt-36">
                 <div class="text-center px-4 sm:px-6 lg:px-8">
-                    <h1 class="text-balance text-3xl font-bold text-dark-system sm:text-4xl lg:text-5xl">
+                    <h1 class="text-balance text-3xl font-bold text-dark-10 sm:text-4xl lg:text-5xl">
                         Kelola Absensi Karyawan dengan Mudah
                     </h1>
                     <p class="mt-6 text-base sm:text-lg lg:text-xl leading-7 sm:leading-8 text-dark-50">
@@ -98,7 +100,7 @@
                     </p>
                     <div class="mt-10 flex items-center justify-center">
                         <a href="#"
-                            class="rounded-md bg-red-100 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            class="rounded-md bg-red-100 px-3.5 py-2.5 text-sm font-semibold text-white-100 shadow-sm hover:bg-red-50">
                             Mulailah
                         </a>
                     </div>
@@ -107,7 +109,7 @@
 
             <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
                 aria-hidden="true">
-                <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-red-soft to-[#FFE5E1] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-red-soft to-[#FFE5E1] sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
                     style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                 </div>
             </div>

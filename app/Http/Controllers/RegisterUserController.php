@@ -11,20 +11,35 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterUserController extends Controller
 {
-    public function register(){
-
-     $jabatan = Jabatan::all();
+    public function register()
+    {
+        $jabatan = Jabatan::all();
         $devisi = Devisi::all();
-        return view('Auth.register',compact('jabatan','devisi'));
+        return view('Auth.register', compact('jabatan', 'devisi'));
     }
 
-    public function proses_register(Request $request){
-        $request->validate([
-            'member_id'=>'required|numeric',
-            'divisi_id'=>'required|exists:divisis,id_divisi',
-            'jabatan_id'=>'required|exists:jabatan,id_jabatan',
-            'password'=>'required|min:5|max:8'
-        ]);
+    public function proses_register(Request $request)
+    {
+        $customMessageValidate = [
+            'member_id.unique' => 'Id member sudah terdaftar',
+            'member_id.required' => 'Tidak boleh kosong',
+            'member_id.numeric' => 'Hanya boleh angka',
+            'divisi_id.required' => 'Tidak boleh kosong',
+            'jabatan_id.required' => 'Tidak boleh kosong',
+            'password.required' => 'Tidak boleh kosong',
+            'password.min' => 'Minimal 5 karakter',
+            'password.max' => 'Maximal 8 karakter',
+        ];
+
+        $request->validate(
+            [
+                'member_id' => 'required|numeric|unique:members,id_member',
+                'divisi_id' => 'required|exists:divisis,id_divisi',
+                'jabatan_id' => 'required|exists:jabatans,id_jabatan',
+                'password' => 'required|min:5|max:8',
+            ],
+            $customMessageValidate,
+        );
 
         $data_user_register['member_id'] = $request->member_id;
         $data_user_register['divisi_id'] = $request->divisi_id;
@@ -33,15 +48,7 @@ class RegisterUserController extends Controller
 
         User::create($data_user_register);
 
-        $user_langsung_login = [
-            'member_id'=> $request->member_id,
-            'password'=> $request->password
-        ];
-
-        if(Auth::attempt($user_langsung_login)){
-            return redirect()->route('user.shift');
-        } else {
-            return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');
-        }
+        // Redirect ke halaman login setelah registrasi berhasil
+        return redirect()->route('user.login')->with('success', 'Registrasi berhasil. Silakan login.');
     }
 }

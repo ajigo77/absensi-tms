@@ -14,10 +14,17 @@ class LoginUserController extends Controller
 
     public function proses_login(Request $request)
     {
+        $customMessageValidate = [
+            'member_id.required' => 'Id member tidak boleh kosong',
+            'member_id.numeric' => 'Hanya boleh angka',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Minimal 5 karakter',
+            'password.max' => 'Maximal 8 karakter',
+        ];
         $request->validate([
             'member_id' => 'required|numeric',
-            'password' => 'required',
-        ]);
+            'password' => 'required|min:5|max:8',
+        ], $customMessageValidate);
 
         $data = [
             'member_id' => $request->member_id,
@@ -26,7 +33,7 @@ class LoginUserController extends Controller
 
         if (Auth::attempt($data)) {
             // dd('Login berhasil');
-            return redirect()->route('user.shift');
+            return redirect()->route('shift')->with('success','Login berhasail');
         } else {
             // dd('Login gagal');
             return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');

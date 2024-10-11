@@ -20,6 +20,10 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     {{-- Icons Bootstrap --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- Jquery Ajax--}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite('resources/css/app.css')
 </head>
 
@@ -35,5 +39,15 @@
         {{-- Footer --}}
         <x-dashboard.footer></x-dashboard.footer>
     </div>
+    @if ($success = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: "Sukses",
+                text: "{{ $success }}",
+                icon: "success"
+            });
+        </script>
+    @endif
 </body>
+
 </html>

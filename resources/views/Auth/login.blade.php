@@ -22,6 +22,7 @@
         integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
     <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
+    <link rel="shortcut icon" href="{{ asset('./logo-company/favicon-tms.png') }}" type="image/x-icon">
     @vite('resources/css/app.css')
     <style>
         body {
@@ -46,12 +47,12 @@
                 <form action="{{ route('proses.login') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <div class="input-group"> <input type="number" class="form-control" placeholder="Id Member"
+                        <div class="input-group"> <input type="text" class="form-control" placeholder="Id Member"
                                 name="member_id">
                             <div class="input-group-text"> <span class="bi bi-hash"></span> </div>
                         </div>
                         @error('member_id')
-                            <span class="text-red-50">{{ $message }}</span>
+                            <span class="text-red-50 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -60,7 +61,7 @@
                             <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
                         </div> <!--begin::Row-->
                         @error('password')
-                            <span class="text-red-50">{{ $message }}</span>
+                            <span class="text-red-50 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="row">

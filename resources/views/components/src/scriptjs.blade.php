@@ -4,12 +4,8 @@
     const canvas = document.getElementById('canvas');
     const coverMap = document.getElementById("map");
     const tombolSubmit = document.getElementById("submit");
-    const latitudeInput = document.getElementById("latitude");
-    const longitudeInput = document.getElementById("longitude");
-    let capturedBlob = null;
-
-    // Siapkan FormData untuk pengiriman file gambar
-    const formData = new FormData();
+    const latitudeInput = document.getElementById("lattitude");
+    const longitudeInput = document.getElementById("longtitude");
 
     document.getElementById('canvas').style.display = 'none';
 
@@ -61,6 +57,7 @@
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         canvas.style.display = 'block';
+        canvas.style.borderRadius = '8px';
         document.querySelector('#video').style.display = 'none';
 
         Swal.fire({
@@ -68,6 +65,8 @@
             text: "Gambar berhasil diambil, siap untuk di submit!",
             icon: "success"
         });
+
+        stop(); // Hentikan video setelah gambar diambil
 
         // Ini untuk mendapatkan titik koordinat lokasi user
         if (navigator.geolocation) {
@@ -79,14 +78,7 @@
                 latitudeInput.value = latitudeValue;
                 longitudeInput.value = longitudeValue;
 
-                // Debugging
-                // console.log(latitudeInput.value);
-                // console.log(longitudeInput.value);
-
-                // Set nilai latitude dan longitude dari input hidden ke FormData
-                formData.append('latitude', latitudeInput.value);
-                formData.append('longitude', longitudeInput.value);
-
+                console.log(`Latitude: ${latitudeInput.value}, Longitude: ${longitudeInput.value}`);
 
             }, function(error) {
                 // Tangani error saat tidak bisa mendapatkan posisi
@@ -96,44 +88,10 @@
             console.error("Geolocation tidak didukung oleh browser ini.");
         }
 
-        // Ambil gambar dari canvas dan ubah menjadi Blob
-        canvas.toBlob(function(blob) {
-            if (blob) {
-                // Buat file dari Blob yang sudah diambil
-                const file = new File([blob], 'my_photo.jpg', {
-                    type: 'image/jpeg'
-                });
-
-                // Tambahkan file ke FormData
-                // formData.append('image', file);
-
-                // Debugging: cek apakah file sudah terbentuk
-
-                console.log(file); // Periksa file yang terbentuk
-            } else {
-                console.log("Blob gagal dibuat dari canvas.");
-            }
-        }, 'image/jpeg');
-
-        stop(); // Hentikan video setelah gambar diambil
+        tombolSubmit.disabled = false;
+        tombolSubmit.style.cursor = 'pointer';
+        tombolSubmit.classList.remove('bg-red-50');
     }
-
-    function uploadImageAndLocation() {
-        // Kirim data gambar dan koordinat lokasi ke server menggunakan fetch API
-        fetch('/upload', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            }
-        );
-    }
-
 
     // Matikan tombol Ambil Gambar saat pertama kali dimuat
     btnCapture.disabled = true;
@@ -148,8 +106,8 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-
                 showMap(latitude, longitude);
+
             }, function(error) {
                 console.log(": ", error);
                 Swal.fire({
@@ -166,21 +124,20 @@
             });
         }
 
-        // Menghapus class dan style dari tombol Capture dan Submit setelah kamera dibuka
+        // Menghapus class dan style dari tombol Capture
         btnCapture.disabled = false;
         btnCapture.classList.remove('bg-red-50');
         btnCapture.style.cursor = 'pointer'; // Mengembalikan ke kursor pointer
-
-        tombolSubmit.disabled = false;
-        tombolSubmit.classList.remove('bg-red-50');
-        tombolSubmit.style.cursor = 'pointer'; // Mengembalikan ke kursor pointer
 
     });
 
     // style ketika tombol buka camera belum di klik
     if (btnCapture.disabled && tombolSubmit.disabled) {
+        // Untuk tombol ambil gambar
         btnCapture.classList.add('bg-red-50');
         btnCapture.style.cursor = 'not-allowed';
+
+        // Untuk tombol submit
         tombolSubmit.classList.add('bg-red-50');
         tombolSubmit.style.cursor = 'not-allowed';
     }
@@ -189,12 +146,6 @@
     btnCapture.addEventListener('click', function() {
         if (!btnCapture.disabled) {
             captureImage(); // Panggil fungsi untuk mengambil gambar
-        }
-    });
-
-    tombolSubmit.addEventListener('click', function() {
-        if (!tombolSubmit.disabled) {
-            uploadImageAndLocation(); // Panggil fungsi untuk mengirimkan data
         }
     });
 
@@ -229,4 +180,49 @@
         const marker = L.marker([lat, lon]).addTo(map)
             .bindPopup('Lokasi Anda').openPopup();
     }
+
+    $(document).ready(function() {
+        $('#submit').click(function(event) {
+            let lat = $('#lattitude').val();
+            let lon = $('#longtitude').val();
+
+            console.log(lat, lon);
+            // Jika validasi sukses, siapkan FormData untuk submit
+            let formData = new FormData();
+
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('lattitude', lat);
+            formData.append('longtitude', lon);
+            // Tambahkan token CSRF
+            // Ambil gambar dari canvas sebagai bukti selfie
+            if (canvas) {
+                var webcamDataURL = canvas.toDataURL('image/png'); // Mengonversi gambar dari canvas ke format data URL
+                formData.append('webcam', webcamDataURL); // Tambahkan ke FormData
+
+                // Fungsi untuk submit form menggunakan AJAX
+                $.ajax({
+                    url: $('#absenForm').attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false, // Agar tidak memproses data secara otomatis
+                    contentType: false, // Agar tidak mengubah tipe konten
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Data berhasil disimpan.');
+                        }
+                    },
+                    error: function(xhr) {
+                        // Cek apakah respons memiliki pesan kesalahan
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            console.log(xhr.responseJSON.message);
+                        } else {
+                            console.log('Terjadi kesalahan saat mengirim data.');
+                        }
+                    }
+                });
+            } else {
+                console.log('Canvas tidak ditemukan');
+            }
+        });
+    });
 </script>

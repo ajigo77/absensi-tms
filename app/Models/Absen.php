@@ -11,6 +11,16 @@ class Absen extends Model
 
     protected $table = 'absens';
 
+    protected $fillable = [
+        'user_id',
+        'type',
+        'shift_id',
+        'foto',
+        'lattitude',
+        'longtitude',
+        'status',
+    ];
+
     // Tambahkan metode untuk mengambil data
     public static function getStats()
     {

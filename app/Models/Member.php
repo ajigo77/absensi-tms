@@ -9,12 +9,16 @@ class Member extends Model
 {
     use HasFactory;
 
+    protected $tabel = 'members';
 
     protected $primaryKey= "id_member";
-    protected $tabel = 'members';
+
+    // protected $fillable = [
+    //     'id_member'
+    // ];
 
     //soal cari relasi ini 😈
     public function User(){
-
+        return $this->hasMany(User::class, 'member_id','id_member');
     }
 }

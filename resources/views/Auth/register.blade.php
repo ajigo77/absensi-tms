@@ -16,7 +16,7 @@
         integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
     <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
-
+    <link rel="shortcut icon" href="{{ asset('./logo-company/favicon-tms.png') }}" type="image/x-icon">
     @vite('resources/css/app.css')
     <style>
         body {
@@ -42,14 +42,14 @@
                     @csrf
                     <div class="mb-3">
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Id Member" name="member_id"
+                            <input type="text" class="form-control" placeholder="Id Member" name="member_id"
                                 value="{{ old('member_id') }}">
                             <div class="input-group-text">
                                 <span class="bi bi-hash"></span>
                             </div>
                         </div>
                         @error('member_id')
-                            <span class="text-red-50">{{ $message }}</span>
+                            <span class="text-red-50 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         @error('divisi_id')
-                            <span class="text-red-50">{{ $message }}</span>
+                            <span class="text-red-50 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         @error('jabatan_id')
-                            <span class="text-red-50">{{ $message }}</span>
+                            <span class="text-red-50 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
@@ -103,18 +103,12 @@
                             <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
                         </div>
                         @error('password')
-                            <span class="text-red-50">{{ $message }}</span>
+                            <span class="text-red-50 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="row">
                         <div class="flex justify-between items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Ingatkan Saya
-                                </label>
-                            </div>
-                            <a href="{{ route('auth.login') }}" class="text-sm text-blue-500 hover:underline">
+                            <a href="{{ route('auth.login') }}" class="text-sm text-blue-500 hover:underline mb-2">
                                 Sudah punya akun?
                             </a>
                         </div>

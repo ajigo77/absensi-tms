@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginUserController;
-use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\Pages\Dashboard\DashboardController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\RoleController;
@@ -13,6 +11,7 @@ use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\PostAbsensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,35 +24,13 @@ use App\Http\Controllers\LeaveController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/login', [LoginUserController::class, 'login'])->name('auth.login');
-Route::get('/', [LoginUserController::class, 'login'])->name('auth.login');
-Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
-
-Route::post('/proses-login', [LoginUserController::class, 'proses_login'])->name('proses.login');
-Route::post('/proses-register', [RegisterUserController::class, 'proses_register'])->name('proses.register');
-
-// Logout
-Route::get('/logout', [LoginUserController::class, 'logout'])->name('auth.logout');
-
-// Leaflet
-Route::get('/simple-map', function () {
-    return view('Leaflet.simple-map');
-})->name('simple.map');
-
-Route::get('/webcamp', function () {
-    return view('Leaflet.webcam');
-})->name('absensi.karyawan');
-
 Route::get('/', function () {
     return view('Pages.HeroSection');
-});
+})->name('hero');
 
-require __DIR__ . '/Uploaded/upload.php';
-require __DIR__ . '/Auth/auth.php';
+Route::get('/absen', [AbsenController::class,'getDataAbsen']);
+
+Route::post('/post-absensi', [AbsenController::class, 'postAbsen'])->name('post.absen');
 
 Route::get('/absen/stats', [AbsenController::class, 'getStats']);
 
@@ -64,3 +41,6 @@ Route::resource('shifts', ShiftController::class);
 Route::resource('schedules', ScheduleController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
+
+require __DIR__ . '/Auth/auth.php';
+require __DIR__ . '/Uploaded/upload.php';
