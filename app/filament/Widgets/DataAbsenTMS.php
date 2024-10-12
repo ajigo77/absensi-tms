@@ -24,18 +24,20 @@ class DataAbsenTMS extends BaseWidget
     {
         return $table
             ->query(
-                Absen::query() // Show all attendance records
+                Absen::with(['shift', 'user']) // Eager load the shift and user relationships
             )
             ->columns([
-                TextColumn::make('user_id')->label('User ID'), // Display User ID
+                TextColumn::make('user.name') // Change this line to fetch the user's name
+                    ->label('Nama'), // Update the label
                 TextColumn::make('type')->label('Tipe Absensi'), // Display Attendance Type
-                TextColumn::make('shift_id')->label('Shift ID'), // Display Shift ID
+                TextColumn::make('shift.name')
+                    ->label('Shift') // Ubah label menjadi 'Shift'
+                    ->badge(), // Gunakan badge untuk shift
                 TextColumn::make('foto')
-                ->badge()
+                    ->badge()
                     ->label('Foto') // Display Photo
                     ->formatStateUsing(fn ($state) => 
                         '<a href="' . $state . '" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">Lihat Foto</a>' // Create clickable link
-                        
                     )
                     ->html(), // Enable HTML rendering
                 TextColumn::make('latitude')->label('Latitude'), // Display Latitude
@@ -64,7 +66,12 @@ class DataAbsenTMS extends BaseWidget
             ->actions([
                 Action::make('view') // Define the view action
                     ->label('View') // Label for the action
-                    ->url(fn ($record) => route('absen.show', $record->id_absen)) // Define the URL to the detail page
+                    ->action(fn ($record) => [
+                        'modal' => [
+                            'title' => 'Detail Absensi', // Title of the modal
+                            'content' => view('filament.widgets.absen-detail', ['record' => $record]), // Use a view to display the record details
+                        ],
+                    ])
                     ->icon('heroicon-o-eye') // Optional: Add an icon
                     ->color('primary'), // Optional: Set the color
             ])

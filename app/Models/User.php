@@ -23,6 +23,7 @@ class User extends Authenticatable
         'divisi_id',
         'jabatan_id',
         'status',
+        'name', // Add 'name' if not already present
     ];
 
     /**

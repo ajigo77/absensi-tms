@@ -13,6 +13,12 @@ class Absen extends Model
     protected $table = 'absens';
     protected $primaryKey = 'id_absen'; // Ensure this matches the column name in the database
 
+    // Relasi ke model Shift
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class, 'shift_id'); // Ensure 'shift_id' is correct
+    }
+
     // Method to get attendance statistics
     public static function getStats()
     {
@@ -27,5 +33,10 @@ class Absen extends Model
             'sakit' => self::whereDate('created_at', $today)->where('status', 'Sakit')->count(),
             'cuti' => self::whereDate('created_at', $today)->where('status', 'Cuti')->count(),
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // Ensure 'user_id' is correct
     }
 }
