@@ -34,6 +34,11 @@ Route::post('/post-absensi', [AbsenController::class, 'postAbsen'])->name('post.
 
 Route::get('/absen/stats', [AbsenController::class, 'getStats']);
 
+Route::get('/form-izin-karyawan', [AbsenController::class, 'izinKaryawan'])->name('izin.karyawan');
+Route::post('/proses-form-izin', [AbsenController::class, 'post_izin_karyawan'])->name('post.izin');
+
+Route::get('/form-cuti-karyawan', [AbsenController::class, 'cutiKaryawan'])->name('cuti.karyawan');
+
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::resource('offices', OfficeController::class);

@@ -6,15 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Halaman Utama</title>
-    {{-- Favicon --}}
-    <link rel="shortcut icon" href="{{ asset('./logo-company/favicon-tms.png') }}" type="image/x-icon">
-    {{-- Icons Bootstrap --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <x-link-cdn></x-link-cdn>
     @vite('resources/css/app.css')
 </head>
 
-<body class="overflow-hidden">
-    <div class="bg-white-100">
+<body class="font-sans">
+    <div class="bg-white-100 min-h-screen">
         <header class="absolute inset-x-0 top-0 z-50 border-b-2 border-gray-50 bg-white-100">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
@@ -83,7 +80,7 @@
         <div class="relative isolate px-6 pt-5 lg:px-8">
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true">
-                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#FFE5E1] to-red-soft sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#FFE5E1] to-red-[#fecaca] sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                     style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                 </div>
             </div>
@@ -99,7 +96,7 @@
                         secara real-time di mana pun berada.
                     </p>
                     <div class="mt-10 flex items-center justify-center">
-                        <a href="#"
+                        <a href="{{ route('shift') }}"
                             class="rounded-md bg-red-100 px-3.5 py-2.5 text-sm font-semibold text-white-100 shadow-sm hover:bg-red-50">
                             Mulailah
                         </a>

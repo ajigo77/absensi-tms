@@ -11,7 +11,7 @@ class Jabatan extends Model
 
     //secara default laravel menggunakan id jadi harus ganti ke yang sesua dengan di database
 
-    
+
     protected $tabel = 'jabatans';
 
     protected $primaryKey = 'id_jabatan';

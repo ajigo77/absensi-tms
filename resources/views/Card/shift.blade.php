@@ -6,28 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Absensi</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
-    <!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css"
-        integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
-        integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
-    <!-- Alpine Js -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    {{-- Icons Bootstrap --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    {{-- SweetAlert2 --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- Jquery Ajax--}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <x-link-cdn></x-link-cdn>
     @vite('resources/css/app.css')
 </head>
 
-<body class="">
+<body class="font-sans">
     {{-- Navbar --}}
     <div class="wrapper">
         {{-- Navbar --}}
@@ -36,18 +19,18 @@
         <!-- Main Content -->
         <x-card-component.content-card></x-card-component.content-card>
 
-        {{-- Footer --}}
-        <x-dashboard.footer></x-dashboard.footer>
     </div>
     @if ($success = Session::get('success'))
-        <script>
-            Swal.fire({
-                title: "Sukses",
-                text: "{{ $success }}",
-                icon: "success"
-            });
+    <script>
+        Swal.fire({
+            title: "Sukses",
+            text: "{{ $success }}",
+            icon: "success"
+        });
         </script>
     @endif
+    {{-- Footer --}}
+    <x-dashboard.footer></x-dashboard.footer>
 </body>
 
 </html>

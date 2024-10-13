@@ -6,11 +6,10 @@ use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\RegisterUserController;
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], function () {
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'dash'])->name('admin.dashboard');
 });
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'dash'])->name('admin.dashboard');
 
-// Shift
 Route::get('/shift', function () {
     return view('Card.shift');
 })->name('shift');
@@ -18,6 +17,7 @@ Route::get('/shift', function () {
 Route::get('/webcamp', function () {
     return view('Leaflet.webcam');
 })->name('absensi.karyawan');
+// Shift
 
 // Login
 Route::get('/login', [LoginUserController::class, 'login'])->name('auth.login');

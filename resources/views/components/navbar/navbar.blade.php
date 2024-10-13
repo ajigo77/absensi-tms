@@ -19,7 +19,8 @@
             </div>
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex flex-shrink-0 items-center">
-                    <img class="h-8 w-auto rounded-full" src="{{ asset('./logo-company/favicon-tms.png') }}" alt="Logo Company">
+                    <img class="h-8 w-auto rounded-full" src="{{ asset('./logo-company/favicon-tms.png') }}"
+                        alt="Logo Company">
                 </div>
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
@@ -40,8 +41,8 @@
                 <div class="relative ml-3" @click.outside="openProfile = false">
                     <div>
                         <button @click="openProfile = !openProfile" type="button"
-                            class="relative flex items-center justify-center"
-                            id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            class="relative flex items-center justify-center" id="user-menu-button"
+                            aria-expanded="false" aria-haspopup="true">
                             <i class="bi bi-person-circle text-3xl text-white-100"></i>
                         </button>
                     </div>
@@ -71,15 +72,17 @@
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" x-show="open" id="mobile-menu">
-        <div class="space-y-1 px-2 pb-3 pt-2">
-            <a href="#" class="block rounded-md bg-red-50 px-3 py-2 text-base font-medium text-white-100"
-                aria-current="page">Dashboard</a>
+        <div class="space-y-4 px-2 pb-3 pt-2">
+            <a href="#" class="block rounded-md bg-red-50 px-3 py-2 text-base font-medium text-white-100 mb-3"
+                aria-current="page">Beranda</a>
             <a href="#"
+                class="block rounded-md px-3 py-2 text-sm font-medium text-white-100 hover:bg-red-50 focus:bg-red-50 hover:text-white-100">Dashboard</a>
+            {{-- <a href="#"
                 class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Team</a>
             <a href="#"
                 class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Projects</a>
             <a href="#"
-                class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Calendar</a>
+                class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Calendar</a> --}}
         </div>
     </div>
 </nav>

@@ -26,8 +26,16 @@ export default {
                 10: "#FF9280",
             },
             white: {
-                100: "#ffffff"
+                100: "#ffffff",
             },
+            blue: {
+                50: "#006BFF",
+                100: "#024CAA",
+            },
+        },
+        fontFamily: {
+            sans: ["Graphik", "sans-serif"],
+            serif: ["Merriweather", "serif"],
         },
     },
     plugins: [],

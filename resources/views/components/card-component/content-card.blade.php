@@ -23,8 +23,8 @@
                 <h2 class="text-xl font-bold">Absen Sore</h2>
                 <p class="text-gray-700 mt-2">Bekerja dari pukul 16:00 hingga 00:00.</p>
             </div>
-            <div class="p-4 border-t border-gray-200">
-                <a href="#">
+            <div class="p-4 border-t border-gray-50">
+                <a href="{{ route('izin.karyawan') }}">
                     <button class="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800 w-full">
                         Pilih Shift Sore
                     </button>
