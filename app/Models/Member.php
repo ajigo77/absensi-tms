@@ -13,12 +13,12 @@ class Member extends Model
 
     protected $primaryKey= "id_member";
 
-    // protected $fillable = [
-    //     'id_member'
-    // ];
+    protected $fillable = [
+        'id_member'
+    ];
 
     //soal cari relasi ini 😈
     public function User(){
-        return $this->hasMany(User::class, 'member_id','id_member');
+        return $this->hasOne(User::class, 'member_id','id_member');
     }
 }
