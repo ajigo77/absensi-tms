@@ -126,5 +126,14 @@
                 });
             </script>
         @endif
+        @if($success_register = Session::get('success'))
+            <script>
+                Swal.fire({
+                    title: "Sukses",
+                    text: "{{ $success_register }}",
+                    icon: "success"
+                });
+            </script>
+        @endif
 </body>
 </html>

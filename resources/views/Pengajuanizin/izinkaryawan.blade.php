@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Izin Karyawan</title>
+    {{-- Icons Bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite('resources/css/app.css')
 </head>
 
@@ -19,9 +23,21 @@
         </div>
 
         <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Form Izin Karyawan</h2>
-            <p class="mt-2 text-lg leading-8 text-gray-600">Silakan isi form di bawah ini untuk izin karyawan.</p>
+            <div class="flex justify-center items-center">
+                <a href="{{ route('shift') }}"
+                    class="mr-5 w-10 h-10 flex justify-center items-center hover:-translate-x-2 active:bg-[#fecaca] transition rounded-full hover:cursor-pointer">
+                    <i class="bi bi-arrow-left font-bold text-dark-100 text-lg"></i>
+                </a>
+                <!-- Perbarui ukuran teks dengan responsif -->
+                <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl md:text-3xl lg:text-4xl">
+                    Form Pengajuan Izin Karyawan
+                </h2>
+            </div>
+            <p class="mt-2 text-sm sm:text-base md:text-lg leading-8 text-gray-600">
+                Silakan isi form di bawah ini untuk izin karyawan.
+            </p>
         </div>
+
 
         <form action="{{ route('post.izin') }}" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
             @csrf
@@ -32,7 +48,8 @@
                         Karyawan <span class="text-red-100">*</span></label>
                     <div class="mt-2.5">
                         <input type="text" id="nama" name="nama_karyawan" placeholder="Masukkan nama"
-                    class="block w-full rounded-md border-0 px-3.5 py-2 text-dark-10 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none" value="{{ old('nama_karyawan') }}">
+                            class="block w-full rounded-md border-0 px-3.5 py-2 text-dark-10 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none"
+                            value="{{ old('nama_karyawan') }}">
                     </div>
                     @error('nama_karyawan')
                         <span class="text-red-50 text-sm" style="font-style: italic">{{ $message }}</span>
@@ -40,14 +57,14 @@
                 </div>
 
                 <div>
-                    <label for="divisi" class="block text-sm font-semibold leading-6 text-gray-900">Divisi <span class="text-red-100">*</span></label>
+                    <label for="divisi" class="block text-sm font-semibold leading-6 text-gray-900">Divisi <span
+                            class="text-red-100">*</span></label>
                     <div class="mt-2.5">
                         <select id="divisi" name="divisi"
                             class="block w-full rounded-md border-0 px-3.5 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none">
                             <option value="" selected>Pilih Divisi Anda</option>
                             @forelse ($divisi as $dvs)
-                                <option value="{{ $dvs->id_divisi }}"
-                                    {{ old('divisi') == $dvs->id_divisi ? 'selected' : '' }}>
+                                <option value="{{ $dvs->nama }}" {{ old('divisi') == $dvs->nama ? 'selected' : '' }}>
                                     {{ $dvs->nama }}
                                 </option>
                             @empty
@@ -61,14 +78,15 @@
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label for="jabatan" class="block text-sm font-semibold leading-6 text-gray-900">Jabatan <span class="text-red-100">*</span></label>
+                    <label for="jabatan" class="block text-sm font-semibold leading-6 text-gray-900">Jabatan <span
+                            class="text-red-100">*</span></label>
                     <div class="mt-2.5">
                         <select id="jabatan" name="jabatan"
                             class="block w-full rounded-md border-0 px-3.5 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none">
                             <option value="" selected>Pilih Jabatan Anda</option>
                             @forelse ($jabatan as $jab)
-                                <option value="{{ $jab->id_jabatan }}"
-                                    {{ old('jabatan') == $jab->id_jabatan ? 'selected' : '' }}>
+                                <option value="{{ $jab->nama }}"
+                                    {{ old('jabatan') == $jab->nama ? 'selected' : '' }}>
                                     {{ $jab->nama }}
                                 </option>
                             @empty
@@ -89,11 +107,12 @@
                         <select id="jenis_izin" name="jenis_izin"
                             class="block w-full rounded-md border-0 px-3.5 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none">
                             <option value="">Pilih jenis izin</option>
-                            @forelse ($jenis_izin as $value )
-                                <option value="{{ $value->id}}" {{ old('jenis_izin') == $value->id ? 'selected' : '' }}>
+                            @forelse ($jenis_izin as $value)
+                                <option value="{{ $value->nama }}"
+                                    {{ old('jenis_izin') == $value->nama ? 'selected' : '' }}>
                                     {{ $value->nama }}
                                 </option>
-                                @empty
+                            @empty
                                 <option value="">
                                     Tidak ada jenis izin
                                 </option>
@@ -109,17 +128,21 @@
                     <label for="jam_pulang" class="block text-sm font-semibold leading-6 text-gray-900">Jam Pulang
                         Awal <span class="text-red-100">*</span></label>
                     <div class="mt-2.5">
-                        <input type="time" id="jam_pulang" name="jam_pulang"
-                            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none" value="{{ old('jam_pulang') }}">
+                        <input type="time" id="jam_pulang" name="jam_pulang_awal"
+                            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none"
+                            value="{{ old('jam_pulang_awal') }}">
                     </div>
+                    @error('jam_pulang_awal')
+                        <span class="text-red-50 text-sm" style="font-style: italic">{{ $message }}</span>
+                    @enderror
                 </div>
-
                 <div class="sm:col-span-2">
                     <label for="tanggal_izin" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal
                         Izin <span class="text-red-100">*</span></label>
                     <div class="mt-2.5">
                         <input type="date" id="tanggal_izin" name="tanggal_izin"
-                            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none" value="{{ old('tanggal_izin') }}">
+                            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none"
+                            value="{{ old('tanggal_izin') }}">
                     </div>
                     @error('tanggal_izin')
                         <span class="text-red-50 text-sm" style="font-style: italic">{{ $message }}</span>
@@ -128,7 +151,8 @@
 
                 <!-- Alasan -->
                 <div class="sm:col-span-2">
-                    <label for="alasan" class="block text-sm font-semibold leading-6 text-gray-900">Alasan <span class="text-red-100">*</span></label>
+                    <label for="alasan" class="block text-sm font-semibold leading-6 text-gray-900">Alasan <span
+                            class="text-red-100">*</span></label>
                     <div class="mt-2.5">
                         <textarea id="alasan" name="alasan" rows="4"
                             class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-100 sm:text-sm sm:leading-6 focus:outline-none"
@@ -150,6 +174,16 @@
     </div>
     {{-- Footer --}}
     <x-dashboard.footer></x-dashboard.footer>
+
+    @if ($error_izin_karyawan = Session::get('error'))
+        <script>
+            Swal.fire({
+                title: "Oops!",
+                text: "{{ $error_izin_karyawan }}",
+                icon: "error"
+            });
+        </script>
+    @endif
 </body>
 
 </html>

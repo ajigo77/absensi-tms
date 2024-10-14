@@ -20,4 +20,16 @@ class Izinkaryawans extends Model
         'jam_pulang_awal',
         'alasan',
     ];
+
+    // public function JenisIzin(){
+    //     $this->belongsTo(Jenisizin::class, 'id_jenis_izin', 'id');
+    // }
+
+    // public function Divisi(){
+    //     $this->belongsTo(Devisi::class, 'divisi_id', 'id_divisi');
+    // }
+
+    // public function Jabatan(){
+    //     $this->belongsTo(Jabatan::class, 'jabatan_id', 'id_jabatan');
+    // }
 }

@@ -24,5 +24,8 @@ class Jabatan extends Model
     public function User(){
         return $this->hasMany(User::class, 'jabatan_id','id_jabatan');
     }
+    // public function Izinkaryawan(){
+    //     return $this->hasMany(Izinkaryawans::class, 'jabatan_id','id_jabatan');
+    // }
 
 }

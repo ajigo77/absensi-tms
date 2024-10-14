@@ -155,6 +155,7 @@
         // Hilangkan style display:none dari div dengan id map
         const mapDiv = document.getElementById('map');
         mapDiv.style.display = 'block';
+        mapDiv.style.borderRadius = '8px';
 
         // Inisialisasi peta
         const map = L.map('map').setView([lat, lon], 15);

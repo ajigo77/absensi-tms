@@ -23,4 +23,9 @@ class Devisi extends Model
         return $this->hasMany(User::class, 'divisi_id', 'id_divisi');
     }
 
+    // public function Izinkaryawan(){
+    //     // return $this->belongsTo(User::class);
+    //     return $this->hasMany(Izinkaryawans::class, 'divisi_id', 'id_divisi');
+    // }
+
 }

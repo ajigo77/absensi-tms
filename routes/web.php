@@ -10,6 +10,7 @@ use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\FormKaryawanController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\PostAbsensiController;
 
@@ -34,10 +35,13 @@ Route::post('/post-absensi', [AbsenController::class, 'postAbsen'])->name('post.
 
 Route::get('/absen/stats', [AbsenController::class, 'getStats']);
 
-Route::get('/form-izin-karyawan', [AbsenController::class, 'izinKaryawan'])->name('izin.karyawan');
-Route::post('/proses-form-izin', [AbsenController::class, 'post_izin_karyawan'])->name('post.izin');
+Route::get('/form-izin-karyawan', [FormKaryawanController::class, 'izinKaryawan'])->name('izin.karyawan');
+Route::post('/poat-form-izin', [FormKaryawanController::class, 'post_izin_karyawan'])->name('post.izin');
 
-Route::get('/form-cuti-karyawan', [AbsenController::class, 'cutiKaryawan'])->name('cuti.karyawan');
+Route::get('/form-cuti-karyawan', [FormKaryawanController::class, 'cutiKaryawan'])->name('cuti.karyawan');
+Route::post('/post-cuti-karyawan', [FormKaryawanController::class, 'post_cuti_karyawan'])->name('post.cuti');
+
+Route::get('/test', [AbsenController::class, 'index']);
 
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);

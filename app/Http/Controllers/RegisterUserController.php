@@ -6,6 +6,7 @@ use App\Models\Devisi;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,8 +19,20 @@ class RegisterUserController extends Controller
         return view('Auth.register', compact('jabatan', 'devisi'));
     }
 
+
+
+
+    /**
+     * dear aji eror tuh bukan karena tidak ada
+     *
+     *
+     */
+    public function make_member (Request $request){}
+
+
     public function proses_register(Request $request)
     {
+
         $customMessageValidate = [
             'member_id.unique' => 'Id member sudah terdaftar',
             'member_id.required' => 'Tidak boleh kosong',
@@ -33,7 +46,7 @@ class RegisterUserController extends Controller
 
         $request->validate(
             [
-                'member_id' => 'required|numeric|unique:members,id_member',
+                'member_id' => 'required|exists:members,id_member',
                 'divisi_id' => 'required|exists:divisis,id_divisi',
                 'jabatan_id' => 'required|exists:jabatans,id_jabatan',
                 'password' => 'required|min:5|max:8',
@@ -48,7 +61,11 @@ class RegisterUserController extends Controller
 
         User::create($data_user_register);
 
+
         // Redirect ke halaman login setelah registrasi berhasil
-        return redirect()->route('auth.login')->with('success', 'Registrasi berhasil, Silakan login.');
+        return redirect()->route('auth.login')->with('success', 'Registrasi berhasil. Silakan login.');
     }
+
+
+
 }

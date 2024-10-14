@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CardShiftController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\Dashboard\DashboardController;
 use App\Http\Controllers\LoginUserController;
@@ -10,9 +11,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], fu
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'dash'])->name('admin.dashboard');
 
-Route::get('/shift', function () {
-    return view('Card.shift');
-})->name('shift');
+Route::get('/shift', [CardShiftController::class, 'cardView'])->name('shift');
 // Leaflet
 Route::get('/webcamp', function () {
     return view('Leaflet.webcam');
