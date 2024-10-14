@@ -20,6 +20,26 @@ class DataAbsenTMS extends BaseWidget
     protected static ?int $sort = 4;
     protected int | string | array $columnSpan = 'full';
 
+    private function getAddressFromCoordinates($latitude, $longitude)
+    {
+        $apiKey = 'AIzaSyDSHqADowuZnM0Uo_NaijCHhLLwFwq86pg'; // Ganti dengan API Key Anda
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$latitude},{$longitude}&key={$apiKey}";
+
+        $response = @file_get_contents($url); // Suppress errors with @
+        
+        if ($response === false) {
+            return 'Error retrieving address'; // Handle error
+        }
+
+        $data = json_decode($response, true);
+
+        if (isset($data['status']) && $data['status'] === 'OK') {
+            return $data['results'][0]['formatted_address'] ?? 'Alamat tidak ditemukan';
+        }
+
+        return 'Alamat tidak ditemukan';
+    }
+
     public function table(Table $table): Table
     {
         return $table
@@ -37,11 +57,16 @@ class DataAbsenTMS extends BaseWidget
                     ->badge()
                     ->label('Foto') // Display Photo
                     ->formatStateUsing(fn ($state) => 
-                        '<a href="' . $state . '" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">Lihat Foto</a>' // Create clickable link
+                        '<a href="' . $state . '" target="_blank" rel="noopener noreferrer" style="color: white;">Lihat Foto</a>' // Create clickable link
                     )
                     ->html(), // Enable HTML rendering
-                TextColumn::make('latitude')->label('Latitude'), // Display Latitude
-                TextColumn::make('longitude')->label('Longitude'), // Display Longitude
+                TextColumn::make('lattitude')
+                    ->badge() // Use badge for location
+                    ->label('Lihat Lokasi') // Display Location
+                    ->formatStateUsing(fn ($state, $record) => 
+                        '<a href="https://www.google.com/maps?q=' . $record->lattitude . ',' . $record->longtitude . '" target="_blank" rel="noopener noreferrer" style="color: white;">Lihat Lokasi</a>' // Create clickable link
+                    )
+                    ->html(), // Enable HTML rendering
                 TextColumn::make('status')
                     ->label('Status') // Display Status
                     ->badge() // Use badge for status
