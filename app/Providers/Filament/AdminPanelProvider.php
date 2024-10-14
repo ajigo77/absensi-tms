@@ -68,29 +68,29 @@ class AdminPanelProvider extends PanelProvider
                             ->icon('heroicon-o-home')
                             ->url(route('filament.admin.pages.dashboard'))
                     )
-                    ->group('Attendance Management', [
-                        NavigationItem::make('Office')
+                    ->group('menejemen TMS', [
+                        NavigationItem::make('Kantor')
                             ->icon('heroicon-o-building-office')
                             ->url(route('filament.admin.resources.offices.index')),
-                        NavigationItem::make('Permissions')
+                        NavigationItem::make('Jabatan')
                             ->icon('heroicon-o-key')
                             ->url(route('filament.admin.resources.permissions.index')),
                         NavigationItem::make('Shift')
                             ->icon('heroicon-o-clock')
                             ->url(route('filament.admin.resources.shifts.index')),
-                        NavigationItem::make('Users')
+                        NavigationItem::make('Karyawan')
                             ->icon('heroicon-o-users')
                             ->url(route('filament.admin.resources.users.index')),
                     ])
-                    ->group('Attendance Management', [
-                        NavigationItem::make('Schedule')
+                    ->group('menejemen Absensi', [
+                        NavigationItem::make('Jadwal')
                             ->icon('heroicon-o-calendar')
                             ->url(route('filament.admin.resources.schedules.index')),
-                        NavigationItem::make('Attendance')
+                        NavigationItem::make('Absensi')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
                     ])
-                    ->group('Management Izin TMS', [
+                    ->group('menejemen Izin TMS', [
                         NavigationItem::make('Izin Karyawan')
                             ->icon('heroicon-o-document-text')
                             ->url(route('filament.admin.resources.izinkaryawans.index')),
