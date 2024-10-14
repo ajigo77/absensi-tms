@@ -14,7 +14,7 @@ class Attendance extends Model
     protected $primaryKey = 'id_absen'; // Mengatur primary key
 
     protected $fillable = [
-        'user_id',
+        'member_id',
         'type',
         'shift_id',
         'status',
@@ -23,4 +23,9 @@ class Attendance extends Model
     ];
 
     public $timestamps = true; // Jika Anda menggunakan timestamps
+
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class, 'shift_id'); // Assuming you have a Shift model
+    }
 }

@@ -30,10 +30,10 @@ class AttendanceResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id_absen')->label('ID Absen'),
                 Tables\Columns\TextColumn::make('created_at')->label('Tanggal')->dateTime(),
-                Tables\Columns\TextColumn::make('user_id')->label('Pegawai'),
-                Tables\Columns\TextColumn::make('status')->label('Status'), // Pastikan kolom status ditambahkan
-                Tables\Columns\TextColumn::make('shift_id')->label('Waktu Datang'), // Pastikan kolom waktu datang ditambahkan
-                Tables\Columns\TextColumn::make('shift_id')->label('Waktu Pulang'), // Jika ada kolom untuk waktu pulang
+                Tables\Columns\TextColumn::make('shift.name')->label('Shift'), // Displaying the shift name
+                Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\TextColumn::make('arrival_time')->label('Waktu Datang'),
+                Tables\Columns\TextColumn::make('departure_time')->label('Waktu Pulang'),
             ])
             ->filters([
                 // Add filters if needed
