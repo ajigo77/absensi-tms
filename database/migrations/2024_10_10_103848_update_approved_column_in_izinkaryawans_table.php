@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cutikaryawans', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('izinkaryawans', function (Blueprint $table) {
+            $table->enum('approved', ['menunggu', 'disetujui', 'ditolak'])->change();
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cutikaryawans');
+        Schema::table('izinkaryawans', function (Blueprint $table) {
+            $table->string('approved')->change(); // Change back to string if needed
+        });
     }
 };

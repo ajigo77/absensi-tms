@@ -32,18 +32,14 @@ class OfficeResource extends Resource
                             ->required()
                             ->numeric()
                             ->minValue(1),
-                        View::make('filament.forms.components.leaflet-map')
+                        View::make('filament.forms.components.leaflet-map') // Pastikan ini sesuai dengan path
                             ->columnSpan('full'),
-                        TextInput::make('latitude')
+                        TextInput::make('lattitude')
                             ->required()
-                            ->numeric()
-                            ->minValue(-90)
-                            ->maxValue(90),
-                        TextInput::make('longitude')
+                            ->numeric(),
+                        TextInput::make('longtitude')
                             ->required()
-                            ->numeric()
-                            ->minValue(-180)
-                            ->maxValue(180),
+                            ->numeric(),
                     ])
                     ->columns(2)
             ]);
@@ -54,8 +50,8 @@ class OfficeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('latitude')->sortable(),
-                Tables\Columns\TextColumn::make('longitude')->sortable(),
+                Tables\Columns\TextColumn::make('lattitude')->sortable(),
+                Tables\Columns\TextColumn::make('longtitude')->sortable(),
                 Tables\Columns\TextColumn::make('radius')->sortable(),
             ])
             ->filters([

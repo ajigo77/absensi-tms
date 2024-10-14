@@ -10,6 +10,9 @@ class Shift extends Model
 {
     use HasFactory;
 
+    protected $table = 'shifts'; // Nama tabel
+    protected $primaryKey = 'id'; // Primary key
+
     protected $fillable = ['name', 'start_time', 'end_time'];
 
     protected $casts = [
@@ -39,5 +42,11 @@ class Shift extends Model
         } elseif (is_string($value)) {
             $this->attributes['end_time'] = $value;
         }
+    }
+
+    // Relasi ke model Absen
+    public function absens()
+    {
+        return $this->hasMany(Absen::class, 'shift_id');
     }
 }

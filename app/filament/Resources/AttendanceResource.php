@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AttendanceResource\Pages;
-use App\Filament\Resources\AttendanceResource\RelationManagers;
 use App\Models\Attendance;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AttendanceResource extends Resource
 {
@@ -23,7 +20,7 @@ class AttendanceResource extends Resource
     {
         return $form
             ->schema([
-                //
+                // Form fields can be added here if needed
             ]);
     }
 
@@ -31,10 +28,15 @@ class AttendanceResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id_absen')->label('ID Absen'),
+                Tables\Columns\TextColumn::make('created_at')->label('Tanggal')->dateTime(),
+                Tables\Columns\TextColumn::make('shift.name')->label('Shift'), // Displaying the shift name
+                Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\TextColumn::make('arrival_time')->label('Waktu Datang'),
+                Tables\Columns\TextColumn::make('departure_time')->label('Waktu Pulang'),
             ])
             ->filters([
-                //
+                // Add filters if needed
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -44,13 +46,6 @@ class AttendanceResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

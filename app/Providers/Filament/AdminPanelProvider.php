@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Red,
                 'gray' => Color::Zinc,
                 'info' => Color::Blue,
-                'primary' => Color::Red,
+                'primary' => Color::Emerald,
                 'success' => Color::Green,
                 'warning' => Color::Amber,
             ])
@@ -45,8 +45,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             
             ->middleware([
@@ -93,10 +91,10 @@ class AdminPanelProvider extends PanelProvider
                             ->url(route('filament.admin.resources.attendances.index')),
                     ])
                     ->group('Management Izin TMS', [
-                        NavigationItem::make('Izin')
+                        NavigationItem::make('Izin Karyawan')
                             ->icon('heroicon-o-document-text')
                             ->url(route('filament.admin.resources.izinkaryawans.index')),
-                        NavigationItem::make('Cuti')
+                        NavigationItem::make('Cuti Tahunan')
                             ->icon('heroicon-o-document-text')
                             ->url(route('filament.admin.resources.cutikaryawans.index')),
 

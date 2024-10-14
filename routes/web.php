@@ -13,6 +13,8 @@ use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveController;
+use App\Filament\Resources\AttendanceResource;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,3 +66,13 @@ Route::resource('shifts', ShiftController::class);
 Route::resource('schedules', ScheduleController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
+
+// Route::middleware(['auth'])->group(function () {
+//     AttendanceResource::routes();
+// });
+
+Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
+
+Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');
+
+Route::get('/view/{id}', [ViewController::class, 'show'])->name('view.show');
