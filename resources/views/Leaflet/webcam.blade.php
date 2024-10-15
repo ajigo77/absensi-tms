@@ -95,10 +95,10 @@
     <x-dashboard.footer></x-dashboard.footer>
     {{-- Javascript --}}
     <x-src.scriptjs></x-src.scriptjs>
-    @if ($error = Session::get('error'))
+    @if ($error = Session::has('error'))
         <script>
             Swal.fire({
-                title: "Upss",
+                title: "Oops!",
                 text: "{{ $error }}",
                 icon: "error"
             });

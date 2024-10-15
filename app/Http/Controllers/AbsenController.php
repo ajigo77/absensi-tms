@@ -32,16 +32,19 @@ class AbsenController extends Controller
             File::put(public_path('webcam/') . $imageName, base64_decode($imageData));
         }
 
-        $user = auth()->user(); // atau $user = User::find($request->user_id);
+        // Ambil waktu saat ini
+        $waktuSaatIni = Carbon::now();
 
-        // Ambil waktu created_at dari database
-        $createdTime = Carbon::parse($user->created_at); // Ambil field created_at dari database
-        $limitTime = Carbon::createFromTime(8, 5, 0); // Tentukan batas waktu 08:05
+        // Tentukan batas waktu (08:05:00)
+        $batasWaktu = Carbon::createFromTime(8, 5, 0);
 
-        if ($createdTime->greaterThan($limitTime)) {
-            $status = 'Terlambat';
+        // Logika untuk menentukan status
+        if ($waktuSaatIni->lessThanOrEqualTo($batasWaktu)) {
+            // Jika waktu absensi sebelum atau sama dengan batas waktu
+            $status = 'masuk on time';
         } else {
-            $status = 'Tepat waktu';
+            // Jika waktu absensi setelah batas waktu
+            $status = 'terlambat';
         }
 
         $absen = new Absen();
@@ -51,13 +54,13 @@ class AbsenController extends Controller
         $absen->foto = isset($imageName) ? $imageName : null; // Menyimpan nama file gambar
         $absen->lattitude = $request->lattitude;
         $absen->longtitude = $request->longtitude;
-        $absen->status = 'Tepat waktu';
+        $absen->status = $status;
         $absen->save();
 
         if ($absen->save()) {
             return redirect()->route('shift')->with('success', 'Absen berhasil disimpan!');
         } else {
-            dd('Error during saving');
+            return redirect()->route('absensi.karyawan')->with('error', 'Coba periksa kembali data yang dimasukkan dan kirim ulang');
         }
     }
 

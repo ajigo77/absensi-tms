@@ -13,10 +13,10 @@ class Shift extends Model
     protected $table = 'shifts';
     protected $fillable = ['name', 'start_time', 'end_time'];
 
-    protected $casts = [
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'start_time' => 'datetime',
+    //     'end_time' => 'datetime',
+    // ];
 
     public function setStartTimeAttribute($value)
     {

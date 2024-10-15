@@ -47,7 +47,7 @@
                         </button>
                     </div>
                     <div x-show="openProfile"
-                        class="absolute right-0 z-100 mt-2 w-48 origin-top-right rounded-md bg-white-100 py-1 shadow-lg ring-1 ring-gray-300 ring-opacity-5 focus:outline-none p-2"
+                        class="absolute right-0 z-100 mt-2 w-48 origin-top-right rounded-md bg-white-100 py-2 shadow-lg ring-1 ring-gray-300 ring-opacity-5 focus:outline-none px-2"
                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
 
                         <a href="#"

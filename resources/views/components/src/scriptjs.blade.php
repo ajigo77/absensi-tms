@@ -207,7 +207,7 @@
                     contentType: false, // Agar tidak mengubah tipe konten
                     success: function(response) {
                         if (response.success) {
-                            console.log('Data berhasil disimpan.');
+                            console.log('Data berhasil disimpan');
                         }
                     },
                     error: function(xhr) {
