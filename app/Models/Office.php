@@ -14,6 +14,5 @@ class Office extends Model
         'latitude',
         'longitude',
         'radius',
-        // 'location', // Hapus jika tidak digunakan
     ];
 }

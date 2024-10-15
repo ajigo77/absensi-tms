@@ -104,12 +104,12 @@ class DataAbsenTMS extends BaseWidget
                 Filter::make('created_at')
                     ->form([
                         DatePicker::make('created_from')
-                            ->label('Created from') // Label for start date
+                            ->label('Dari Tanggal') // Label for start date
                             ->placeholder('dd/mm/yyyy'), // Placeholder for clarity
                         DatePicker::make('created_until')
-                            ->label('Created until') // Label for end date
+                            ->label('Sampai Tanggal') // Label for end date
                             ->default(now()), // Default to current date
-                    ])
+                    ]) 
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
@@ -121,7 +121,7 @@ class DataAbsenTMS extends BaseWidget
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     }),
-            ], layout: FiltersLayout::AboveContentCollapsible) // Set filters layout to above content and collapsible
+            ])
             ->bulkActions([
                 // Define your bulk actions here
             ]);

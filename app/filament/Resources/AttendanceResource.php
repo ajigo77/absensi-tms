@@ -9,6 +9,10 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Log;
+use App\Filament\Actions\Exports\ExportAction;
+use App\Filament\Exports\AttendanceExporter;
+use Filament\Tables\Actions\ExportAction as FilamentExportAction;
 
 class AttendanceResource extends Resource
 {
@@ -26,9 +30,11 @@ class AttendanceResource extends Resource
 
     public static function table(Table $table): Table
     {
+        // Use the query builder directly without calling get()
         return $table
+            ->query(Attendance::with(['shift', 'user'])) // Eager load relationships
             ->columns([
-                Tables\Columns\TextColumn::make('id_absen')->label('ID Absen'),
+                Tables\Columns\TextColumn::make('user.name')->label('Nama'), // Fetch the user's name
                 Tables\Columns\TextColumn::make('created_at')->label('Tanggal')->dateTime(),
                 Tables\Columns\TextColumn::make('shift.name')->label('Shift'), // Displaying the shift name
                 Tables\Columns\TextColumn::make('status')->label('Status'),
@@ -40,6 +46,9 @@ class AttendanceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                FilamentExportAction::make()->exporter(AttendanceExporter::class),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
