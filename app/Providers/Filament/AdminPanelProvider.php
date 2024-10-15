@@ -79,9 +79,6 @@ class AdminPanelProvider extends PanelProvider
                         NavigationItem::make('Shift')
                             ->icon('heroicon-o-clock')
                             ->url(route('filament.admin.resources.shifts.index')),
-                        NavigationItem::make('Karyawan')
-                            ->icon('heroicon-o-users')
-                            ->url(route('filament.admin.resources.users.index')),
                     ])
                     ->group('menejemen Absensi', [
                         NavigationItem::make('Jadwal')
