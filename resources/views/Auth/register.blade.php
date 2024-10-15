@@ -3,14 +3,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>TMS | Login</title><!--begin::Primary Meta Tags-->
+    <title>Register</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="AdminLTE 4 | Login Page">
-    <meta name="author" content="ColorlibHQ">
-    <meta name="description"
-        content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS.">
-    <meta name="keywords"
-        content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard">
     <!--end::Primary Meta Tags--><!--begin::Fonts-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
         integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
@@ -26,13 +20,12 @@
     @vite('resources/css/app.css')
     <style>
         body {
-            background-image: url('./image/src/hd-bd.jpg');
+            background: linear-gradient(to bottom right, #d30f0f, #ffacac);
             background-size: cover;
             background-position: center;
             z-index: -100;
             position: relative;
             background-repeat: no-repeat;
-            backdrop-filter: blur(5px);
         }
     </style>
 </head>
@@ -40,24 +33,79 @@
 <body class="login-page">
     <div class="login-box">
         <div class="card">
-            <div class="card-body login-card-body">
+            <div class="card-body login-card-body rounded">
                 <div class="login-logo flex justify-center mt-3 mb-5"> <img
-                        src="{{ asset('./tdash/dist/assets/img/logo-company/tms.png') }}" alt="Logo TMS" width="60"
+                        src="{{ asset('./logo-company/tms.png') }}" alt="Logo TMS" width="60"
                         style="background-blend-mode: color-burn; border-radius: 100px;">
                 </div> <!-- /.login-logo -->
-                <form action="../index3.html" method="post">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Nama Lengkap">
-                        <div class="input-group-text">
-                            <span class="bi bi-person"></span>
+                <form action="{{ route('proses.register') }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Id Member" name="member_id"
+                                value="{{ old('member_id') }}">
+                            <div class="input-group-text">
+                                <span class="bi bi-hash"></span>
+                            </div>
                         </div>
+                        @error('member_id')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3"> <input type="email" class="form-control" placeholder="Email">
-                        <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <select class="form-control" name="divisi_id">
+                                <option value="">Pilih Divisi</option>
+
+                                @forelse ($devisi as $dvs )
+                                <option value="{{ $dvs->id_divisi}}" {{ old('divisi_id') == $dvs->id_divisi ? 'selected' : '' }}>
+                                    {{ $dvs->nama }}
+                                </option>
+                                @empty
+                                <option value="">
+                                    Tidak Ada Devisi
+                                </option>
+                                @endforelse
+                            </select>
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
+                        </div>
+                        @error('divisi_id')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="input-group mb-3"> <input type="password" class="form-control" placeholder="Password">
-                        <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
-                    </div> <!--begin::Row-->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <select class="form-control" name="jabatan_id">
+                                <option value="">Pilih Jabatan</option>
+                                @forelse ($jabatan as $jbt)
+                                <option value="{{ $jbt->id_jabatan }}" {{ old('jabatan_id') == $jbt->id_jabatan ? 'selected' : '' }}>
+                                    {{ $jbt->nama }}
+                                </option>
+                            @empty
+                                <option value="">
+                                    Tidak ada jabatan
+                                </option>
+                            @endforelse
+                            </select>
+                            <div class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </div>
+                        </div>
+                        @error('jabatan_id')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group"> <input type="password" class="form-control" placeholder="Password"
+                                name="password">
+                            <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
+                        </div>
+                        @error('password')
+                            <span class="text-red-50">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="row">
                         <div class="flex justify-between items-center">
                             <div class="form-check">
@@ -66,7 +114,6 @@
                                     Ingatkan Saya
                                 </label>
                             </div>
-
                             <a href="{{ route('auth.login') }}" class="text-sm text-blue-500 hover:underline">
                                 Sudah punya akun?
                             </a>

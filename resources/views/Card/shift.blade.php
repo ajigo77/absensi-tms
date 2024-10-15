@@ -5,43 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Shift Selection Cards</title>
-    <link rel="shortcut icon" href="https://cdn.worldvectorlogo.com/logos/gt-r.svg" type="image/x-icon">
+    <title>Absensi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
+        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
+    <!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css"
+        integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous">
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
+        integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
+    <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
+    <!-- Alpine Js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    {{-- Icons Bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    @vite('resources/css/app.css')
 </head>
 
-<body class="bg-black h-screen flex items-center justify-center">
+<body class="">
+    {{-- Navbar --}}
+    <div class="wrapper">
+        {{-- Navbar --}}
+        <x-navbar.navbar></x-navbar.navbar>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-14 max-w-5xl w-full p-4">
+        <!-- Main Content -->
+        <x-card-component.content-card></x-card-component.content-card>
 
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-            <img class="w-full h-60 object-cover" src="{{ asset('./image/src/beautiful_sunrise.jpg') }}"
-                alt="Shift Pagi">
-            <div class="p-4">
-                <h2 class="text-xl font-bold">Shift Pagi</h2>
-                <p class="text-gray-700 mt-2">dari pukul 08:00 hingga
-                    16:00.</p>
-            </div>
-            <div class="p-4 border-t border-gray-200">
-                <button class="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800 w-full">Pilih Shift
-                    Pagi</button>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-            <img class="w-full h-60 object-cover" src="{{ asset('./image/src/sunset.jpeg') }}" alt="Shift Sore">
-            <div class="p-4">
-                <h2 class="text-xl font-bold">Shift Sore</h2>
-                <p class="text-gray-700 mt-2">Bekerja dari pukulini 16:00 hingga
-                    00:00.</p>
-            </div>
-            <div class="p-4 border-t border-gray-200">
-                <button class="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800 w-full">Pilih Shift
-                    Sore</button>
-            </div>
-        </div>
-
+        {{-- Footer --}}
+        <x-dashboard.footer></x-dashboard.footer>
     </div>
-
 </body>
-
 </html>
