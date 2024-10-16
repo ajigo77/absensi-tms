@@ -22,7 +22,7 @@ class DataAbsenTMS extends BaseWidget
 
     private function getAddressFromCoordinates($latitude, $longitude)
     {
-        $apiKey = 'AIzaSyDSHqADowuZnM0Uo_NaijCHhLLwFwq86pg'; // Ganti dengan API Key Anda
+        $apiKey = env('GOOGLE_MAPS_API_KEY'); // Ambil API Key dari .env
         $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$latitude},{$longitude}&key={$apiKey}";
 
         $response = @file_get_contents($url); // Suppress errors with @

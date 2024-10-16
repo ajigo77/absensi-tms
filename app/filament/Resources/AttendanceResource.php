@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AttendanceResource\Pages;
-use App\Models\Attendance;
+use App\Models\Attendance; // Pastikan Attendance diimpor dengan benar
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
