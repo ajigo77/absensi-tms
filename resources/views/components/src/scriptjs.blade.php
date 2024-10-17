@@ -1,5 +1,8 @@
 <script>
     const video = document.querySelector("#video");
+    const imageIlustrator = document.querySelector("#img-ilustrator");
+    const infoLocation = document.querySelector("#info-location");
+    const cardLocation = document.querySelector("#card-location");
     const btnCapture = document.querySelector("#capture");
     const canvas = document.getElementById('canvas');
     const coverMap = document.getElementById("map");
@@ -7,7 +10,8 @@
     const latitudeInput = document.getElementById("lattitude");
     const longitudeInput = document.getElementById("longtitude");
 
-    document.getElementById('canvas').style.display = 'none';
+    canvas.style.display = 'none';
+    video.style.display = 'none';
 
     function initializeWebcam() {
         const constraints = {
@@ -24,10 +28,9 @@
                     video.srcObject = mediaStream;
                     video.onloadedmetadata = function(e) {
                         video.play();
-                        const classVideo = document.querySelector('.border-4.border-gray-10.border-dashed');
                         if (video.play()) {
-                            document.getElementById('place').style.display = 'none';
-                            classVideo.classList.remove('border-4', 'border-gray-10', 'border-dashed');
+                            imageIlustrator.style.display = 'none';
+                            video.style.display = 'block';
                             video.style.borderRadius = '8px';
                             video.style.border = 'none';
                             video.style.outline = 'none';
@@ -57,9 +60,10 @@
         const context = canvas.getContext('2d');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+        imageIlustrator.style.display = 'none';
         canvas.style.display = 'block';
         canvas.style.borderRadius = '8px';
-        document.querySelector('#video').style.display = 'none';
+        video.style.display = 'none';
 
         Swal.fire({
             title: "Sukses",
@@ -100,13 +104,16 @@
     $('#open-cam').on('click', function() {
         // menjalankan fungsi
         initializeWebcam();
+        video.classList.add('rounded-bottom');
+        cardLocation.style.height = '400px';
+        cardLocation.style.padding = '10px';
+
         btnCapture.disabled = false;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
                 showMap(latitude, longitude);
-
             }, function(error) {
                 console.log(": ", error);
                 Swal.fire({
@@ -130,16 +137,16 @@
 
     });
 
-    // style ketika tombol buka camera belum di klik
-    if (btnCapture.disabled && tombolSubmit.disabled) {
-        // Untuk tombol ambil gambar
-        btnCapture.classList.add('bg-red-50');
-        btnCapture.style.cursor = 'not-allowed';
+    // // style ketika tombol buka camera belum di klik
+    // if (btnCapture.disabled && tombolSubmit.disabled) {
+    //     // Untuk tombol ambil gambar
+    //     btnCapture.classList.add('not-allowed');
+    //     btnCapture.style.cursor = 'not-allowed';
 
-        // Untuk tombol submit
-        tombolSubmit.classList.add('bg-red-50');
-        tombolSubmit.style.cursor = 'not-allowed';
-    }
+    //     // Untuk tombol submit
+    //     tombolSubmit.classList.add('not-allowed');
+    //     tombolSubmit.style.cursor = 'not-allowed';
+    // }
 
     // Fungsi untuk mengambil gambar
     btnCapture.addEventListener('click', function() {
@@ -157,6 +164,9 @@
         mapDiv.style.display = 'block';
         mapDiv.style.borderRadius = '8px';
 
+        // hide teks lokasi anda
+        infoLocation.style.display = 'none';
+
         // Inisialisasi peta
         const map = L.map('map').setView([lat, lon], 15);
 
@@ -170,8 +180,8 @@
         }).addTo(map);
 
         const circle = L.circle([latLokasiKantor, longLokasiKantor], {
-            color: 'red',
-            fillColor: '#f03',
+            color: '#fff',
+            fillColor: '#d71313',
             fillOpacity: 0.5,
             radius: 400
         }).addTo(map);

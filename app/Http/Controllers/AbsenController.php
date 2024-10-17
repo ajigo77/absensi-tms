@@ -36,7 +36,7 @@ class AbsenController extends Controller
         $waktuSaatIni = Carbon::now();
 
         // Tentukan batas waktu (08:05:00)
-        $batasWaktu = Carbon::createFromTime(8, 5, 0);
+        $batasWaktu = Carbon::createFromTime(8, 5);
 
         // Logika untuk menentukan status
         if ($waktuSaatIni->lessThanOrEqualTo($batasWaktu)) {
@@ -58,9 +58,9 @@ class AbsenController extends Controller
         $absen->save();
 
         if ($absen->save()) {
-            return redirect()->route('shift')->with('success', 'Absen berhasil disimpan!');
+            return redirect()->route('absen')->with('success', 'Absen berhasil disimpan!');
         } else {
-            return redirect()->route('absensi.karyawan')->with('error', 'Coba periksa kembali data yang dimasukkan dan kirim ulang');
+            return redirect()->route('webcamp.absen')->with('error', 'Coba periksa kembali data yang dimasukkan dan kirim ulang');
         }
     }
 
@@ -68,5 +68,22 @@ class AbsenController extends Controller
     {
         $users = User::with('Jabatan', 'Devisi', 'Member')->latest()->paginate(5);
         return view('Test.test', compact('users'));
+    }
+
+    public function absen(Request $request){
+
+        // $absens = Absen::orderBy('created_at','desc')->paginate(5);
+        $absens = new Absen;
+
+        if($request->get('search')){
+            $absens = $absens->where('type','LIKE','%' . $request->get('search') . '%')
+            ->orWhere('status','LIKE','%' . $request->get('search') . '%');
+        }
+        $absens = $absens->get();
+        return view('Test.absen', compact('absens','request'));
+    }
+
+    public function webcamp(){
+        return view('Test.webcam');
     }
 }

@@ -16,7 +16,7 @@ class FormKaryawanController extends Controller
         $jabatan = Jabatan::all();
         $divisi = Devisi::all();
         $jenis_izin = Jenisizin::all();
-        return view('Pengajuanizin.izinkaryawan', compact('jabatan', 'divisi', 'jenis_izin'));
+        return view('Test.form-izin', compact('jabatan', 'divisi', 'jenis_izin'));
     }
     public function post_izin_karyawan(Request $request)
     {
@@ -68,7 +68,7 @@ class FormKaryawanController extends Controller
     {
         $jabatan = Jabatan::all();
         $divisi = Devisi::all();
-        return view('Pengajuanizin.cutikaryawan', compact('jabatan', 'divisi'));
+        return view('Test.form-cuti', compact('jabatan', 'divisi'));
     }
 
     public function post_cuti_karyawan(Request $request){
@@ -102,5 +102,16 @@ class FormKaryawanController extends Controller
         } else {
             return redirect()->route('cuti.karyawan')->with('error', 'Ada kesalahan dalam pengajuan cuti Anda. Coba periksa kembali data yang dimasukkan dan kirim ulang');
         }
+    }
+
+    public function notifIzinView(){
+        return view('Test.notif-form-izin');
+    }
+    public function notifCutiView(){
+        return view('Test.notif-form-cuti');
+    }
+
+    public function cardFormKaryawan(){
+        return view('Test.card-form-karyawan');
     }
 }

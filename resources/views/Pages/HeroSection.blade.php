@@ -96,9 +96,9 @@
                         secara real-time di mana pun berada.
                     </p>
                     <div class="mt-10 flex items-center justify-center">
-                        <a href="{{ route('shift') }}"
+                        <a href="{{ route('index') }}"
                             class="rounded-md bg-red-100 px-3.5 py-2.5 text-sm font-semibold text-white-100 shadow-sm hover:bg-red-50">
-                            Mulailah
+                            Masuk ke beranda
                         </a>
                     </div>
                 </div>

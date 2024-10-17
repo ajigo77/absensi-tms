@@ -1,139 +1,105 @@
 <!DOCTYPE html>
-<html lang="en"> <!--begin::Head-->
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Login</title><!--begin::Primary Meta Tags-->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="AdminLTE 4 | Login Page">
-    <meta name="author" content="ColorlibHQ">
-    <meta name="description"
-        content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS.">
-    <meta name="keywords"
-        content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard">
-    <!--end::Primary Meta Tags--><!--begin::Fonts-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
-    <!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css"
-        integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
-        integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
-    <link rel="shortcut icon" href="{{ asset('./logo-company/favicon-tms.png') }}" type="image/x-icon">
-    @vite('resources/css/app.css')
-    <style>
-        body {
-            background: linear-gradient(to bottom right, #d30f0f, #ffacac);
-            background-size: cover;
-            background-position: center;
-            z-index: -100;
-            position: relative;
-            background-repeat: no-repeat;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <!-- Component Style -->
+    <x-src.link-style></x-src.link-style>
+
+    {{-- MDBOOTSTRAP --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.min.css" rel="stylesheet" />
 </head>
 
-<body class="login-page">
-    <div class="login-box">
-        <div class="card">
-            <div class="card-body login-card-body rounded">
-                <div class="login-logo flex justify-center mt-3 mb-5"> <img
-                        src="{{ asset('./logo-company/tms.png') }}" alt="Logo TMS" width="60"
-                        style="background-blend-mode: color-burn; border-radius: 100px;">
-                </div> <!-- /.login-logo -->
-                <form action="{{ route('proses.login') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <div class="input-group"> <input type="text" class="form-control" placeholder="Id Member"
-                                name="member_id">
-                            <div class="input-group-text"> <span class="bi bi-hash"></span> </div>
-                        </div>
-                        @error('member_id')
-                            <span class="text-red-50 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <div class="input-group"> <input type="password" class="form-control" placeholder="Password"
-                                name="password">
-                            <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
-                        </div> <!--begin::Row-->
-                        @error('password')
-                            <span class="text-red-50 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="row">
-                        <div class="flex justify-between items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-                                    name="remember">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Ingatkan Saya
-                                </label>
+<body>
+    <section class="vh-100" style="background-color: #e1f0ff;">
+        <div class="container py-3 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="{{ asset('image/src/login-ilustrasi.png') }}" alt="login form"
+                                    class="img-fluid mt-5" style="border-radius: 1rem 0 0 1rem;" />
                             </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <form action="{{ route('proses.login') }}" method="POST">
+                                        @csrf
+                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                            <img src="{{ asset('logo-company/tms.png') }}" alt="Logo Company"
+                                                width="40" class="me-3">
+                                            <span class="fs-4 fw-bold mb-0">TMS</span>
+                                        </div>
+                                        <h5 class="fw-normal mb-3 pb-3">Masuk ke akun Anda
+                                            akun
+                                        </h5>
+                                        <div>
+                                            @error('member_id')
+                                                <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
+                                                <!-- Menambahkan margin top -->
+                                            @enderror
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="text" name="member_id"
+                                                    class="form-control form-control-lg" />
+                                                <label class="form-label" for="form2Example17">Id Member</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            @error('password')
+                                                <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
+                                                <!-- Menambahkan margin top -->
+                                            @enderror
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="password" name="password"
+                                                    class="form-control form-control-lg" />
+                                                <label class="form-label" for="form2Example27">Password</label>
+                                            </div>
+                                        </div>
 
-                            <a href="{{ route('auth.register') }}" class="text-sm text-blue-500 hover:underline">
-                                Belum punya akun?
-                            </a>
-                        </div>
-                        <div class="mt-2">
-                            <div class="d-grid gap-2"> <button type="submit" class="btn btn-danger">Login</button>
+                                        <div class="pt-1 mb-4">
+                                            <button class="btn btn-danger btn-lg btn-block" type="submit">Login
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <p class="mb-5 pb-lg-2">
+                                        Belum punya
+                                        akun?
+                                        <a href="{{ route('auth.register') }}" style="color: #393f81;">Register
+                                        </a>
+                                    </p>
+                                </div>
                             </div>
-                        </div> <!-- /.col -->
-                    </div> <!--end::Row-->
-                    {{-- <span class="flex text-center justify-center mt-3">Or</span>
-                    <a href="#"
-                        class="flex items-center justify-center w-full px-4 py-2 mt-3 bg-gray-100 hover:bg-gray-50 hover:transition rounded-lg border border-gray-50">
-                        <img src="{{ asset('./image/src/google.png') }}" alt="Google Logo" class="w-6 h-6 mr-3">
-                        <span class="text-sm font-medium text-dark-50">Login with Google</span>
-                    </a> --}}
-                </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-        @include('components.script')
+    </section>
+    {{-- Component Script --}}
+    <x-src.link-script></x-src.link-script>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script>
+    @if ($pesan_error = Session::get('failed'))
         <script>
-            const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
-            const Default = {
-                scrollbarTheme: "os-theme-light",
-                scrollbarAutoHide: "leave",
-                scrollbarClickScroll: true,
-            };
-            document.addEventListener("DOMContentLoaded", function() {
-                const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-                if (
-                    sidebarWrapper &&
-                    typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
-                ) {
-                    OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                        scrollbars: {
-                            theme: Default.scrollbarTheme,
-                            autoHide: Default.scrollbarAutoHide,
-                            clickScroll: Default.scrollbarClickScroll,
-                        },
-                    });
-                }
+            Swal.fire({
+                title: "Gagal",
+                text: "{{ $pesan_error }}",
+                icon: "error"
             });
         </script>
-        @if($pesan_error = Session::get('failed'))
-            <script>
-                Swal.fire({
-                    title: "Gagal",
-                    text: "{{ $pesan_error }}",
-                    icon: "error"
-                });
-            </script>
-        @endif
-        @if($success_register = Session::get('success'))
-            <script>
-                Swal.fire({
-                    title: "Sukses",
-                    text: "{{ $success_register }}",
-                    icon: "success"
-                });
-            </script>
-        @endif
+    @endif
+    @if ($success_register = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: "Sukses",
+                text: "{{ $success_register }}",
+                icon: "success"
+            });
+        </script>
+    @endif
 </body>
+
 </html>

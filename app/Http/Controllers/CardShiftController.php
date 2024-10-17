@@ -17,8 +17,9 @@ class CardShiftController extends Controller
 
         // Lakukan perulangan untuk setiap card untuk mengecek status absensi
         foreach ($cards as $card) {
-            $awalWaktu = Carbon::createFromFormat('H:i:s', $card->start_time);
-            $akhirWaktu = Carbon::createFromFormat('H:i:s', $card->end_time);
+
+            $awalWaktu = Carbon::parse($card->start_time)->format('H:i');
+            $akhirWaktu = Carbon::parse($card->end_time)->format('H:i');
 
             // Jika waktu sekarang sebelum start_time, belum bisa absen
             if ($waktuSaatIni->lt($awalWaktu)) {
@@ -37,6 +38,6 @@ class CardShiftController extends Controller
             }
         }
 
-        return view('Card.shift', ['cards' => $cards]);
+        return view('Test.shift', ['cards' => $cards]);
     }
 }
