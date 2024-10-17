@@ -9,6 +9,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\DateFilter; 
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Filters\Filter;
 
 class AttendanceResource extends Resource
 {
@@ -40,9 +45,6 @@ class AttendanceResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Waktu Datang')
                     ->dateTime('H:i:s'),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

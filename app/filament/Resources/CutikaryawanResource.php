@@ -68,7 +68,17 @@ class CutikaryawanResource extends Resource
                     'ditolak' => 'danger', // Red
                     'default' => 'secondary', // Gray for unknown status
                 ]),
-        ])
+            ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('approved')
+                    ->label('Status Persetujuan')
+                    ->options([
+                        'menunggu' => 'Menunggu Persetujuan',
+                        'disetujui' => 'Sudah Disetujui',
+                        'ditolak' => 'Ditolak',
+                    ])
+                    ->default('menunggu'), // Prioritaskan yang belum di-approve
+            ])
             ->actions([
                 Tables\Actions\Action::make('view') // Aksi untuk melihat detail
                     ->action(function ($record) {

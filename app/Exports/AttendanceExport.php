@@ -8,12 +8,19 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class AttendanceExport implements FromCollection, WithHeadings
 {
+    protected $attendances;
+
+    public function __construct($attendances)
+    {
+        $this->attendances = $attendances;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Attendance::with(['user', 'shift'])->get(); // Ambil data attendance dengan relasi
+        return collect($this->attendances);
     }
 
     public function headings(): array

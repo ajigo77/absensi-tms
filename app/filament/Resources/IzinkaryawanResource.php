@@ -42,12 +42,14 @@ class IzinkaryawanResource extends Resource
                     ->label('Status Persetujuan')
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
+                        '0' => 'Menunggu Persetujuan', // Status 0
                         'menunggu' => 'Menunggu Persetujuan',
                         'disetujui' => 'Sudah Disetujui',
                         'ditolak' => 'Ditolak',
                         default => 'Tidak Diketahui',
                     })
                     ->colors([
+                        '0' => 'warning', // Warna untuk status 0
                         'menunggu' => 'warning', // Yellow
                         'disetujui' => 'success', // Green
                         'ditolak' => 'danger', // Red
@@ -55,7 +57,14 @@ class IzinkaryawanResource extends Resource
                     ]),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('approved')
+                    ->label('Status Persetujuan')
+                    ->options([
+                        '0' => 'Menunggu Persetujuan', // Status 0
+                        'disetujui' => 'Sudah Disetujui',
+                        'ditolak' => 'Ditolak',
+                    ])
+                    ->default('0'), // Prioritaskan yang belum di-approve
             ])
             ->actions([
                 Tables\Actions\Action::make('view') // Action to view details

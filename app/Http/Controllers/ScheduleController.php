@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Schedule;
 
 class ScheduleController extends Controller
 {
@@ -18,7 +19,17 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-        // Logic to store a newly created schedule in storage
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'office' => 'required|string|max:255',
+            'wfa' => 'boolean',
+            'shift_start' => 'required|date_format:H:i',
+            'shift_end' => 'required|date_format:H:i',
+        ]);
+
+        Schedule::create($request->all());
+
+        return redirect()->route('schedules.index')->with('success', 'Schedule created successfully.');
     }
 
     public function show($id)
