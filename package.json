@@ -15,12 +15,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-<<<<<<< HEAD
         "@material-tailwind/html": "^2.3.2",
         "leaflet": "^1.9.4"
-=======
-        "leaflet": "^1.9.4",
-        "signature_pad": "^5.0.3"
->>>>>>> Senj
     }
 }

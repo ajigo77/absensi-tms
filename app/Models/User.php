@@ -20,12 +20,7 @@ class User extends Authenticatable
         'member_id',
         'password',
         'jabatan_id',
-<<<<<<< HEAD
         'divisi_id',
-=======
-        'status',
-        'name', // Add 'name' if not already present
->>>>>>> Senj
     ];
 
     /**

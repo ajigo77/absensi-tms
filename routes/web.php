@@ -15,14 +15,9 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CardShiftController;
 use App\Http\Controllers\FormKaryawanController;
 use App\Http\Controllers\LeaveController;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostAbsensiController;
 use App\Models\Absen;
-=======
-use App\Filament\Resources\AttendanceResource;
-use App\Http\Controllers\ViewController;
->>>>>>> Senj
 
 /*
 |--------------------------------------------------------------------------
@@ -81,17 +76,5 @@ Route::resource('schedules', ScheduleController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
 
-<<<<<<< HEAD
 require __DIR__ . '\Auth\auth.php';
 require __DIR__ . '\Uploaded\upload.php';
-=======
-// Route::middleware(['auth'])->group(function () {
-//     AttendanceResource::routes();
-// });
-
-Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
-
-Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');
-
-Route::get('/view/{id}', [ViewController::class, 'show'])->name('view.show');
->>>>>>> Senj

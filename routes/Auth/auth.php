@@ -10,11 +10,14 @@ use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\FormKaryawanController;
 use Illuminate\Support\Facades\Auth;
 
+
+Route::get('/list-absen', [AbsenController::class, 'absen'])->name('absen');
+
 // Middleware
 Route::middleware(['auth'])->group(function () {
     // Maka Semua route di sini harus login dulu
     Route::get('/index', [MainPageController::class, 'index'])->name('index');
-    Route::get('/list-absen', [AbsenController::class, 'absen'])->name('absen');
+    
     Route::get('/card-shift-absen', [CardShiftController::class, 'cardView'])->name('card.shift');
 
     // Form untuk kebutuhan karyawan

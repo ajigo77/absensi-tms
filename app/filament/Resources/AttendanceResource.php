@@ -9,20 +9,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-<<<<<<< Updated upstream
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\DateFilter; 
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\Filter;
-=======
-use Illuminate\Support\Facades\Log;
-use App\Filament\Actions\Exports\ExportAction;
-use App\Filament\Exports\AttendanceExporter;
-use Filament\Tables\Actions\ExportAction as FilamentExportAction;
-use Filament\Notifications\Notification;
-use Illuminate\Support\Str;
->>>>>>> Stashed changes
 
 class AttendanceResource extends Resource
 {

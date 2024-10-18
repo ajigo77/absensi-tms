@@ -13,19 +13,9 @@ class Absen extends Model
     protected $table = 'absens';
     protected $primaryKey = 'id_absen'; // Ensure this matches the column name in the database
 
-<<<<<<< HEAD
     protected $fillable = ['user_id', 'type', 'shift_id', 'foto', 'lattitude', 'longtitude', 'status', 'member_id'];
 
     // Tambahkan metode untuk mengambil data
-=======
-    // Relasi ke model Shift
-    public function shift()
-    {
-        return $this->belongsTo(Shift::class, 'shift_id'); // Ensure 'shift_id' is correct
-    }
-
-    // Method to get attendance statistics
->>>>>>> Senj
     public static function getStats()
     {
         $today = Carbon::today();
@@ -41,14 +31,8 @@ class Absen extends Model
         ];
     }
 
-<<<<<<< HEAD
     public function member()
     {
         return $this->belongsTo(Member::class, 'member_id', 'id_member');
-=======
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id'); // Ensure 'user_id' is correct
->>>>>>> Senj
     }
 }

@@ -9,7 +9,6 @@ class Cutikaryawan extends Model
 {
     use HasFactory;
 
-<<<<<<< HEAD
     protected $table = 'cutikaryawans';
 
     protected $fillable = [
@@ -18,18 +17,5 @@ class Cutikaryawan extends Model
         'jabatan',
         'tanggal_cuti',
         'alasan'
-=======
-    protected $fillable = [
-        'nama_karyawan', // Nama Karyawan
-        'divisi', // Divisi
-        'jabatan', // Jabatan
-        'tanggal_cuti', // Tanggal Cuti
-        'alasan', // Alasan
-        'approved', // Status Persetujuan
-    ];
-
-    protected $casts = [
-        'tanggal_cuti' => 'date', // Tanggal Cuti
->>>>>>> Senj
     ];
 }

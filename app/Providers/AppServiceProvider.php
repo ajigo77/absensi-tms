@@ -21,12 +21,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-<<<<<<< HEAD
-
-=======
-        if (!Type::hasType('enum')) {
-            Type::addType('enum', 'Doctrine\DBAL\Types\StringType');
-        }
->>>>>>> Senj
     }
 }

@@ -10,16 +10,11 @@ use App\Models\Izinkaryawans;
 use App\Models\Jenisizin;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth; // Untuk mengambil user yang sedang login
 use Carbon\Carbon;
-=======
-use Carbon\Carbon;
-
->>>>>>> Senj
 class AbsenController extends Controller
 {
     public function getStats(): JsonResponse

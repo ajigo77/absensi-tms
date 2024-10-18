@@ -10,13 +10,7 @@ class Shift extends Model
 {
     use HasFactory;
 
-<<<<<<< HEAD
     protected $table = 'shifts';
-=======
-    protected $table = 'shifts'; // Nama tabel
-    protected $primaryKey = 'id'; // Primary key
-
->>>>>>> Senj
     protected $fillable = ['name', 'start_time', 'end_time'];
 
     // protected $casts = [
