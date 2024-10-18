@@ -6,6 +6,12 @@ use App\Models\Attendance;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
+use Filament\Notifications\Notification;
+use Filament\Notifications\NotificationAdminProvider; 
+use Illuminate\Support\Str; // Import Str facade for string manipulation
+use Illuminate\Notifications\Notification as IlluminateNotification;
+use Illuminate\Notifications\AnonymousNotification;
+use Illuminate\Support\Facades\Log;
 
 class AttendanceExporter extends Exporter
 {
@@ -25,12 +31,25 @@ class AttendanceExporter extends Exporter
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your attendance export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $successfulRows = $export->successful_rows;
+        $failedRowsCount = $export->getFailedRowsCount();
 
-        if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+        Log::info('Ekspor selesai: ' . $successfulRows . ' baris berhasil, ' . $failedRowsCount . ' baris gagal.');
+
+        $body = 'Your attendance export has completed and ' . number_format($successfulRows) . ' ' . Str::plural('row', $successfulRows) . ' exported.';
+
+        if ($failedRowsCount) {
+            $body .= ' ' . number_format($failedRowsCount) . ' ' . Str::plural('row', $failedRowsCount) . ' failed to export.';
         }
 
         return $body;
+    }
+}
+
+class YourNotification extends IlluminateNotification
+{
+    public function via($notifiable)
+    {
+        return ['database']; // Pastikan ini mencakup 'database'
     }
 }
