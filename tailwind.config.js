@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
+<<<<<<< HEAD
 import withMT from "@material-tailwind/html/utils/withMT";
 export default withMT({
     content: [
         "./resources/views/**/*.blade.php", // Memasukkan semua file Blade di resources/views
         "!./resources/views/vendor/**/*.blade.php", // Mengecualikan folder vendor
     ],
+=======
+export default {
+    content: ["./resources/**/*.blade.php", "!./resources/views/vendor/**/*.blade.php"],
+>>>>>>> Senj
     theme: {
         extend: {},
         colors: {

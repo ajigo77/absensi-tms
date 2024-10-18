@@ -32,18 +32,12 @@ class OfficeResource extends Resource
                             ->required()
                             ->numeric()
                             ->minValue(1),
-                        View::make('filament.forms.components.leaflet-map')
-                            ->columnSpan('full'),
                         TextInput::make('latitude')
                             ->required()
-                            ->numeric()
-                            ->minValue(-90)
-                            ->maxValue(90),
+                            ->numeric(),
                         TextInput::make('longitude')
                             ->required()
-                            ->numeric()
-                            ->minValue(-180)
-                            ->maxValue(180),
+                            ->numeric(),
                     ])
                     ->columns(2)
             ]);

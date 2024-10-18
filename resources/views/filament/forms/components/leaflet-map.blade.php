@@ -1,42 +1,40 @@
-<div x-data="{ lat: $wire.entangle('data.latitude'), lng: $wire.entangle('data.longitude') }" x-init="
-    $nextTick(() => {
-        var map = L.map($refs.map).setView([lat || 0, lng || 0], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-        var marker = L.marker([lat || 0, lng || 0], {draggable: true}).addTo(map);
+<div id="map" style="height: 300px;"></div>
 
-        function updateLatLng(latlng) {
-            lat = latlng.lat.toFixed(8);
-            lng = latlng.lng.toFixed(8);
-            $wire.set('data.latitude', lat);
-            $wire.set('data.longitude', lng);
-        }
+<!-- Tambahkan di dalam <head> -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const map = L.map('map').setView([-7.250445, 112.768845], 10); // Set default view
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        const marker = L.marker([-7.250445, 112.768845], { draggable: true }).addTo(map); // Default marker
+
+        // Update latitude and longitude fields on marker drag
         marker.on('dragend', function(e) {
-            updateLatLng(marker.getLatLng());
+            const lat = marker.getLatLng().lat;
+            const lng = marker.getLatLng().lng;
+
+            // Update latitude and longitude input fields
+            document.querySelector('input[name="latitude"]').value = lat;
+            document.querySelector('input[name="longitude"]').value = lng;
         });
 
-        map.on('click', function(e) {
-            marker.setLatLng(e.latlng);
-            updateLatLng(e.latlng);
-        });
+        // Update marker position and input fields on map double click
+        map.on('dblclick', function(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
 
-        // Update map if lat/lng are changed externally
-        $watch('lat', value => {
-            if (value) {
-                marker.setLatLng([lat, lng]);
-                map.setView([lat, lng]);
-            }
-        });
-        $watch('lng', value => {
-            if (value) {
-                marker.setLatLng([lat, lng]);
-                map.setView([lat, lng]);
-            }
+            // Update marker position
+            marker.setLatLng([lat, lng]);
+
+            // Update latitude and longitude input fields
+            document.querySelector('input[name="latitude"]').value = lat;
+            document.querySelector('input[name="longitude"]').value = lng;
         });
     });
-">
-    <div x-ref="map" style="height: 400px;"></div>
-</div>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</script>

@@ -34,10 +34,11 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Red,
                 'gray' => Color::Zinc,
                 'info' => Color::Blue,
-                'primary' => Color::Red,
+                'primary' => Color::Emerald,
                 'success' => Color::Green,
                 'warning' => Color::Amber,
             ])
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -45,8 +46,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             
             ->middleware([
@@ -70,33 +69,30 @@ class AdminPanelProvider extends PanelProvider
                             ->icon('heroicon-o-home')
                             ->url(route('filament.admin.pages.dashboard'))
                     )
-                    ->group('Attendance Management', [
-                        NavigationItem::make('Office')
+                    ->group('menejemen TMS', [
+                        NavigationItem::make('Kantor')
                             ->icon('heroicon-o-building-office')
                             ->url(route('filament.admin.resources.offices.index')),
-                        NavigationItem::make('Permissions')
+                        NavigationItem::make('Jabatan')
                             ->icon('heroicon-o-key')
                             ->url(route('filament.admin.resources.permissions.index')),
                         NavigationItem::make('Shift')
                             ->icon('heroicon-o-clock')
                             ->url(route('filament.admin.resources.shifts.index')),
-                        NavigationItem::make('Users')
-                            ->icon('heroicon-o-users')
-                            ->url(route('filament.admin.resources.users.index')),
                     ])
-                    ->group('Attendance Management', [
-                        NavigationItem::make('Schedule')
+                    ->group('menejemen Absensi', [
+                        NavigationItem::make('Jadwal')
                             ->icon('heroicon-o-calendar')
                             ->url(route('filament.admin.resources.schedules.index')),
-                        NavigationItem::make('Attendance')
+                        NavigationItem::make('Absensi')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
                     ])
-                    ->group('Management Izin TMS', [
-                        NavigationItem::make('Izin')
+                    ->group('menejemen Izin TMS', [
+                        NavigationItem::make('Izin Karyawan')
                             ->icon('heroicon-o-document-text')
                             ->url(route('filament.admin.resources.izinkaryawans.index')),
-                        NavigationItem::make('Cuti')
+                        NavigationItem::make('Cuti Tahunan')
                             ->icon('heroicon-o-document-text')
                             ->url(route('filament.admin.resources.cutikaryawans.index')),
 

@@ -20,7 +20,12 @@ class User extends Authenticatable
         'member_id',
         'password',
         'jabatan_id',
+<<<<<<< HEAD
         'divisi_id',
+=======
+        'status',
+        'name', // Add 'name' if not already present
+>>>>>>> Senj
     ];
 
     /**
@@ -59,5 +64,10 @@ class User extends Authenticatable
     //relasi kan bahwa user hanya memiliki 1 Jabatan
     public function Jabatan(){
         return $this->belongsTo(Jabatan::class ,'jabatan_id','id_jabatan');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }

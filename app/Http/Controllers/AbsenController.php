@@ -10,16 +10,36 @@ use App\Models\Izinkaryawans;
 use App\Models\Jenisizin;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth; // Untuk mengambil user yang sedang login
 use Carbon\Carbon;
+=======
+use Carbon\Carbon;
+
+>>>>>>> Senj
 class AbsenController extends Controller
 {
     public function getStats(): JsonResponse
     {
-        return response()->json(Absen::getStats());
+        $today = Carbon::today();
+
+        $stats = [
+            'masuk' => Absen::whereDate('created_at', $today)->where('status', 'masuk')->count(),
+            'terlambat' => Absen::whereDate('created_at', $today)->where('status', 'terlambat')->count(),
+            'lembur' => Absen::whereDate('created_at', $today)->where('status', 'lembur')->count(),
+            'tidak_masuk' => Absen::whereDate('created_at', $today)->where('status', 'tidak masuk')->count(),
+        ];
+
+        return response()->json($stats);
+    }
+
+    public function show($id)
+    {
+        $absen = Absen::findOrFail($id);
+        return view('view.show', compact('absen')); // Adjust the view name as necessary
     }
 
     public function postAbsen(Request $request)
