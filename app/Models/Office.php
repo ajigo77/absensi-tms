@@ -11,7 +11,6 @@ class Office extends Model
 
     protected $fillable = [
         'name',
-        'location',
         'latitude',
         'longitude',
         'radius',
