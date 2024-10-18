@@ -15,6 +15,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CardShiftController;
 use App\Http\Controllers\FormKaryawanController;
 use App\Http\Controllers\LeaveController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostAbsensiController;
 use App\Models\Absen;
 
@@ -29,43 +30,43 @@ use App\Models\Absen;
 |
 */
 
+Route::get('/', function () {
+    return view('Pages.HeroSection');
+})->name('hero');
+
 Route::get('/login', [LoginUserController::class, 'login'])->name('auth.login');
 Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
 
 Route::post('/proses-login', [LoginUserController::class, 'proses_login'])->name('proses.login');
 Route::post('/proses-register', [RegisterUserController::class, 'proses_register'])->name('proses.register');
 
-Route::get('/izinkaryawan', function () {
-    return view('Pengajuanizin.izinkaryawan');
-});
-
-Route::get('/izincuti', function () {
-    return view('Pengajuanizin.izincuti');
-});
-
-Route::get('/history', function () {
-    return view('History.history');
-});
-
 // Logout
-Route::get('/logout', [LoginUserController::class, 'logout'])->name('auth.logout');
+Route::post('/logout', [LoginUserController::class, 'logout'])->name('auth.logout')->middleware('auth');
 
-// Leaflet
-Route::get('/webcamp', function () {
-    return view('Leaflet.webcam');
-})->name('absensi.karyawan');
+// Route::get('/izinkaryawan', function () {
+//     return view('Pengajuanizin.izinkaryawan');
+// });
 
-Route::get('/', function () {
-    return view('Pages.HeroSection');
-})->name('hero');
+// Route::get('/izincuti', function () {
+//     return view('Pengajuanizin.izincuti');
+// });
+
+// Route::get('/history', function () {
+//     return view('History.history');
+// });
+
+
+// // Leaflet
+// Route::get('/webcamp', function () {
+//     return view('Leaflet.webcam');
+// })->name('absensi.karyawan');
+
 
 Route::get('/absen', [AbsenController::class, 'getDataAbsen']);
-
-Route::post('/post-absensi', [AbsenController::class, 'postAbsen'])->name('post.absen');
-
 Route::get('/absen/stats', [AbsenController::class, 'getStats']);
 
-Route::get('/test', [AbsenController::class, 'index']);
+// Route::get('/test', [AbsenController::class, 'index']);
+// Route::post('/post-absensi', [AbsenController::class, 'postAbsen'])->name('post.absen');
 
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
@@ -74,28 +75,6 @@ Route::resource('shifts', ShiftController::class);
 Route::resource('schedules', ScheduleController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
-
-// Testing
-Route::get('/index', function () {
-    return view('Test.index');
-})->name('index');
-
-Route::get('/absen', [AbsenController::class, 'absen'])->name('absen');
-Route::get('/shift-absen', [CardShiftController::class, 'cardView'])->name('card.shift');
-
-Route::get('/card-form-karyawan', [FormKaryawanController::class, 'cardFormKaryawan'])->name('card.form.karyawan');
-
-Route::get('/form-cuti-karyawan', [FormKaryawanController::class, 'cutiKaryawan'])->name('cuti.karyawan');
-Route::post('/post-cuti-karyawan', [FormKaryawanController::class, 'post_cuti_karyawan'])->name('post.cuti');
-
-Route::get('/form-izin-karyawan', [FormKaryawanController::class, 'izinKaryawan'])->name('izin.karyawan');
-Route::post('/post-form-izin', [FormKaryawanController::class, 'post_izin_karyawan'])->name('post.izin');
-
-Route::get('/notif-cuti', [FormKaryawanController::class, 'notifCutiView'])->name('notif.cuti');
-Route::get('/notif-izin', [FormKaryawanController::class, 'notifIzinView'])->name('notif.izin');
-
-// Webcamp
-Route::get('/webcamp-absen', [AbsenController::class, 'webcamp'])->name('webcamp.absen');
 
 require __DIR__ . '\Auth\auth.php';
 require __DIR__ . '\Uploaded\upload.php';

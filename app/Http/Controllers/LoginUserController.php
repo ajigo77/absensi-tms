@@ -2,14 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginUserController extends Controller
 {
+    protected $redirectTo = '/index'; // Ganti dari /home ke /index
+
+    // public function login()
+    // {
+    //     return view('Auth.login');
+    // }
+
     public function login()
     {
-        return view('Auth.login');
+        // Jika user sudah login, arahkan ke halaman index
+        if (Auth::check()) {
+            return redirect()->route('index');
+        }
+
+        // Jika belum login, tampilkan halaman login
+        return view('auth.login');
     }
 
     public function proses_login(Request $request)
@@ -21,28 +35,37 @@ class LoginUserController extends Controller
             'password.min' => 'Minimal 5 karakter',
             'password.max' => 'Maximal 8 karakter',
         ];
-        $request->validate([
-            'member_id' => 'required|numeric',
-            'password' => 'required|min:5|max:8',
-        ], $customMessageValidate);
 
-        $data = [
-            'member_id' => $request->member_id,
-            'password' => $request->password,
-        ];
+        $credentials = $request->validate(
+            [
+                'member_id' => 'required|numeric',
+                'password' => 'required|min:5|max:8',
+            ],
+            $customMessageValidate,
+        );
 
-        if (Auth::attempt($data)) {
-            // dd('Login berhasil');
+        // Autentikasi user
+        if (Auth::attempt($credentials)) {
+            // Regenerasi session untuk keamanan
+            $request->session()->regenerate();
+
+            // Redirect ke halaman index setelah berhasil login
             return redirect()->route('index');
-        } else {
-            // dd('Login gagal');
-            return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');
         }
+
+        // dd('login gagal');
+        return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');
     }
 
-    public function logout()
+    public function logout(Request $request): RedirectResponse
     {
-        Auth::logout();
-        return redirect()->route('auth.login')->with('success', 'Anda berhasil logout');
+        Auth::logout(); // Logout user
+
+        // Hapus semua data session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect ke halaman login setelah logout
+        return redirect()->route('auth.login');
     }
 }

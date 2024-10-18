@@ -33,8 +33,8 @@
                                                 width="40" class="me-3">
                                             <span class="fs-4 fw-bold mb-0">TMS</span>
                                         </div>
-                                        <h5 class="fw-normal mb-3 pb-3">Masuk ke akun Anda
-                                            akun
+                                        <h5 class="fw-normal mb-3 pb-3">
+                                            Masuk ke akun Anda
                                         </h5>
                                         <div>
                                             @error('member_id')

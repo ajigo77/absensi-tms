@@ -110,8 +110,4 @@ class FormKaryawanController extends Controller
     public function notifCutiView(){
         return view('Test.notif-form-cuti');
     }
-
-    public function cardFormKaryawan(){
-        return view('Test.card-form-karyawan');
-    }
 }

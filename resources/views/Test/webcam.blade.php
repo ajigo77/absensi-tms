@@ -70,7 +70,7 @@
     <div class="header-area" id="headerArea">
         <div class="container h-100 d-flex align-items-center justify-content-between">
             <!-- Logo Wrapper-->
-            <div class="back-button"><a href="{{ route('index') }}">
+            <div class="back-button"><a href="{{ route('card.shift') }}">
                     <svg class="bi bi-arrow-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         fill="currentColor" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -94,7 +94,7 @@
     </div>
     {{-- Component sidebar --}}
     <x-comp-test.sidebar></x-comp-test.sidebar>
-    
+
     <!-- PWA Install Alert-->
     <!--<div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
       <div class="toast-body">

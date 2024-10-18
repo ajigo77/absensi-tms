@@ -76,7 +76,7 @@
     </div>
     {{-- Component sidebar --}}
     <x-comp-test.sidebar></x-comp-test.sidebar>
-    
+
     <!-- PWA Install Alert-->
     <!--<div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
       <div class="toast-body">

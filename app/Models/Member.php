@@ -11,14 +11,18 @@ class Member extends Model
 
     protected $tabel = 'members';
 
-    protected $primaryKey= "id_member";
+    protected $primaryKey = 'id_member';
 
-    protected $fillable = [
-        'id_member'
-    ];
+    protected $fillable = ['id_member'];
 
     //soal cari relasi ini 😈
-    public function User(){
-        return $this->hasOne(User::class, 'member_id','id_member');
+    public function User()
+    {
+        return $this->hasOne(User::class, 'member_id', 'id_member');
+    }
+
+    public function absens()
+    {
+        return $this->hasMany(Absen::class, 'member_id', 'id_member');
     }
 }

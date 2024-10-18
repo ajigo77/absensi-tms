@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\Member;
 use App\Models\Jabatan;
 use App\Models\Devisi;
 use App\Models\Izinkaryawans;
@@ -48,20 +49,17 @@ class AbsenController extends Controller
         }
 
         $absen = new Absen();
-        $absen->user_id = 2;
+        $absen->user_id = auth()->user()->id_user;
         $absen->type = 'masuk kerja';
         $absen->shift_id = 1;
         $absen->foto = isset($imageName) ? $imageName : null; // Menyimpan nama file gambar
         $absen->lattitude = $request->lattitude;
         $absen->longtitude = $request->longtitude;
         $absen->status = $status;
+        $absen->member_id = 1;
         $absen->save();
 
-        if ($absen->save()) {
-            return redirect()->route('absen')->with('success', 'Absen berhasil disimpan!');
-        } else {
-            return redirect()->route('webcamp.absen')->with('error', 'Coba periksa kembali data yang dimasukkan dan kirim ulang');
-        }
+        return response()->json(['success' => 'Absen berhasil.']);
     }
 
     public function index()
@@ -70,20 +68,45 @@ class AbsenController extends Controller
         return view('Test.test', compact('users'));
     }
 
-    public function absen(Request $request){
+    // public function absen(Request $request){
 
-        // $absens = Absen::orderBy('created_at','desc')->paginate(5);
-        $absens = new Absen;
+    //     $absens = Absen::orderBy('created_at','desc')->paginate(5);
+    //     $absens = new Absen();
+    //     $absens = Absen::with('member')->get();
 
-        if($request->get('search')){
-            $absens = $absens->where('type','LIKE','%' . $request->get('search') . '%')
-            ->orWhere('status','LIKE','%' . $request->get('search') . '%');
+    //     if($request->get('search')){
+    //         $absens = $absens->where('type','LIKE','%' . $request->get('search') . '%')
+    //         ->orWhere('status','LIKE','%' . $request->get('search') . '%');
+    //     }
+    //     $absens = $absens->paginate(5);
+    //     return view('Test.absen', compact('absens','request'));
+    // }
+
+    public function absen(Request $request)
+    {
+        // Ambil data absen dengan relasi member
+        $absens = Absen::with('member')->orderBy('created_at', 'desc');
+
+        // Jika ada query pencarian, terapkan filter
+        if ($request->get('search')) {
+            $absens = $absens->where(
+                function ($query) use ($request) {
+                    $query->where('type', 'LIKE', '%' . $request->get('search') . '%')
+                        ->orWhere('status', 'LIKE', '%' . $request->get('search') . '%')
+                        ->orWhereHas('member', function ($q) use ($request) {
+                            $q->where('nama', 'LIKE', '%' . $request->get('search') . '%');
+                });
+            });
         }
-        $absens = $absens->get();
-        return view('Test.absen', compact('absens','request'));
+
+        // Paginate hasil yang sudah difilter
+        $absens = $absens->paginate(5);
+
+        return view('Test.absen', compact('absens', 'request'));
     }
 
-    public function webcamp(){
+    public function webcamp()
+    {
         return view('Test.webcam');
     }
 }

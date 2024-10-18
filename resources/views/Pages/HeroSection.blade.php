@@ -64,16 +64,22 @@
                     </div>
 
                     <!-- Mobile Menu Links -->
-                    <div class="flex flex-col space-y-5">
-                        <a href="{{ route('auth.register') }}"
-                            class="flex justify-between items-center text-base font-semibold leading-6 text-white-100 px-5 py-3 rounded-md bg-red-50 hover:bg-red-100 transition">
-                            Daftar <span class="ml-2 text-white-100 text-md">&rarr;</span>
-                        </a>
-                        <a href="{{ route('auth.login') }}"
-                            class="flex justify-between items-center text-base font-semibold leading-6 text-red-50 px-5 py-3 rounded-md border-2 border-red-50 transition">
-                            Masuk <i class="bi bi-box-arrow-right text-md"></i>
-                        </a>
-                    </div>
+                    @auth
+                        <div class="flex flex-col space-y-5">
+                            <h1>Selamat Datang, {{ auth()->user()->id_user }}</h1>
+                        </div>
+                    @else
+                        <div class="flex flex-col space-y-5">
+                            <a href="{{ route('auth.register') }}"
+                                class="flex justify-between items-center text-base font-semibold leading-6 text-white-100 px-5 py-3 rounded-md bg-red-50 hover:bg-red-100 transition">
+                                Daftar <span class="ml-2 text-white-100 text-md">&rarr;</span>
+                            </a>
+                            <a href="{{ route('auth.login') }}"
+                                class="flex justify-between items-center text-base font-semibold leading-6 text-red-50 px-5 py-3 rounded-md border-2 border-red-50 transition">
+                                Masuk <i class="bi bi-box-arrow-right text-md"></i>
+                            </a>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </header>

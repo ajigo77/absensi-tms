@@ -59,6 +59,18 @@
             width: 100%;
             height: 300px;
         }
+
+        .responsive-text {
+            font-size: 16px;
+            /* Ukuran default */
+        }
+
+        @media (max-width: 768px) {
+            .responsive-text {
+                /* Ukuran lebih kecil untuk layar kecil */
+                font-size: 0.875rem;
+            }
+        }
     </style>
     <meta name="shimejiBrowserExtensionId" content="gohjpllcolmccldfdggmamodembldgpc" data-version="2.0.5">
     {{-- @vite('resources/css/app.css') --}}
@@ -87,8 +99,10 @@
         </div>-->
             <div class="d-flex justify-content-between align-items-center">
                 <!-- Form Search -->
-                <form action="{{ route('absen') }}" method="GET" class="d-flex px-5" style="flex-grow: 1; margin-right: 15px;">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ $request->get('search') }}">
+                <form action="{{ route('absen') }}" method="GET" class="d-flex px-5"
+                    style="flex-grow: 1; margin-right: 15px;">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                        aria-label="Search" value="{{ $request->get('search') }}">
                     <button class="btn btn-outline-danger" type="submit">Search</button>
                 </form>
                 <!-- Navbar Toggler-->
@@ -100,7 +114,7 @@
     </div>
     {{-- Component sidebar --}}
     <x-comp-test.sidebar></x-comp-test.sidebar>
-    
+
     <!-- PWA Install Alert-->
     <!--<div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
       <div class="toast-body">
@@ -115,64 +129,105 @@
             <!-- Section Heading-->
             <div class="section-heading d-flex align-items-center justify-content-between">
                 <h6 class="fw-bold">Daftar Kehadiran Terbaru</h6>
-                <a class="btn btn-danger text-white" href="{{ route('card.shift') }}"><i class="lni lni-plus"></i> Absen Sekarang</a>
+                <a class="btn btn-danger text-white" href="{{ route('card.shift') }}"><i class="lni lni-plus"></i> Absen
+                    Sekarang</a>
             </div>
             <!-- Notifications Area-->
             <div class="notification-area pb-2">
                 <div class="list-group">
-                    @foreach ($absens as $absen)
-                        <div class="list-group-item d-flex align-items-center p-3">
-                            <img src="{{ asset('webcam/' . $absen->foto) }}" alt="Foto Karyawan" class="rounded"
-                                style="width:150px; height:150px; object-fit: cover; margin-right: 15px;">
-                            <div class="noti-info">
-                                <h6 class="mb-1 fw-bold">
-                                    {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}
-                                </h6>
-                                <h5 class="mb-3">
-                                    @if ($absen->status == 'terlambat')
-                                        <span class="text-danger text-uppercase fw-bold">
-                                            <i class="lni lni-calendar-alt"></i>
-                                            {{ $absen->status }}
-                                        </span>
-                                    @else
-                                        <span class="text-success text-uppercase fw-bold">
-                                            <i class="lni lni-calendar-alt"></i>
-                                            {{ $absen->status }}
-                                        </span>
-                                    @endif
-                                </h5>
-                                <p class="mb-0" style="margin-right: 5px;">
-                                    <span class="mb-2">
-                                        <i class="lni lni-alarm-clock text-primary me-1"></i>
-                                        Jam Absen: {{ \Carbon\Carbon::parse($absen->created_at)->format('H:i A') }}
-                                    </span>
-                                    <span class="mb-2">
-                                        <i class="bi bi-check-all text-warning" style="font-size: 14px;"></i>
-                                        Jenis Absen : {{ $absen->type }}
-                                    </span>
-                                    <a href="#" class="icn" id="mdl" data-bs-toggle="modal"
-                                        data-bs-target="#locationModal" data-lat="{{ $absen->lattitude }}"
-                                        data-lon="{{ $absen->longtitude }}">
-                                        <span class="mb-2">
-                                            <i class="bi bi-geo-alt text-danger me-1"></i>Lihat Lokasi
-                                        </span>
-                                    </a>
-                                    <a href="#" class="icn-ic" data-bs-toggle="modal"
-                                        data-bs-target="#pictureModal" data-src-img="{{ $absen->foto }}">
-                                        <span class="mb-2">
-                                            <i class="bi bi-person-workspace me-1" style="color:#00b894"></i>Lihat
-                                            Foto
-                                        </span>
-                                    </a>
-                                </p>
-                            </div>
+                    @if ($absens->isEmpty())
+                        <div class="d-flex justify-content-center align-items-center"
+                            style="min-height: 400px; flex-direction: column;">
+                            <img src="{{ asset('image/src/no-data.png') }}" alt="No Data Illustration"
+                                class="img-fluid mb-4" style="max-width: 500px; height:auto;">
+                            <p class="text-muted fs-5 text-center responsive-text">Sepertinya hari ini tidak ada data
+                                absen yang masuk.
+                            </p>
                         </div>
-                    @endforeach
+                    @else
+                        @foreach ($absens as $absen)
+                            <div
+                                class="list-group-item d-flex flex-column flex-md-row align-items-center p-3 mb-3 rounded">
+                                <img src="{{ asset('webcam/' . $absen->foto) }}" alt="Foto Karyawan"
+                                    class="rounded mb-3 mb-md-0"
+                                    style="width: 200px; height: auto; object-fit: cover; margin-right: 15px; background-repeat: no-repeat;">
+                                <div class="noti-info flex-grow-1">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="mb-0 fw-bold text-uppercase">
+                                            {{ $absen->member->nama }}
+                                        </h5>
+                                        <span class="mb-2 text-secondary" style="font-size: 12px;">
+                                            {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}
+                                        </span>
+                                    </div>
+                                    <h6 class="mb-3">
+                                        @if ($absen->status == 'terlambat')
+                                            <span class="text-danger text-capitalize fw-bold"
+                                                style="font-size: 15px;">
+                                                <i class="lni lni-calendar-alt"></i>
+                                                {{ $absen->status }}
+                                            </span>
+                                        @else
+                                            <span class="text-success text-capitalize fw-bold"
+                                                style="font-size: 15px;">
+                                                <i class="lni lni-calendar-alt"></i>
+                                                {{ $absen->status }}
+                                            </span>
+                                        @endif
+                                    </h6>
+                                    <div class="row row-cols-1 row-cols-md-2 g-2">
+                                        <div class="col">
+                                            <p class="mb-0 responsive-text">
+                                                <span class="mb-2">
+                                                    <i class="lni lni-alarm-clock text-primary me-1"></i>
+                                                    Jam Absen:
+                                                    {{ \Carbon\Carbon::parse($absen->created_at)->format('H:i A') }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-0 responsive-text">
+                                                <span class="mb-2 text-capitalize">
+                                                    <i class="bi bi-check-all text-warning"
+                                                        style="font-size: 14px;"></i>
+                                                    Jenis Absen: {{ $absen->type }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-0 responsive-text">
+                                                <a href="#" class="icn" id="mdl"
+                                                    data-bs-toggle="modal" data-bs-target="#locationModal"
+                                                    data-lat="{{ $absen->lattitude }}"
+                                                    data-lon="{{ $absen->longtitude }}">
+                                                    <span class="mb-2 text-secondary">
+                                                        <i class="bi bi-geo-alt text-danger me-1"></i>Lihat Lokasi
+                                                    </span>
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-0 responsive-text">
+                                                <a href="#" class="icn-ic" data-bs-toggle="modal"
+                                                    data-bs-target="#pictureModal"
+                                                    data-src-img="{{ $absen->foto }}">
+                                                    <span class="mb-2 text-secondary">
+                                                        <i class="bi bi-person-workspace me-1" style="color:#00b894"></i>Lihat Foto
+                                                    </span>
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    @endif
                 </div>
-                {{-- <!-- Pagination -->
+                <!-- Pagination -->
                 <div>
                     {{ $absens->links('pagination::bootstrap-5') }}
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -239,9 +294,10 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let map = null;
             const locationModal = document.getElementById('locationModal');
             const btnPicture = document.getElementById('pictureModal');
-            let map = null;
+            document.getElementById('img-karyawan').style.display = 'none';
 
             locationModal.addEventListener('show.bs.modal', function(event) {
                 // Ambil button yang memicu modal
@@ -310,14 +366,11 @@
 
                 // Set nilai atribut src dari elemen gambar dengan nilai dari srcImage yang di tangkap src
 
-                setTimeout(function() {
-                    imgKaryawan.setAttribute('src', src);
-                    imgKaryawan.style.borderRadius = '10px';
-                    imgKaryawan.style.display = 'block';
-                }, 2000)
+                imgKaryawan.setAttribute('src', `webcam/${src}`);
+                imgKaryawan.style.borderRadius = '10px';
+                imgKaryawan.style.display = 'block';
             }
         });
-
     </script>
 </body>
 

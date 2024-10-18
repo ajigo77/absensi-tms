@@ -67,7 +67,7 @@
 
         Swal.fire({
             title: "Sukses",
-            text: "Gambar berhasil diambil, siap untuk di submit!",
+            text: "Gambar berhasil diambil",
             icon: "success"
         });
 
