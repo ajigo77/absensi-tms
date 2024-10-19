@@ -10,10 +10,10 @@ class Shift extends Model
 {
     use HasFactory;
 
-    protected $table = 'shifts'; // Nama tabel
-    protected $primaryKey = 'id'; // Primary key
+    protected $table = 'shifts'; // Table name
+    protected $primaryKey = 'id'; // Primary key (ensure this matches your database)
 
-    protected $fillable = ['name', 'start_time', 'end_time'];
+    protected $fillable = ['name', 'start_time', 'end_time', 'created_at', 'updated_at']; // Adjusted fillable fields
 
     protected $casts = [
         'start_time' => 'datetime',
@@ -44,7 +44,7 @@ class Shift extends Model
         }
     }
 
-    // Relasi ke model Absen
+    // Relationship to the Absen model
     public function absens()
     {
         return $this->hasMany(Absen::class, 'shift_id');

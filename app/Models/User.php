@@ -15,7 +15,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $tabel = 'users';
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
     protected $fillable = [
         'id_user',
         'member_id',
@@ -48,20 +49,43 @@ class User extends Authenticatable
 
 
 //soal cari relasi ini 😈
-    public function Member(){
-
-    }
 //relasi kan bahwa uswr hanya meiliki 1 Devisi
-    public function Devisi(){
+    public function devisi()
+    {
         return $this->belongsTo(Devisi::class);
     }
 //relasi kan bahwa user hanya memiliki 1 Jabatan
-    public function Jabatan(){
-        return $this->belongsTo(Jabatan::class ,'jabatan_id');
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan_id');
     }
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->hasMany(Permission::class);
+    }
+
+    public function user()
+       {
+           return $this->belongsTo(User::class, 'id_member', 'id'); // Sesuaikan dengan kolom yang relevan
+       }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'member_id', 'id_member'); // Pastikan 'member_id' dan 'id_member' sesuai
+    }
+
+    public function getUserName(): string
+    {
+        // Ambil nama dari relasi member
+        $member = $this->member; // Mengambil relasi member
+        return $member ? $member->nama : 'Default User'; // Mengembalikan nama atau nilai default
+    }
+
+    public function hasPermission($permission)
+    {
+        // Assuming the user has a role and permissions are stored in the Permission model
+        $userPermissions = $this->permissions()->pluck('permissions')->flatten()->toArray();
+        return in_array($permission, $userPermissions);
     }
 }

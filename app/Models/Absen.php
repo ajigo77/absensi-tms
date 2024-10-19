@@ -37,6 +37,11 @@ class Absen extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); // Ensure 'user_id' is correct
+        return $this->belongsTo(User::class, 'user_id', 'id_user'); // Pastikan 'user_id' dan 'id_user' sesuai
+    }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'member_id'); // Pastikan 'member_id' sesuai
     }
 }

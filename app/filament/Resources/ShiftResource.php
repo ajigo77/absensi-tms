@@ -8,8 +8,7 @@ use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Tables\Table; // Add this line
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Table;
 
 class ShiftResource extends Resource
 {
@@ -23,60 +22,31 @@ class ShiftResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Grid::make(2)
-                    ->schema([
-                        Forms\Components\Select::make('start_time.hour')
-                            ->options(self::getHourOptions())
-                            ->required()
-                            ->label('Start Hour'),
-                        Forms\Components\Select::make('start_time.ampm')
-                            ->options([
-                                'AM' => 'AM',
-                                'PM' => 'PM',
-                            ])
-                            ->required()
-                            ->label('Start AM/PM'),
-                    ]),
-                Forms\Components\Grid::make(2)
-                    ->schema([
-                        Forms\Components\Select::make('end_time.hour')
-                            ->options(self::getHourOptions())
-                            ->required()
-                            ->label('End Hour'),
-                        Forms\Components\Select::make('end_time.ampm')
-                            ->options([
-                                'AM' => 'AM',
-                                'PM' => 'PM',
-                            ])
-                            ->required()
-                            ->label('End AM/PM'),
-                    ]),
+                    ->label('Shift Name'),
+                Forms\Components\DateTimePicker::make('start_time') // Use DateTimePicker instead
+                    ->required()
+                    ->label('Start Time'),
+                Forms\Components\DateTimePicker::make('end_time') // Use DateTimePicker instead
+                    ->required()
+                    ->label('End Time'),
             ]);
     }
 
-    private static function getHourOptions(): array
-    {
-        return array_combine(
-            range(1, 12),
-            array_map(fn($hour) => sprintf('%02d', $hour), range(1, 12))
-        );
-    }
-
-    public static function table(Table $table): Table // Update this line
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('id')->label('ID'),
+                Tables\Columns\TextColumn::make('name')->label('Shift Name'),
                 Tables\Columns\TextColumn::make('start_time')
-                    ->dateTime('h:i A')
-                    ->label('Start time'),
+                    ->label('Start Time')
+                    ->formatStateUsing(fn ($state) => $state->format('H:i')), // Show only hour
                 Tables\Columns\TextColumn::make('end_time')
-                    ->dateTime('h:i A')
-                    ->label('End time'),
+                    ->label('End Time')
+                    ->formatStateUsing(fn ($state) => $state->format('H:i')), // Show only hour
             ])
             ->filters([
-                //
+                // Add any filters if needed
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -89,7 +59,7 @@ class ShiftResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // Define any relationships if needed
         ];
     }
 

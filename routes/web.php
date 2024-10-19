@@ -72,3 +72,7 @@ Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
 Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');
 
 Route::get('/view/{id}', [ViewController::class, 'show'])->name('view.show');
+
+Route::group(['middleware' => ['auth', 'permission:view_dashboard']], function () {
+    // Your routes here
+});

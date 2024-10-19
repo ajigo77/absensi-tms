@@ -34,7 +34,7 @@ class CustomLogin extends Login
     }
     protected function getCredentialsFromFormData(array $data): array
     {
-        $login_type = 'id';
+        $login_type = 'id_user';
         return [
             $login_type => $data['login'],
             'password' => $data['password'],

@@ -44,11 +44,11 @@ class DataAbsenTMS extends BaseWidget
     {
         return $table
             ->query(
-                Absen::with(['shift', 'user']) // Eager load the shift and user relationships
+                Absen::with(['shift', 'user.member']) // Eager load user and member relationships
             )
             ->columns([
-                TextColumn::make('user.name') // Change this line to fetch the user's name
-                    ->label('Nama'), // Update the label
+                TextColumn::make('user.member.nama') // Ambil nama dari tabel members
+                    ->label('Nama'), // Label untuk kolom
                 TextColumn::make('type')->label('Tipe Absensi'), // Display Attendance Type
                 TextColumn::make('shift.name')
                     ->label('Shift') // Ubah label menjadi 'Shift'

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('role'); // Admin, Superadmin, Karyawan, etc.
             $table->text('description')->nullable();
-            $table->json('permissions')->nullable(); // Add this line for JSON permissions
             $table->timestamps();
         });
     }
