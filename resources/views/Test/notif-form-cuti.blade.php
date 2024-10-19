@@ -7,10 +7,10 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no">
     <meta name="description" content="Suha - Multipurpose Ecommerce Mobile HTML Template">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#100DD1">
+    <meta name="theme-color" content="#e1f0ff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Notification Form Karyawan</title>
+    <title>Form Cuti Karyawan</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap">
@@ -38,6 +38,42 @@
 
         #shimeji-contextMenu::-webkit-scrollbar-thumb:hover {
             background: #555;
+        }
+
+        .notification-area {
+            background-color: #f5faff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .noti-icon i {
+            font-size: 24px;
+            color: #e74c3c;
+        }
+
+        .noti-info {
+            flex-wrap: wrap;
+        }
+
+        .noti-info .text-info {
+            flex-grow: 1;
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .noti-info .text-info h6 {
+                font-size: 16px;
+            }
+
+            .noti-info .text-info p {
+                font-size: 14px;
+            }
+
+            .btn-sm {
+                font-size: 12px;
+                padding: 0.4rem 0.6rem;
+            }
         }
     </style>
     <meta name="shimejiBrowserExtensionId" content="gohjpllcolmccldfdggmamodembldgpc" data-version="2.0.5">
@@ -74,7 +110,7 @@
     </div>
     {{-- Component sidebar --}}
     <x-comp-test.sidebar></x-comp-test.sidebar>
-    
+
     <!-- PWA Install Alert-->
     <!--<div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
       <div class="toast-body">
@@ -89,27 +125,37 @@
             <!-- Section Heading-->
             <div class="section-heading d-flex align-items-center pt-3 justify-content-between">
                 <h6>Daftar pengajuan cuti karyawan</h6>
-                <a class="btn btn-success" href="{{ route('cuti.karyawan') }}"><i class="lni lni-plus"></i> Buat Baru</a>
+                <a class="btn btn-success text-white border-none outline-none" href="{{ route('cuti.karyawan') }}">
+                    <i class="lni lni-plus"></i>
+                    Buat Baru
+                </a>
             </div>
             <!-- Notifications Area-->
-            <div class="notification-area pb-2">
+            <div class="pb-2">
                 <div class="list-group">
-                    <a class="list-group-item d-flex align-items-center"
-                        href="https://www.sixghakreasi.com/demos/attd_mobile/leave/detail/5">
-                        <span class="noti-icon"><i class="lni lni-alarm"></i></span>
-                        <div class="noti-info"
-                            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                            <div>
-                                <h6 class="mb-0">CTI/2/20241015082406</h6>
-                                <span class="text-primary">Anak khitan / Babtis</span>
-                                <span>15 October 2024 - 15 October 2024</span>
+                    <div class="list-group-item d-flex align-items-center py-4" style="border: 2px solid rgb(76, 75, 75); border-radius:8px;">
+                        <!-- Icon Notifikasi -->
+                        <span class="noti-icon me-3 p-3">
+                            <i class="bi bi-bell-fill" style="font-size: 30px;"></i>
+                        </span>
+                        <!-- Informasi -->
+                        <div class="noti-info d-flex justify-content-between align-items-center w-100">
+                            <div class="text-info">
+                                <h6 class="mb-1">CTI/2/20241015082406</h6>
+                                <p class="mb-1">
+                                    <span class="text-primary">Nama: Budi Santoso</span><br>
+                                    <span>Divisi: Teknologi Informasi</span><br>
+                                    <span>Jabatan: Manager</span><br>
+                                    <span>Jenis Izin: Anak Khitan / Babtis</span><br>
+                                    <span>Awal Izin: 15 October 2024</span> -
+                                    <span>Akhir Izin: 15 October 2024</span>
+                                </p>
                             </div>
-                            <span class="btn btn-sm btn-danger text-white" style="margin-left: auto;">Lihat
-                                Detail</span>
+                            <span class="btn btn-sm btn-warning text-white" style="margin-left: auto;">
+                                Pending
+                            </span>
                         </div>
-                    </a>
-                </div>
-                <div class="pagination-container">
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,24 +166,16 @@
     <!-- Internet Connection Status-->
     <div class="internet-connection-status" id="internetStatus"></div>
     <!-- Footer Nav-->
-    <div class="footer-nav-area" id="footerNav">
-        <div class="container h-100 px-0">
-            <div class="suha-footer-nav h-100">
-                <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
-                    <li class="active"><a href="https://sixghakreasi.com/demos/attd_mobile/"><i
-                                class="lni lni-home"></i>Beranda</a></li>
-                    <li><a href="https://sixghakreasi.com/demos/attd_mobile/setting/get_help"><i
-                                class="lni lni-life-ring"></i>Dukungan</a></li>
-                    <li><a href="https://sixghakreasi.com/demos/attd_mobile/setting"><i
-                                class="lni lni-cog"></i>Pengaturan</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- All JavaScript Files-->
-    <div id="shimeji-workArea"
-        style="position: fixed; background: transparent; z-index: 2147483643; width: 100vw; height: 100vh; left: 0px; top: 0px; transform: translate(0px, 0px); pointer-events: none;">
-    </div>
+    <x-comp-test.footer></x-comp-test.footer>
+    @if ($pesan_success = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: "Berhasil",
+                text: "{{ $pesan_success }}",
+                icon: "success"
+            });
+        </script>
+    @endif
 </body>
 
 </html>

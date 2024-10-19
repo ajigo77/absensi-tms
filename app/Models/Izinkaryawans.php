@@ -16,9 +16,12 @@ class Izinkaryawans extends Model
         'nama_karyawan',
         'divisi',
         'jabatan',
-        'tanggal_izin',
+        'dari_tanggal',
+        'sampai_tanggal',
         'jam_pulang_awal',
         'alasan',
+        'sampai_tanggal',
+        'approved',
     ];
 
     // public function JenisIzin(){

@@ -49,7 +49,7 @@ class AbsenController extends Controller
         }
 
         $absen = new Absen();
-        $absen->user_id = auth()->user()->id_user;
+        $absen->user_id = 2;
         $absen->type = 'masuk kerja';
         $absen->shift_id = 1;
         $absen->foto = isset($imageName) ? $imageName : null; // Menyimpan nama file gambar
@@ -67,20 +67,6 @@ class AbsenController extends Controller
         $users = User::with('Jabatan', 'Devisi', 'Member')->latest()->paginate(5);
         return view('Test.test', compact('users'));
     }
-
-    // public function absen(Request $request){
-
-    //     $absens = Absen::orderBy('created_at','desc')->paginate(5);
-    //     $absens = new Absen();
-    //     $absens = Absen::with('member')->get();
-
-    //     if($request->get('search')){
-    //         $absens = $absens->where('type','LIKE','%' . $request->get('search') . '%')
-    //         ->orWhere('status','LIKE','%' . $request->get('search') . '%');
-    //     }
-    //     $absens = $absens->paginate(5);
-    //     return view('Test.absen', compact('absens','request'));
-    // }
 
     public function absen(Request $request)
     {

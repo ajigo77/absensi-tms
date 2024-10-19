@@ -3,8 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no">
+    <meta name="description" content="Suha - Multipurpose Ecommerce Mobile HTML Template">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#e1f0ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Login</title>
     <!-- Component Style -->
     <x-src.link-style></x-src.link-style>
@@ -43,8 +48,8 @@
                                             @enderror
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="text" name="member_id"
-                                                    class="form-control form-control-lg" />
-                                                <label class="form-label" for="form2Example17">Id Member</label>
+                                                    class="form-control form-control-lg" id="member_id" />
+                                                <label class="form-label" for="member_id">Id Member</label>
                                             </div>
                                         </div>
                                         <div>
@@ -54,8 +59,8 @@
                                             @enderror
                                             <div data-mdb-input-init class="form-outline mb-4">
                                                 <input type="password" name="password"
-                                                    class="form-control form-control-lg" />
-                                                <label class="form-label" for="form2Example27">Password</label>
+                                                    class="form-control form-control-lg" id="psd"/>
+                                                <label class="form-label" for="psd">Password</label>
                                             </div>
                                         </div>
 
@@ -78,10 +83,10 @@
             </div>
         </div>
     </section>
+
     {{-- Component Script --}}
     <x-src.link-script></x-src.link-script>
-    <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script>
+
     @if ($pesan_error = Session::get('failed'))
         <script>
             Swal.fire({

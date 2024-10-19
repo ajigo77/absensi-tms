@@ -1673,14 +1673,15 @@ textarea:invalid {
     position: relative;
     z-index: 1;
 }
-.sidenav-nav li a {
+.sidenav-nav li a,
+.sidenav-nav li button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    color: #;
+    color: rgba(2, 3, 16, 0.5);
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-right: 1rem;
@@ -1688,7 +1689,10 @@ textarea:invalid {
     font-size: 14px;
     font-weight: 700;
     border-radius: 0.375rem;
+    outline:none;
+    border:none;
 }
+
 .sidenav-nav li a i {
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
@@ -1697,11 +1701,33 @@ textarea:invalid {
     font-size: 1rem;
     color: #1e201e;
 }
+
 .sidenav-nav li a:hover,
 .sidenav-nav li a:focus {
-    background-color: rgba(15, 15, 15, 0.1);
-    font-weight: 700;
+    background-color: #F8D7DA;
+    color:#EE4E4E;
 }
+
+.sidenav-nav li a:hover i,
+.sidenav-nav li a:focus i {
+    background-color: #F8D7DA;
+    color:#EE4E4E;
+}
+
+.sidenav-nav li button {
+    background:none;
+    display:flex;
+    width:100%;
+    left:0;
+    align-item:left;
+}
+
+.sidenav-nav li button:hover,
+.sidenav-nav li button:focus {
+    background-color: #F8D7DA;
+    color:#EE4E4E;
+}
+
 .sidenav-nav li:last-child a {
     margin-bottom: 0;
 }

@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class MainPageController extends Controller
 {
-    public function index(){
-        // dd(Auth::check());
-        return view('Test.index');
+    public function index()
+    {
+        $user = Auth::user();
+        return view('Test.index', compact('user'));
     }
 }

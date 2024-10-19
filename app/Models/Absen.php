@@ -28,4 +28,9 @@ class Absen extends Model
     {
         return $this->belongsTo(Member::class, 'member_id', 'id_member');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
+    }
+
 }

@@ -34,34 +34,6 @@ Route::get('/', function () {
     return view('Pages.HeroSection');
 })->name('hero');
 
-Route::get('/login', [LoginUserController::class, 'login'])->name('auth.login');
-Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
-
-Route::post('/proses-login', [LoginUserController::class, 'proses_login'])->name('proses.login');
-Route::post('/proses-register', [RegisterUserController::class, 'proses_register'])->name('proses.register');
-
-// Logout
-Route::post('/logout', [LoginUserController::class, 'logout'])->name('auth.logout')->middleware('auth');
-
-// Route::get('/izinkaryawan', function () {
-//     return view('Pengajuanizin.izinkaryawan');
-// });
-
-// Route::get('/izincuti', function () {
-//     return view('Pengajuanizin.izincuti');
-// });
-
-// Route::get('/history', function () {
-//     return view('History.history');
-// });
-
-
-// // Leaflet
-// Route::get('/webcamp', function () {
-//     return view('Leaflet.webcam');
-// })->name('absensi.karyawan');
-
-
 Route::get('/absen', [AbsenController::class, 'getDataAbsen']);
 Route::get('/absen/stats', [AbsenController::class, 'getStats']);
 

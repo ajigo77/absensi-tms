@@ -8,21 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginUserController extends Controller
 {
-    protected $redirectTo = '/index'; // Ganti dari /home ke /index
-
-    // public function login()
-    // {
-    //     return view('Auth.login');
-    // }
-
     public function login()
     {
-        // Jika user sudah login, arahkan ke halaman index
-        if (Auth::check()) {
-            return redirect()->route('index');
-        }
-
-        // Jika belum login, tampilkan halaman login
         return view('auth.login');
     }
 
@@ -45,11 +32,11 @@ class LoginUserController extends Controller
         );
 
         // Autentikasi user
-        if (Auth::attempt($credentials)) {
-            // Regenerasi session untuk keamanan
+        if (Auth::attempt(['member_id' => $credentials['member_id'], 'password' => $credentials['password']])) {
+            // Membuat Session
             $request->session()->regenerate();
 
-            // Redirect ke halaman index setelah berhasil login
+            // Jika berhasil login akan di arahkan ke halaman index
             return redirect()->route('index');
         }
 
@@ -66,6 +53,6 @@ class LoginUserController extends Controller
         $request->session()->regenerateToken();
 
         // Redirect ke halaman login setelah logout
-        return redirect()->route('auth.login');
+        return redirect()->route('auth.login')->with('success', 'Anda sudah logout');
     }
 }

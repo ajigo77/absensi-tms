@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no">
     <meta name="description" content="Suha - Multipurpose Ecommerce Mobile HTML Template">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#100DD1">
+    <meta name="theme-color" content="#e1f0ff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!-- The above tags *must* come first in the head, any other head content must come *after* these tags-->
@@ -39,11 +39,13 @@
         #shimeji-contextMenu::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
         .flex-wrap .icon {
             transition: .3s;
         }
+
         .flex-wrap .icon:hover {
-            color:rgba(0, 0, 0, 0.6);
+            color: rgba(0, 0, 0, 0.6);
         }
     </style>
     <meta name="shimejiBrowserExtensionId" content="gohjpllcolmccldfdggmamodembldgpc" data-version="2.0.5">
@@ -63,8 +65,6 @@
                     <span class="fs-6 fw-semibold">PT. Tecnology Multi System</span>
                 </a>
             </div>
-
-
             <!-- Search Form-->
             {{-- <div class="top-search-form">
           <form action="" method="">
@@ -80,7 +80,47 @@
         </div>
     </div>
     {{-- Component sidebar --}}
-    <x-comp-test.sidebar></x-comp-test.sidebar>
+    <!-- Sidenav Black Overlay-->
+    <div class="sidenav-black-overlay"></div>
+    <!-- Side Nav Wrapper-->
+    <div class="suha-sidenav-wrapper" id="sidenavWrapper">
+        <!-- Sidenav Profile-->
+        <div class="sidenav-profile">
+            <div class="user-profile">
+                <img src="{{ asset('assets/img/koci.png') }}" width="80" height="auto" alt="Logo">
+            </div>
+            <div class="user-info">
+                <h6 class="user-name mb-0 text-secondary">ID User : 12345</h6>
+            </div>
+        </div>
+        <!-- Sidenav Nav-->
+        <ul class="sidenav-nav ps-0">
+            <li>
+                <a href="https://sixghakreasi.com/demos/attd_mobile/profile">
+                    <i class="lni lni-user"></i>Profil Ku
+                </a>
+            </li>
+            <li>
+                <form action="{{ route('auth.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">
+                        <i class="lni lni-power-switch" style="margin-right: 0.5rem"></i>
+                        Keluar
+                    </button>
+                </form>
+            </li>
+            <li>
+                <a href="https://sixghakreasi.com/demos/attd_mobile/setting"><i class="lni lni-cog"></i>
+                    Pengaturan
+                </a>
+            </li>
+        </ul>
+        <!-- Go Back Button-->
+        <div class="go-home-btn" id="goHomeBtn">
+            <i class="bi bi-layout-sidebar"></i>
+            </i>
+        </div>
+    </div>
 
     <!-- PWA Install Alert-->
     {{-- <div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true"
@@ -98,151 +138,33 @@
         <div class="container">
             <div class="pt-3">
                 <!-- Hero Slides-->
-                <div class="hero-slides owl-carousel owl-loaded owl-drag">
-                    <!-- Single Hero Slide-->
-
-                    <!-- Single Hero Slide-->
-
-                    <!-- Single Hero Slide-->
-
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage"
-                            style="transition: all; width: 2982px; transform: translate3d(-1278px, 0px, 0px);">
-                            <div class="owl-item cloned" style="width: 426px;">
-                                <div class="single-hero-slide"
-                                    style="background-image: url('https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/bg-img/2.jpg')">
-                                    <div class="slide-content h-100 d-flex align-items-center">
-                                        <div class="slide-text">
-                                            <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 100ms; animation-duration: 1000ms; opacity: 0;">
-                                                “Don’t Let Yesterday Take Up Too Much of Today.” </h4>
-                                            <p class="text-white" data-animation="fadeInUp" data-delay="400ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 400ms; animation-duration: 1000ms; opacity: 0;">
-                                                – Will Rogers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-item cloned" style="width: 426px;">
-                                <div class="single-hero-slide"
-                                    style="background-image: url('https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/bg-img/3.jpg')">
-                                    <div class="slide-content h-100 d-flex align-items-center">
-                                        <div class="slide-text">
-                                            <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 100ms; animation-duration: 1000ms; opacity: 0;">
-                                                “Do or do not. There is no try.”</h4>
-                                            <p class="text-white" data-animation="fadeInUp" data-delay="400ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 400ms; animation-duration: 1000ms; opacity: 0;">
-                                                ~ Yoda</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-item" style="width: 426px;">
-                                <div class="single-hero-slide"
-                                    style="background-image: url('https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/bg-img/1.jpg')">
-                                    <div class="slide-content h-100 d-flex align-items-center">
-                                        <div class="slide-text">
-                                            <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 100ms; animation-duration: 1000ms; opacity: 0;">
-                                                “Attend today, and achieve tomorrow.”</h4>
-                                            <p class="text-white" data-animation="fadeInUp" data-delay="400ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 400ms; animation-duration: 1000ms; opacity: 0;">
-                                                ~ Sigit</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-item active center" style="width: 426px;">
-                                <div class="single-hero-slide"
-                                    style="background-image: url('https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/bg-img/2.jpg')">
-                                    <div class="slide-content h-100 d-flex align-items-center">
-                                        <div class="slide-text">
-                                            <h4 class="text-white mb-0 animated fadeInUp" data-animation="fadeInUp"
-                                                data-delay="100ms" data-duration="1000ms"
-                                                style="animation-delay: 100ms; animation-duration: 1000ms; opacity: 1;">
-                                                “Don’t Let Yesterday Take Up Too Much of Today.” </h4>
-                                            <p class="text-white animated fadeInUp" data-animation="fadeInUp"
-                                                data-delay="400ms" data-duration="1000ms"
-                                                style="animation-delay: 400ms; animation-duration: 1000ms; opacity: 1;">
-                                                – Will Rogers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-item" style="width: 426px;">
-                                <div class="single-hero-slide"
-                                    style="background-image: url('https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/bg-img/3.jpg')">
-                                    <div class="slide-content h-100 d-flex align-items-center">
-                                        <div class="slide-text">
-                                            <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 100ms; animation-duration: 1000ms; opacity: 0;">
-                                                “Do or do not. There is no try.”</h4>
-                                            <p class="text-white" data-animation="fadeInUp" data-delay="400ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 400ms; animation-duration: 1000ms; opacity: 0;">
-                                                ~ Yoda</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-item cloned" style="width: 426px;">
-                                <div class="single-hero-slide"
-                                    style="background-image: url('https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/bg-img/1.jpg')">
-                                    <div class="slide-content h-100 d-flex align-items-center">
-                                        <div class="slide-text">
-                                            <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 100ms; animation-duration: 1000ms; opacity: 0;">
-                                                “Attend today, and achieve tomorrow.”</h4>
-                                            <p class="text-white" data-animation="fadeInUp" data-delay="400ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 400ms; animation-duration: 1000ms; opacity: 0;">
-                                                ~ Sigit</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-item cloned" style="width: 426px;">
-                                <div class="single-hero-slide"
-                                    style="background-image: url('https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/bg-img/2.jpg')">
-                                    <div class="slide-content h-100 d-flex align-items-center">
-                                        <div class="slide-text">
-                                            <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 100ms; animation-duration: 1000ms; opacity: 0;">
-                                                “Don’t Let Yesterday Take Up Too Much of Today.” </h4>
-                                            <p class="text-white" data-animation="fadeInUp" data-delay="400ms"
-                                                data-duration="1000ms"
-                                                style="animation-delay: 400ms; animation-duration: 1000ms; opacity: 0;">
-                                                – Will Rogers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ asset('image/src/slide-1.jpeg') }}" class="d-block w-full h-full" alt="..." height="300" style="border-radius:10px;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ asset('image/src/slide-2.png') }}" class="d-block w-full h-full" alt="..." height="300" style="border-radius:10px;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ asset('image/src/slide-3.jpeg') }}" class="d-block w-full h-full" alt="..." height="300" style="border-radius:10px;">
                         </div>
                     </div>
-                    <div class="owl-nav disabled">
-                        <div class="owl-prev">prev</div>
-                        <div class="owl-next">next</div>
-                    </div>
-                    <div class="owl-dots">
-                        <div class="owl-dot"><span></span></div>
-                        <div class="owl-dot active"><span></span></div>
-                        <div class="owl-dot"><span></span></div>
-                    </div>
+                    <button class="carousel-control-prev" style="background: transparent; outline: none; border:none; color:red;" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" style="background: transparent; outline: none; border:none; color:red;" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
         <!-- Product Catagories-->
-        <div class="product-catagories-wrapper py-3">
+        <div class="product-catagories-wrapper py-4">
             <div class="container">
                 <div class="section-heading">
                     <h6>Menu</h6>
@@ -304,24 +226,7 @@
     <!-- Internet Connection Status-->
     <div class="internet-connection-status" id="internetStatus"></div>
     <!-- Footer Nav-->
-    <div class="footer-nav-area" id="footerNav">
-        <div class="container h-100 px-0">
-            <div class="suha-footer-nav h-100">
-                <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
-                    <li class="active"><a href="https://sixghakreasi.com/demos/attd_mobile/"><i
-                                class="lni lni-home"></i>Beranda</a></li>
-                    <li><a href="https://sixghakreasi.com/demos/attd_mobile/setting/get_help"><i
-                                class="lni lni-life-ring"></i>Dukungan</a></li>
-                    <li><a href="https://sixghakreasi.com/demos/attd_mobile/setting"><i
-                                class="lni lni-cog"></i>Pengaturan</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- All JavaScript Files-->
-    <div id="shimeji-workArea"
-        style="position: fixed; background: transparent; z-index: 2147483643; width: 100vw; height: 100vh; left: 0px; top: 0px; transform: translate(0px, 0px); pointer-events: none;">
-    </div>
+    <x-comp-test.footer></x-comp-test.footer>
 </body>
 
 </html>

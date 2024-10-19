@@ -10,5 +10,7 @@
 <script src="{{ asset('assets/js/default/no-internet.js') }}"></script>
 <script src="{{ asset('assets/js/default/active.js') }}"></script>
 <script src="{{ asset('assets/js/pwa.js') }}"></script>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script>
 {{-- SweetAlert2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

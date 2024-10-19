@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no">
     <meta name="description" content="Suha - Multipurpose Ecommerce Mobile HTML Template">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#100DD1">
+    <meta name="theme-color" content="#e1f0ff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!-- The above tags *must* come first in the head, any other head content must come *after* these tags-->
@@ -179,26 +179,17 @@
     <!-- Internet Connection Status-->
     <div class="internet-connection-status" id="internetStatus"></div>
     <!-- Footer Nav-->
-    <div class="footer-nav-area" id="footerNav">
-        <div class="container h-100 px-0">
-            <div class="suha-footer-nav h-100">
-                <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
-                    <li class="active"><a href="https://sixghakreasi.com/demos/attd_mobile/"><i
-                                class="lni lni-home"></i>Beranda</a></li>
-                    <li><a href="https://sixghakreasi.com/demos/attd_mobile/setting/get_help"><i
-                                class="lni lni-life-ring"></i>Dukungan</a></li>
-                    <li><a href="https://sixghakreasi.com/demos/attd_mobile/setting"><i
-                                class="lni lni-cog"></i>Pengaturan</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- All JavaScript Files-->
+    <x-comp-test.footer></x-comp-test.footer>
 
-
-    <div id="shimeji-workArea"
-        style="position: fixed; background: transparent; z-index: 2147483643; width: 100vw; height: 100vh; left: 0px; top: 0px; transform: translate(0px, 0px); pointer-events: none;">
-    </div>
+    @if ($pesan_error = Session::get('error'))
+        <script>
+            Swal.fire({
+                title: "Oops!",
+                text: "{{ $pesan_error }}",
+                icon: "error"
+            });
+        </script>
+    @endif
 </body>
 
 </html>
