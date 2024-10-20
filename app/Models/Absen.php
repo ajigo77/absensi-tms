@@ -11,7 +11,7 @@ class Absen extends Model
 
     protected $table = 'absens';
 
-    protected $fillable = ['user_id', 'type', 'shift_id', 'foto', 'lattitude', 'longtitude', 'status', 'member_id'];
+    protected $fillable = ['user_id', 'type', 'shift_id', 'foto', 'lattitude', 'longtitude', 'status'];
 
     // Tambahkan metode untuk mengambil data
     public static function getStats()
@@ -24,10 +24,11 @@ class Absen extends Model
         ];
     }
 
-    public function member()
-    {
-        return $this->belongsTo(Member::class, 'member_id', 'id_member');
-    }
+    // public function member()
+    // {
+    //     return $this->belongsTo(Member::class, 'member_id', 'id_member');
+    // }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id_user');

@@ -63,14 +63,6 @@
                 </a>
             </div>
 
-            <!-- Search Form-->
-            <!--<div class="top-search-form">
-          <form action="" method="">
-            <input class="form-control" type="search" placeholder="Enter your keyword">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div>-->
-
             <!-- Navbar Toggler-->
             <div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
                 <i class="bi bi-list fs-3 icon"></i>
@@ -80,15 +72,6 @@
     {{-- Component sidebar --}}
     <x-comp-test.sidebar></x-comp-test.sidebar>
 
-    <!-- PWA Install Alert-->
-    <!--<div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
-      <div class="toast-body">
-        <div class="content d-flex align-items-center mb-2"><img src="https://sixghakreasi.com/demos/attd_mobile/assets/mobile/img/icons/icon-72x72.png" alt="">
-          <h6 class="mb-0">Selamat Datang Kembali...</h6>
-          <button class="btn-close ms-auto" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div><span class="mb-0 d-block">Silahkan pilih menu tersedia untuk melihat dan mengelola konten</span>
-      </div>
-    </div>-->
     <div class="page-content-wrapper">
         <div class="container">
             <div class="product-catagories-wrapper py-3">
@@ -100,17 +83,22 @@
                                 <div class="card shadow-sm border rounded-lg">
                                     <div class="card-body">
                                         <h5 class="card-title mb-2 text-capitalize">
-                                            Absen {{ $card->name }}
+                                            <i class="bi bi-activity fw-bold fs-5 text-success"></i>
+                                            Shift {{ $card->name }}
                                         </h5>
 
                                         {{-- Copywriting Absen Berdasarkan Waktu --}}
                                         @if ($card->name == 'pagi')
                                             <p class="card-text text-muted">
-                                                Jangan lupa absen pagi! Dari pukul {{ \Carbon\Carbon::parse($card->start_time)->format('H:i') }} hingga pukul {{ \Carbon\Carbon::parse($card->end_time)->format('H:i') }}.
+                                                Jangan lupa absen pagi! Dari pukul
+                                                {{ \Carbon\Carbon::parse($card->start_time)->format('H:i') }} hingga
+                                                pukul {{ \Carbon\Carbon::parse($card->end_time)->format('H:i') }}.
                                             </p>
-                                            @elseif($card->name == 'sore')
+                                        @elseif($card->name == 'sore')
                                             <p class="card-text text-muted">
-                                                Jangan lupa absen sore! Dari pukul {{ \Carbon\Carbon::parse($card->start_time)->format('H:i') }} hingga pukul {{ \Carbon\Carbon::parse($card->end_time)->format('H:i') }}.
+                                                Jangan lupa absen sore! Dari pukul
+                                                {{ \Carbon\Carbon::parse($card->start_time)->format('H:i') }} hingga
+                                                pukul {{ \Carbon\Carbon::parse($card->end_time)->format('H:i') }}.
                                             </p>
                                         @endif
 
@@ -122,10 +110,32 @@
                                             </span>
                                         @elseif ($card->bisa_absen)
                                             <!-- Jika masih dalam periode absen -->
-                                            <a class="btn btn-danger d-block w-100 text-center mt-4 button-link"
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-danger d-block w-100 text-center text-white mt-4 button-link dropdown-toggle"
+                                                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    Pilih Jenis Absen
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('webcamp.absen', [$card->id, 'masuk']) }}">
+                                                            <i class="bi bi-box-arrow-right text-success me-2"></i>Masuk
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('webcamp.absen', [$card->id, 'keluar']) }}">
+                                                            <i class="bi bi-box-arrow-left text-danger me-2"></i>Keluar
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            {{-- <a class="btn btn-danger d-block w-100 text-center mt-4 button-link"
                                                 href="{{ route('webcamp.absen') }}">
-                                                Pilih Absen {{ $card->name }}
-                                            </a>
+                                            </a> --}}
                                         @else
                                             <!-- Jika waktu absen sudah berakhir -->
                                             <span class="d-block mt-4 btn btn-secondary disabled text-center">
@@ -141,8 +151,19 @@
             </div>
         </div>
     </div>
-
-
+    @if ($pesan_info = Session::get('info'))
+        <div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true"
+            data-bs-delay="5000" data-bs-autohide="true">
+            <div class="toast-body">
+                <div class="content d-flex align-items-center mb-2 justify-content-center">
+                    <i class="bi bi-info-circle-fill text-primary fs-5 me-2"></i>
+                    <h6 class="mb-0">Oopss!</h6>
+                    <button class="btn-close ms-auto" type="button" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div><span class="mb-0 d-block">{{ $pesan_info }}</span>
+            </div>
+        </div>
+    @endif
     {{-- Component Script --}}
     <x-src.link-script></x-src.link-script>
 

@@ -156,6 +156,8 @@
                     @csrf
                     <input type="hidden" name="lattitude" id="lattitude"> <!-- Input tersembunyi untuk gambar -->
                     <input type="hidden" name="longtitude" id="longtitude"> <!-- Input tersembunyi untuk gambar -->
+                    <input type="text" name="shift_id" value="{{ $shift->id }}" id="shift_id"> <!-- Input tersembunyi untuk shift_id -->
+                    <input type="text" name="type" value="{{ $type }}" id="type"> <!-- Input tersembunyi untuk shift_id -->
                     <button id="submit" disabled class="btn btn-warning btn-lg w-100" type="button">
                         <i class="bi bi-send-fill fs-5 text-dark mr-2"></i>
                         Submit

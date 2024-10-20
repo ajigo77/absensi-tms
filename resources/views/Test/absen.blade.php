@@ -154,7 +154,7 @@
                                 <div class="noti-info flex-grow-1">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="mb-0 fw-bold text-uppercase">
-                                            {{ $absen->member->nama }}
+                                            {{ $absen->user->Member->nama ?? 'user.Member'}}
                                         </h5>
                                         <span class="mb-2 text-secondary" style="font-size: 12px;">
                                             {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}

@@ -42,16 +42,23 @@
                 </div>
 
                 <!-- Menu Items for Desktop -->
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-5">
-                    <a href="{{ route('auth.register') }}"
-                        class="text-sm font-semibold leading-6 text-white-100 px-5 py-2 rounded-full text-center align-middle flex justify-center transition bg-red-100 hover:bg-red-50 items-center">
-                        Daftar
-                    </a>
-                    <a href="{{ route('auth.login') }}"
-                        class="text-sm font-semibold leading-6 text-red-10 px-5 py-2 border-2 border-red-10 hover:border-red-50 rounded-full text-center items-center flex justify-center transition hover:text-red-50">
-                        Masuk
-                    </a>
-                </div>
+                {{-- @auth
+                    <div class="flex flex-col space-y-5 fw-bold text-secondary-600 fs-5 text-capitalize">
+                        <h1>Selamat Datang, {{ Auth::user()->Member->nama }}</h1>
+                    </div>
+                @endauth --}}
+                @guest
+                    <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-5">
+                        <a href="{{ route('auth.register') }}"
+                            class="text-sm font-semibold leading-6 text-white-100 px-5 py-2 rounded-full text-center align-middle flex justify-center transition bg-red-100 hover:bg-red-50 items-center">
+                            Daftar
+                        </a>
+                        <a href="{{ route('auth.login') }}"
+                            class="text-sm font-semibold leading-6 text-red-10 px-5 py-2 border-2 border-red-10 hover:border-red-50 rounded-full text-center items-center flex justify-center transition hover:text-red-50">
+                            Masuk
+                        </a>
+                    </div>
+                @endguest
             </nav>
 
             <!-- Mobile Menu (Hidden by Default) -->
@@ -67,13 +74,13 @@
                             </svg>
                         </button>
                     </div>
-
                     <!-- Mobile Menu Links -->
                     @auth
                         <div class="flex flex-col space-y-5">
-                            <h1>Selamat Datang, {{ auth()->user()->id_user }}</h1>
+                            <h1>Selamat Datang, {{ Auth::user()->Member->nama }}</h1>
                         </div>
-                    @else
+                    @endauth
+                    @guest
                         <div class="flex flex-col space-y-5">
                             <a href="{{ route('auth.register') }}"
                                 class="flex justify-between items-center text-base font-semibold leading-6 text-white-100 px-5 py-3 rounded-md bg-red-50 hover:bg-red-100 transition">
@@ -84,7 +91,7 @@
                                 Masuk <i class="bi bi-box-arrow-right text-md"></i>
                             </a>
                         </div>
-                    @endauth
+                    @endguest
                 </div>
             </div>
         </header>

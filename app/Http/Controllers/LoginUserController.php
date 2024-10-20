@@ -17,7 +17,7 @@ class LoginUserController extends Controller
     {
         $customMessageValidate = [
             'member_id.required' => 'Id member tidak boleh kosong',
-            'member_id.numeric' => 'Hanya boleh angka',
+            'member_id.exists' => 'tidak ada member',
             'password.required' => 'Password tidak boleh kosong',
             'password.min' => 'Minimal 5 karakter',
             'password.max' => 'Maximal 8 karakter',
@@ -25,18 +25,20 @@ class LoginUserController extends Controller
 
         $credentials = $request->validate(
             [
-                'member_id' => 'required|numeric',
+                'member_id' => 'required|exists:members,id_member',
                 'password' => 'required|min:5|max:8',
             ],
             $customMessageValidate,
         );
 
         // Autentikasi user
-        if (Auth::attempt(['member_id' => $credentials['member_id'], 'password' => $credentials['password']])) {
+        if (Auth::attempt($credentials)) {
             // Membuat Session
             $request->session()->regenerate();
 
-            // Jika berhasil login akan di arahkan ke halaman index
+            // dd(Auth::attempt(['member_id' => $credentials['member_id'], 'password' => $credentials['password']]));
+
+            // // Jika berhasil login akan di arahkan ke halaman index
             return redirect()->route('index');
         }
 

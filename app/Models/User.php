@@ -40,14 +40,13 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
-    // Menyatakan bahwa id_member akan digunakan sebagai field login
+    // Menyatakan bahwa member_id akan digunakan sebagai field login
     public function getAuthIdentifierName()
     {
-        return 'id_member';
+        return 'member_id';
     }
     //soal cari relasi ini 😈
     public function Member(){
@@ -56,6 +55,9 @@ class User extends Authenticatable
     //relasi kan bahwa user hanya meiliki 1 Divisi
     public function Devisi(){
         return $this->belongsTo(Devisi::class,'divisi_id','id_divisi');
+    }
+    public function Absens(){
+        return $this->hasMany(Absen::class ,'user_id','id_user');
     }
     //relasi kan bahwa user hanya memiliki 1 Jabatan
     public function Jabatan(){

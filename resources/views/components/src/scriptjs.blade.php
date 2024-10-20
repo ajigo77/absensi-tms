@@ -195,6 +195,8 @@
         $('#submit').click(function(event) {
             let lat = $('#lattitude').val();
             let lon = $('#longtitude').val();
+            let type = document.getElementById('type').value;
+            let shiftId = document.getElementById('shift_id').value;
 
             // Jika validasi sukses, siapkan FormData untuk submit
             let formData = new FormData();
@@ -202,6 +204,8 @@
             formData.append('_token', '{{ csrf_token() }}');
             formData.append('lattitude', lat);
             formData.append('longtitude', lon);
+            formData.append('type', type);
+            formData.append('shift', shiftId);
             // Tambahkan token CSRF
             // Ambil gambar dari canvas sebagai bukti selfie
             if (canvas) {

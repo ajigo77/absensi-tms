@@ -11,7 +11,7 @@ class Shift extends Model
     use HasFactory;
 
     protected $table = 'shifts';
-    protected $fillable = ['name', 'start_time', 'end_time'];
+    protected $fillable = ['name', 'start_time', 'end_time','waktu'];
 
     // protected $casts = [
     //     'start_time' => 'datetime',

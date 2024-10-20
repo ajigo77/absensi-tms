@@ -87,32 +87,33 @@
         <!-- Sidenav Profile-->
         <div class="sidenav-profile">
             <div class="user-profile">
-                <img src="{{ asset('assets/img/koci.png') }}" width="80" height="auto" alt="Logo">
+                <img src="{{ asset('image/src/avatar-profile.png') }}" width="80" height="auto" alt="Logo">
             </div>
             <div class="user-info">
-                <h6 class="user-name mb-0 text-secondary">ID User : 12345</h6>
+                <h6 class="user-name mb-0 text-secondary">ID User : {{ Auth::user()->id_user }}</h6>
+                <p class="text-secondary user-name">{{ Auth::user()->Member->nama }}</p>
             </div>
         </div>
         <!-- Sidenav Nav-->
         <ul class="sidenav-nav ps-0">
             <li>
-                <a href="https://sixghakreasi.com/demos/attd_mobile/profile">
-                    <i class="lni lni-user"></i>Profil Ku
+                <a href="{{ route('hero') }}">
+                    <i class="bi bi-house text-danger"></i>Beranda
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('index') }}">
+                    <i class="bi bi-houses text-danger"></i>Halaman Utama
                 </a>
             </li>
             <li>
                 <form action="{{ route('auth.logout') }}" method="POST">
                     @csrf
                     <button type="submit">
-                        <i class="lni lni-power-switch" style="margin-right: 0.5rem"></i>
+                        <i class="lni lni-power-switch text-danger" style="margin-right: 0.5rem"></i>
                         Keluar
                     </button>
                 </form>
-            </li>
-            <li>
-                <a href="https://sixghakreasi.com/demos/attd_mobile/setting"><i class="lni lni-cog"></i>
-                    Pengaturan
-                </a>
             </li>
         </ul>
         <!-- Go Back Button-->
@@ -205,16 +206,18 @@
                             </div>
                         </div>
                         <!-- Single Catagory Card-->
+                        @if(Auth::user()->jabatan_id == 15 || Auth::user()->jabatan_id == 21)
                         <div class="col-4">
                             <div class="card catagory-card">
                                 <div class="card-body">
-                                    <a class="text-success" href="http://127.0.0.1:8000/admin">
+                                    <a class="text-success" href="{{ route('filament.admin.pages.dashboard') }}">
                                         <i class="bi bi-speedometer text-warning"></i>
                                         <span>Dashboard</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
