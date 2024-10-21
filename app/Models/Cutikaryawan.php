@@ -9,16 +9,19 @@ class Cutikaryawan extends Model
 {
     use HasFactory;
 
+    protected $table = 'cutikaryawans';
+
     protected $fillable = [
-        'nama_karyawan', // Nama Karyawan
-        'divisi', // Divisi
-        'jabatan', // Jabatan
-        'tanggal_cuti', // Tanggal Cuti
-        'alasan', // Alasan
-        'approved', // Status Persetujuan
+        'nama_karyawan',
+        'divisi',
+        'jabatan',
+        'dari_tanggal',
+        'alasan',
+        'sampai_tanggal',
+        'user_id'
     ];
 
-    protected $casts = [
-        'tanggal_cuti' => 'date', // Tanggal Cuti
-    ];
+    public function User(){
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
+    }
 }

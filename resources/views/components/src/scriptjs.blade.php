@@ -1,17 +1,19 @@
+{{-- SweetAlert2 --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const video = document.querySelector("#video");
+    const imageIlustrator = document.querySelector("#img-ilustrator");
+    const infoLocation = document.querySelector("#info-location");
+    const cardLocation = document.querySelector("#card-location");
     const btnCapture = document.querySelector("#capture");
     const canvas = document.getElementById('canvas');
     const coverMap = document.getElementById("map");
     const tombolSubmit = document.getElementById("submit");
-    const latitudeInput = document.getElementById("latitude");
-    const longitudeInput = document.getElementById("longitude");
-    let capturedBlob = null;
+    const latitudeInput = document.getElementById("lattitude");
+    const longitudeInput = document.getElementById("longtitude");
 
-    // Siapkan FormData untuk pengiriman file gambar
-    const formData = new FormData();
-
-    document.getElementById('canvas').style.display = 'none';
+    canvas.style.display = 'none';
+    video.style.display = 'none';
 
     function initializeWebcam() {
         const constraints = {
@@ -28,12 +30,12 @@
                     video.srcObject = mediaStream;
                     video.onloadedmetadata = function(e) {
                         video.play();
-
-                        const classVideo = document.querySelector('.border-4.border-gray-10.border-dashed');
-
                         if (video.play()) {
-                            document.getElementById('place').style.display = 'none';
-                            classVideo.classList.remove('border-4', 'border-gray-10', 'border-dashed');
+                            imageIlustrator.style.display = 'none';
+                            video.style.display = 'block';
+                            video.style.borderRadius = '8px';
+                            video.style.border = 'none';
+                            video.style.outline = 'none';
                         }
                     };
                 })
@@ -60,14 +62,18 @@
         const context = canvas.getContext('2d');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+        imageIlustrator.style.display = 'none';
         canvas.style.display = 'block';
-        document.querySelector('#video').style.display = 'none';
+        canvas.style.borderRadius = '8px';
+        video.style.display = 'none';
 
         Swal.fire({
             title: "Sukses",
-            text: "Gambar berhasil diambil, siap untuk di submit!",
+            text: "Gambar berhasil diambil",
             icon: "success"
         });
+
+        stop(); // Hentikan video setelah gambar diambil
 
         // Ini untuk mendapatkan titik koordinat lokasi user
         if (navigator.geolocation) {
@@ -79,15 +85,6 @@
                 latitudeInput.value = latitudeValue;
                 longitudeInput.value = longitudeValue;
 
-                // Debugging
-                // console.log(latitudeInput.value);
-                // console.log(longitudeInput.value);
-
-                // Set nilai latitude dan longitude dari input hidden ke FormData
-                formData.append('latitude', latitudeInput.value);
-                formData.append('longitude', longitudeInput.value);
-
-
             }, function(error) {
                 // Tangani error saat tidak bisa mendapatkan posisi
                 console.error("Tidak bisa mendapatkan lokasi: ", error);
@@ -96,44 +93,10 @@
             console.error("Geolocation tidak didukung oleh browser ini.");
         }
 
-        // Ambil gambar dari canvas dan ubah menjadi Blob
-        canvas.toBlob(function(blob) {
-            if (blob) {
-                // Buat file dari Blob yang sudah diambil
-                const file = new File([blob], 'my_photo.jpg', {
-                    type: 'image/jpeg'
-                });
-
-                // Tambahkan file ke FormData
-                // formData.append('image', file);
-
-                // Debugging: cek apakah file sudah terbentuk
-
-                console.log(file); // Periksa file yang terbentuk
-            } else {
-                console.log("Blob gagal dibuat dari canvas.");
-            }
-        }, 'image/jpeg');
-
-        stop(); // Hentikan video setelah gambar diambil
+        tombolSubmit.disabled = false;
+        tombolSubmit.style.cursor = 'pointer';
+        tombolSubmit.classList.remove('bg-red-50');
     }
-
-    function uploadImageAndLocation() {
-        // Kirim data gambar dan koordinat lokasi ke server menggunakan fetch API
-        fetch('/upload', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            }
-        );
-    }
-
 
     // Matikan tombol Ambil Gambar saat pertama kali dimuat
     btnCapture.disabled = true;
@@ -143,12 +106,15 @@
     $('#open-cam').on('click', function() {
         // menjalankan fungsi
         initializeWebcam();
+        video.classList.add('rounded-bottom');
+        cardLocation.style.height = '400px';
+        cardLocation.style.padding = '10px';
+
         btnCapture.disabled = false;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-
                 showMap(latitude, longitude);
             }, function(error) {
                 console.log(": ", error);
@@ -166,35 +132,28 @@
             });
         }
 
-        // Menghapus class dan style dari tombol Capture dan Submit setelah kamera dibuka
+        // Menghapus class dan style dari tombol Capture
         btnCapture.disabled = false;
         btnCapture.classList.remove('bg-red-50');
         btnCapture.style.cursor = 'pointer'; // Mengembalikan ke kursor pointer
 
-        tombolSubmit.disabled = false;
-        tombolSubmit.classList.remove('bg-red-50');
-        tombolSubmit.style.cursor = 'pointer'; // Mengembalikan ke kursor pointer
-
     });
 
-    // style ketika tombol buka camera belum di klik
-    if (btnCapture.disabled && tombolSubmit.disabled) {
-        btnCapture.classList.add('bg-red-50');
-        btnCapture.style.cursor = 'not-allowed';
-        tombolSubmit.classList.add('bg-red-50');
-        tombolSubmit.style.cursor = 'not-allowed';
-    }
+    // // style ketika tombol buka camera belum di klik
+    // if (btnCapture.disabled && tombolSubmit.disabled) {
+    //     // Untuk tombol ambil gambar
+    //     btnCapture.classList.add('not-allowed');
+    //     btnCapture.style.cursor = 'not-allowed';
+
+    //     // Untuk tombol submit
+    //     tombolSubmit.classList.add('not-allowed');
+    //     tombolSubmit.style.cursor = 'not-allowed';
+    // }
 
     // Fungsi untuk mengambil gambar
     btnCapture.addEventListener('click', function() {
         if (!btnCapture.disabled) {
             captureImage(); // Panggil fungsi untuk mengambil gambar
-        }
-    });
-
-    tombolSubmit.addEventListener('click', function() {
-        if (!tombolSubmit.disabled) {
-            uploadImageAndLocation(); // Panggil fungsi untuk mengirimkan data
         }
     });
 
@@ -205,6 +164,10 @@
         // Hilangkan style display:none dari div dengan id map
         const mapDiv = document.getElementById('map');
         mapDiv.style.display = 'block';
+        mapDiv.style.borderRadius = '8px';
+
+        // hide teks lokasi anda
+        infoLocation.style.display = 'none';
 
         // Inisialisasi peta
         const map = L.map('map').setView([lat, lon], 15);
@@ -219,8 +182,8 @@
         }).addTo(map);
 
         const circle = L.circle([latLokasiKantor, longLokasiKantor], {
-            color: 'red',
-            fillColor: '#f03',
+            color: '#fff',
+            fillColor: '#d71313',
             fillOpacity: 0.5,
             radius: 400
         }).addTo(map);
@@ -229,4 +192,64 @@
         const marker = L.marker([lat, lon]).addTo(map)
             .bindPopup('Lokasi Anda').openPopup();
     }
+
+    $(document).ready(function() {
+        $('#submit').click(function(event) {
+            let lat = $('#lattitude').val();
+            let lon = $('#longtitude').val();
+            let type = document.getElementById('type').value;
+            let shiftId = document.getElementById('shift_id').value;
+
+            // Jika validasi sukses, siapkan FormData untuk submit
+            let formData = new FormData();
+
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('lattitude', lat);
+            formData.append('longtitude', lon);
+            formData.append('type', type);
+            formData.append('shift', shiftId);
+            // Tambahkan token CSRF
+            // Ambil gambar dari canvas sebagai bukti selfie
+            if (canvas) {
+                var webcamDataURL = canvas.toDataURL('image/png'); // Mengonversi gambar dari canvas ke format data URL
+                formData.append('webcam', webcamDataURL); // Tambahkan ke FormData
+
+                // Fungsi untuk submit form menggunakan AJAX
+                $.ajax({
+                    url: $('#absenForm').attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false, // Agar tidak memproses data secara otomatis
+                    contentType: false, // Agar tidak mengubah tipe konten
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                title: "Sukses",
+                                text: "Absen berhasil disimpan",
+                                icon: "success"
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        // Cek apakah respons memiliki pesan kesalahan
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                                Swal.fire({
+                                    title: "Gagal",
+                                    text: `${xhr.responseJSON.message}`,
+                                    icon: "error"
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Oops!",
+                                    text: "Terjadi kesalahan saat mengirim data",
+                                    icon: "error"
+                                });
+                        }
+                    }
+                });
+            } else {
+                console.log('Canvas tidak ditemukan');
+            }
+        });
+    });
 </script>

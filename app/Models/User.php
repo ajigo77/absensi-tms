@@ -16,14 +16,12 @@ class User extends Authenticatable
      */
 
     protected $tabel = 'users';
+    protected $primaryKey = 'id_user'; // Jika primary key adalah id_user
     protected $fillable = [
-        'id_user',
         'member_id',
         'password',
-        'divisi_id',
         'jabatan_id',
-        'status',
-        'name', // Add 'name' if not already present
+        'divisi_id',
     ];
 
     /**
@@ -42,30 +40,32 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-  
-    // Menyatakan bahwa id_member akan digunakan sebagai field login
+
+    // Menyatakan bahwa member_id akan digunakan sebagai field login
     public function getAuthIdentifierName()
     {
-        return 'id_member';
-
-//soal cari relasi ini 😈
+        return 'member_id';
+    }
+    //soal cari relasi ini 😈
     public function Member(){
-
+        return $this->belongsTo(Member::class, 'member_id','id_member');
     }
-//relasi kan bahwa uswr hanya meiliki 1 Devisi
+    //relasi kan bahwa user hanya meiliki 1 Divisi
     public function Devisi(){
-        return $this->belongsTo(Devisi::class);
+        return $this->belongsTo(Devisi::class,'divisi_id','id_divisi');
     }
-//relasi kan bahwa user hanya memiliki 1 Jabatan
+    public function Absens(){
+        return $this->hasMany(Absen::class ,'user_id','id_user');
+    }
+    //relasi kan bahwa user hanya memiliki 1 Jabatan
     public function Jabatan(){
-        return $this->belongsTo(Jabatan::class ,'jabatan_id');
+        return $this->belongsTo(Jabatan::class ,'jabatan_id','id_jabatan');
     }
 
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
+    // Relasi ke model cutikaryawan
+    public function CutiKaryawan(){
+       return $this->hasMany(Cutikaryawan::class, 'user_id', 'id_user');
     }
 }

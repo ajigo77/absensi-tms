@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,33 +10,51 @@ class LoginUserController extends Controller
 {
     public function login()
     {
-        return view('Auth.login');
+        return view('auth.login');
     }
 
     public function proses_login(Request $request)
     {
-        $request->validate([
-            'member_id' => 'required|numeric',
-            'password' => 'required',
-        ]);
-
-        $data = [
-            'member_id' => $request->member_id,
-            'password' => $request->password,
+        $customMessageValidate = [
+            'member_id.required' => 'Id member tidak boleh kosong',
+            'member_id.exists' => 'tidak ada member',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Minimal 5 karakter',
+            'password.max' => 'Maximal 8 karakter',
         ];
 
-        if (Auth::attempt($data)) {
-            // dd('Login berhasil');
-            return redirect()->route('user.shift');
-        } else {
-            // dd('Login gagal');
-            return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');
+        $credentials = $request->validate(
+            [
+                'member_id' => 'required|exists:members,id_member',
+                'password' => 'required|min:5|max:8',
+            ],
+            $customMessageValidate,
+        );
+
+        // Autentikasi user
+        if (Auth::attempt($credentials)) {
+            // Membuat Session
+            $request->session()->regenerate();
+
+            // dd(Auth::attempt(['member_id' => $credentials['member_id'], 'password' => $credentials['password']]));
+
+            // // Jika berhasil login akan di arahkan ke halaman index
+            return redirect()->route('index');
         }
+
+        // dd('login gagal');
+        return redirect()->route('auth.login')->with('failed', 'Email atau Password salah');
     }
 
-    public function logout()
+    public function logout(Request $request): RedirectResponse
     {
-        Auth::logout();
-        return redirect()->route('auth.login')->with('success', 'Anda berhasil logout');
+        Auth::logout(); // Logout user
+
+        // Hapus semua data session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect ke halaman login setelah logout
+        return redirect()->route('auth.login')->with('success', 'Anda sudah logout');
     }
 }

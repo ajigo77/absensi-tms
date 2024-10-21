@@ -11,7 +11,8 @@ class Absen extends Model
     use HasFactory;
 
     protected $table = 'absens';
-    protected $primaryKey = 'id_absen'; // Ensure this matches the column name in the database
+
+    protected $fillable = ['user_id', 'type', 'shift_id', 'foto', 'lattitude', 'longtitude', 'status'];
 
     // Relasi ke model Shift
     public function shift()
@@ -25,18 +26,21 @@ class Absen extends Model
         $today = Carbon::today();
 
         return [
-            'on_time' => self::whereDate('created_at', $today)->where('status', 'on time')->count(), // On time count
-            'terlambat' => self::whereDate('created_at', $today)->where('status', 'terlambat')->count(), // Late count
-            'masuk' => self::whereDate('created_at', $today)->where('type', 'masuk kerja')->count(), // Present count
-            'tidak_masuk' => self::whereDate('created_at', $today)->where('type', 'tidak masuk')->count(), // Absent count
-            'izin' => self::whereDate('created_at', $today)->where('status', 'Izin')->count(),
-            'sakit' => self::whereDate('created_at', $today)->where('status', 'Sakit')->count(),
-            'cuti' => self::whereDate('created_at', $today)->where('status', 'Cuti')->count(),
+            'masuk' => self::where('type', 'masuk')->count(),
+            'terlambat' => self::where('type', 'terlambat')->count(),
+            'lembur' => self::where('type', 'lembur')->count(),
+            'tidak_masuk' => self::where('type', 'tidak masuk')->count(),
         ];
     }
 
+    // public function member()
+    // {
+    //     return $this->belongsTo(Member::class, 'member_id', 'id_member');
+    // }
+
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); // Ensure 'user_id' is correct
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
+
 }

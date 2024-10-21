@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Pages\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Absen;
 
 class DashboardController extends Controller
 {
     public function dash(){
-        $usrs = User::limit(10)->get();
-        return view('dashboard', compact('usrs'));
+        $absen = Absen::all();
+        return view('dashboard', compact('absen'));
     }
 }

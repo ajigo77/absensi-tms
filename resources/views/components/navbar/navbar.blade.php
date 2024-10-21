@@ -19,7 +19,8 @@
             </div>
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex flex-shrink-0 items-center">
-                    <img class="h-8 w-auto rounded-full" src="{{ asset('./logo-company/favicon-tms.png') }}" alt="Logo Company">
+                    <img class="h-8 w-auto rounded-full" src="{{ asset('./logo-company/favicon-tms.png') }}"
+                        alt="Logo Company">
                 </div>
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
@@ -35,18 +36,18 @@
                     </div>
                 </div>
             </div>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-10">
                 <!-- Profile dropdown -->
                 <div class="relative ml-3" @click.outside="openProfile = false">
                     <div>
                         <button @click="openProfile = !openProfile" type="button"
-                            class="relative flex items-center justify-center"
-                            id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            class="relative flex items-center justify-center" id="user-menu-button"
+                            aria-expanded="false" aria-haspopup="true">
                             <i class="bi bi-person-circle text-3xl text-white-100"></i>
                         </button>
                     </div>
                     <div x-show="openProfile"
-                        class="absolute right-0 z-100 mt-2 w-48 origin-top-right rounded-md bg-white-100 py-1 shadow-lg ring-1 ring-gray-300 ring-opacity-5 focus:outline-none p-2"
+                        class="absolute right-0 z-100 mt-2 w-48 origin-top-right rounded-md bg-white-100 py-2 shadow-lg ring-1 ring-gray-300 ring-opacity-5 focus:outline-none px-2"
                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
 
                         <a href="#"
@@ -71,15 +72,17 @@
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" x-show="open" id="mobile-menu">
-        <div class="space-y-1 px-2 pb-3 pt-2">
-            <a href="#" class="block rounded-md bg-red-50 px-3 py-2 text-base font-medium text-white-100"
-                aria-current="page">Dashboard</a>
+        <div class="space-y-4 px-2 pb-3 pt-2">
+            <a href="#" class="block rounded-md bg-red-50 px-3 py-2 text-base font-medium text-white-100 mb-3"
+                aria-current="page">Beranda</a>
             <a href="#"
+                class="block rounded-md px-3 py-2 text-sm font-medium text-white-100 hover:bg-red-50 focus:bg-red-50 hover:text-white-100">Dashboard</a>
+            {{-- <a href="#"
                 class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Team</a>
             <a href="#"
                 class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Projects</a>
             <a href="#"
-                class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Calendar</a>
+                class="block rounded-md px-3 py-2 text-base font-medium text-white-100 hover:bg-red-50">Calendar</a> --}}
         </div>
     </div>
 </nav>

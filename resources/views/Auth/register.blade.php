@@ -1,164 +1,145 @@
 <!DOCTYPE html>
-<html lang="en"> <!--begin::Head-->
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Register</title><!--begin::Primary Meta Tags-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--end::Primary Meta Tags--><!--begin::Fonts-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
-    <!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css"
-        integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
-        integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no">
+    <meta name="description" content="Suha - Multipurpose Ecommerce Mobile HTML Template">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#e1f0ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Register</title>
+    <!-- Component Style -->
+    <x-src.link-style></x-src.link-style>
 
-    @vite('resources/css/app.css')
-    <style>
-        body {
-            background: linear-gradient(to bottom right, #d30f0f, #ffacac);
-            background-size: cover;
-            background-position: center;
-            z-index: -100;
-            position: relative;
-            background-repeat: no-repeat;
-        }
-    </style>
+    {{-- MDBOOTSTRAP --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.min.css" rel="stylesheet" />
 </head>
 
-<body class="login-page">
-    <div class="login-box">
-        <div class="card">
-            <div class="card-body login-card-body rounded">
-                <div class="login-logo flex justify-center mt-3 mb-5"> <img
-                        src="{{ asset('./logo-company/tms.png') }}" alt="Logo TMS" width="60"
-                        style="background-blend-mode: color-burn; border-radius: 100px;">
-                </div> <!-- /.login-logo -->
-                <form action="{{ route('proses.register') }}" method="post">
-                    @csrf
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Id Member" name="member_id"
-                                value="{{ old('member_id') }}">
-                            <div class="input-group-text">
-                                <span class="bi bi-hash"></span>
+<body>
+    <section class="vh-100" style="background-color: #e1f0ff;">
+        <div class="container py-3 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="{{ asset('image/src/register-ilustrasi.png') }}" alt="login form"
+                                    class="img-fluid mt-5" style="border-radius: 1rem 0 0 1rem;" />
                             </div>
-                        </div>
-                        @error('member_id')
-                            <span class="text-red-50">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <select class="form-control" name="divisi_id">
-                                <option value="">Pilih Divisi</option>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <form action="{{ route('proses.register') }}" method="POST">
+                                        @csrf
+                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                            <img src="{{ asset('logo-company/tms.png') }}" alt="Logo Company"
+                                                width="40" class="me-3">
+                                            <span class="fs-4 fw-bold mb-0">TMS</span>
+                                        </div>
+                                        <h5 class="fw-normal mb-3 pb-3">Daftar dan buat akun Anda
+                                        </h5>
+                                        <div>
+                                            @error('member_id')
+                                                <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
+                                            @enderror
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="text" name="member_id"
+                                                class="form-control form-control-lg"
+                                                value="{{ old('member_id') }}" />
+                                                <label class="form-label" for="form2Example17">Id Member</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            @error('divisi_id')
+                                                <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
+                                            @enderror
+                                            <div class="input-group">
+                                                <select class="form-control" name="divisi_id">
+                                                    <option value="">Pilih Divisi</option>
+                                                    @forelse ($devisi as $dvs)
+                                                        <option value="{{ $dvs->id_divisi }}"
+                                                            {{ old('divisi_id') == $dvs->id_divisi ? 'selected' : '' }}>
+                                                            {{ $dvs->nama }}
+                                                        </option>
+                                                    @empty
+                                                        <option value="">
+                                                            Tidak Ada Devisi
+                                                        </option>
+                                                    @endforelse
+                                                </select>
+                                                <div class="input-group-text">
+                                                    <i class="bi bi-person-vcard"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            @error('jabatan_id')
+                                                <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
+                                            @enderror
+                                            <div class="input-group">
+                                                <select class="form-control" name="jabatan_id">
+                                                    <option value="">Pilih Jabatan</option>
+                                                    @forelse ($jabatan as $jbt)
+                                                        <option value="{{ $jbt->id_jabatan }}"
+                                                            {{ old('jabatan_id') == $jbt->id_jabatan ? 'selected' : '' }}>
+                                                            {{ $jbt->nama }}
+                                                        </option>
+                                                    @empty
+                                                        <option value="">
+                                                            Tidak ada jabatan
+                                                        </option>
+                                                    @endforelse
+                                                </select>
+                                                <div class="input-group-text">
+                                                    <i class="bi bi-person-vcard-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            @error('password')
+                                                <span class="text-danger" style="font-size: 12px;">{{ $message }}</span>
+                                                <!-- Menambahkan margin top -->
+                                            @enderror
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="password" name="password"
+                                                    class="form-control form-control-lg" />
+                                                <label class="form-label" for="form2Example27">Password</label>
+                                            </div>
+                                        </div>
 
-                                @forelse ($devisi as $dvs )
-                                <option value="{{ $dvs->id_divisi}}" {{ old('divisi_id') == $dvs->id_divisi ? 'selected' : '' }}>
-                                    {{ $dvs->nama }}
-                                </option>
-                                @empty
-                                <option value="">
-                                    Tidak Ada Devisi
-                                </option>
-                                @endforelse
-                            </select>
-                            <div class="input-group-text">
-                                <span class="bi bi-person"></span>
+                                        <div class="pt-1 mb-4">
+                                            <button class="btn btn-danger btn-lg btn-block" type="submit">Register
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <p class="mb-5 pb-lg-2">
+                                        Sudah punya
+                                        akun?
+                                        <a href="{{ route('auth.login') }}" style="color: #393f81;">Login
+                                        </a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        @error('divisi_id')
-                            <span class="text-red-50">{{ $message }}</span>
-                        @enderror
                     </div>
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <select class="form-control" name="jabatan_id">
-                                <option value="">Pilih Jabatan</option>
-                                @forelse ($jabatan as $jbt)
-                                <option value="{{ $jbt->id_jabatan }}" {{ old('jabatan_id') == $jbt->id_jabatan ? 'selected' : '' }}>
-                                    {{ $jbt->nama }}
-                                </option>
-                            @empty
-                                <option value="">
-                                    Tidak ada jabatan
-                                </option>
-                            @endforelse
-                            </select>
-                            <div class="input-group-text">
-                                <span class="bi bi-person"></span>
-                            </div>
-                        </div>
-                        @error('jabatan_id')
-                            <span class="text-red-50">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <div class="input-group"> <input type="password" class="form-control" placeholder="Password"
-                                name="password">
-                            <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
-                        </div>
-                        @error('password')
-                            <span class="text-red-50">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="row">
-                        <div class="flex justify-between items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Ingatkan Saya
-                                </label>
-                            </div>
-                            <a href="{{ route('auth.login') }}" class="text-sm text-blue-500 hover:underline">
-                                Sudah punya akun?
-                            </a>
-                        </div>
-                        <div class="mt-2">
-                            <div class="d-grid gap-2"> <button type="submit" class="btn btn-danger">Register</button>
-                            </div>
-                        </div> <!-- /.col -->
-                    </div> <!--end::Row-->
-                </form>
-            </div> <!-- /.login-card-body -->
+                </div>
+            </div>
         </div>
-    </div> <!-- /.login-box --> <!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js"
-        integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script>
-    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script>
-    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="../../../dist/js/adminlte.js"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
-    <script>
-        const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
-        const Default = {
-            scrollbarTheme: "os-theme-light",
-            scrollbarAutoHide: "leave",
-            scrollbarClickScroll: true,
-        };
-        document.addEventListener("DOMContentLoaded", function() {
-            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-            if (
-                sidebarWrapper &&
-                typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
-            ) {
-                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                    scrollbars: {
-                        theme: Default.scrollbarTheme,
-                        autoHide: Default.scrollbarAutoHide,
-                        clickScroll: Default.scrollbarClickScroll,
-                    },
-                });
-            }
-        });
-    </script> <!--end::OverlayScrollbars Configure--> <!--end::Script-->
-</body><!--end::Body-->
+    </section>
+    {{-- Component Script --}}
+    <x-src.link-script></x-src.link-script>
+
+    @if ($success_register = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: "Sukses",
+                text: "{{ $success_register }}",
+                icon: "success"
+            });
+        </script>
+    @endif
+</body>
 
 </html>
