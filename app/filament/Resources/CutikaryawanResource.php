@@ -86,11 +86,6 @@ class CutikaryawanResource extends Resource
                         $record->update(['approved' => 'disetujui']); // Update to 'disetujui'
                         // Optionally, add a notification here
                     }),
-                    Tables\Actions\Action::make('approve') // Action for approval
-                    ->action(function ($record) {
-                        $record->update(['approved' => 'disetujui']); // Update to 'disetujui'
-                        // Optionally, add a notification here
-                    }),
                 Tables\Actions\Action::make('reject') // Action for rejection
                     ->action(function ($record) {
                         $record->update(['approved' => 'ditolak']); // Update to 'ditolak'
