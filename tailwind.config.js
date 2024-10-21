@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-import withMT from "@material-tailwind/html/utils/withMT";
-export default withMT({
+
+export default {
     content: [
-        "./resources/views/**/*.blade.php", // Memasukkan semua file Blade di resources/views
-        "!./resources/views/vendor/**/*.blade.php", // Mengecualikan folder vendor
+        "./resources/views//*.blade.php", // Memasukkan semua file Blade di resources/views
+        "!./resources/views/vendor//*.blade.php", // Mengecualikan folder vendor
     ],
     theme: {
         extend: {},
@@ -39,5 +39,5 @@ export default withMT({
             serif: ["Merriweather", "serif"],
         },
     },
-    plugins: [],
-});
+    plugins: [],
+};
