@@ -15,8 +15,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Maka Semua route di sini harus login dulu
     Route::get('/index', [MainPageController::class, 'index'])->name('index');
-    Route::get('/list-absen', [AbsenController::class, 'absen'])->name('absen');
     Route::get('/card-shift-absen', [CardShiftController::class, 'cardView'])->name('card.shift');
+    Route::get('/list-absen', [AbsenController::class, 'absen'])->name('absen');
 
     // Form untuk kebutuhan karyawan
     Route::get('/form-cuti-karyawan', [FormKaryawanController::class, 'cutiKaryawan'])->name('cuti.karyawan');
