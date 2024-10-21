@@ -68,10 +68,7 @@ class IzinkaryawanResource extends Resource
                     ->default('0'), // Prioritaskan yang belum di-approve
             ])
             ->actions([
-                Tables\Actions\Action::make('view') // Action to view details
-                    ->action(function ($record) {
-                        return redirect()->route('izinkaryawan.show', $record->id); // Adjust the route as needed
-                    }),
+                // Fitur view telah dihapus sesuai instruksi
                 Tables\Actions\Action::make('approve') // Action for approval
                     ->action(function ($record) {
                         $record->update(['approved' => 'disetujui']);
