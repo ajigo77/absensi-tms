@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Enums\FiltersLayout;
 
 
 class IzinkaryawanResource extends Resource
@@ -42,17 +43,17 @@ class IzinkaryawanResource extends Resource
                     ->label('Status Persetujuan')
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
-                        '0' => 'Menunggu Persetujuan', // Status 0
+                        '0' => 'Menunggu Persetujuan',
                         'menunggu' => 'Menunggu Persetujuan',
                         'disetujui' => 'Sudah Disetujui',
                         'ditolak' => 'Ditolak',
                         default => 'Tidak Diketahui',
                     })
                     ->colors([
-                        '0' => 'warning', // Warna untuk status 0
-                        'menunggu' => 'warning', // Yellow
-                        'disetujui' => 'success', // Green
-                        'ditolak' => 'danger', // Red
+                        '0' => 'warning', // Yellow for status 0
+                        'menunggu' => 'warning', // Yellow for waiting
+                        'disetujui' => 'success', // Green for approved
+                        'ditolak' => 'danger', // Red for rejected
                         'default' => 'secondary', // Gray for unknown status
                     ]),
             ])

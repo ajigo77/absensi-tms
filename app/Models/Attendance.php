@@ -14,6 +14,8 @@ class Attendance extends Model
     protected $primaryKey = 'id_absen'; // Mengatur primary key
 
     protected $fillable = [
+        'nama',
+        'member_id',
         'user_id',
         'type',
         'shift_id',
@@ -27,11 +29,16 @@ class Attendance extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); // Adjust 'member_id' to the actual foreign key if different
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
 
     public function shift()
     {
         return $this->belongsTo(Shift::class, 'shift_id'); // Assuming you have a Shift model
+    }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'member_id', 'id_member'); // Ensure 'member_id' is correct
     }
 }

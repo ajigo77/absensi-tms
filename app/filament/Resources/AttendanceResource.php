@@ -33,21 +33,53 @@ class AttendanceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->label('Nama'),
-                Tables\Columns\TextColumn::make('shift.name')
-                    ->label('Shift'),
+                Tables\Columns\TextColumn::make('member.nama')->label('Nama'), // Ensure this is correct
+                Tables\Columns\TextColumn::make('shift.name')->label('Shift'),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status'),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Waktu Pulang')
-                    ->dateTime('H:i:s'),
+                    ->label('Status') // Display Status
+                    ->badge() // Use badge for status
+                    ->formatStateUsing(fn ($state) => match (strtolower(trim($state))) { // Normalize the status
+                        'masuk on time' => 'Tepat Waktu',
+                        'terlambat' => 'Terlambat',
+                        'ijin' => 'Izin', // Update to match database
+                        'sakit' => 'Sakit',
+                        'cuti' => 'Cuti',
+                        default => 'Tidak Diketahui',
+                    })
+                    ->color(fn ($state) => match (strtolower(trim($state))) { // Normalize the status for color
+                        'masuk on time' => 'success', // Green
+                        'terlambat' => 'danger', // Red
+                        'ijin' => 'warning', // Orange
+                        'sakit' => 'info', // Blue
+                        'cuti' => 'primary', // Purple
+                        default => 'secondary', // Gray
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Waktu Datang')
-                    ->dateTime('H:i:s'),
+                    ->label('Waktu Absen')
+                    ->formatStateUsing(fn ($state) => $state->format('H:i:s')),
+                Tables\Columns\TextColumn::make('type')->label('Tipe Absensi'),
+                TextColumn::make('foto')
+                    ->badge()
+                    ->label('Foto') // Display Photo
+                    ->formatStateUsing(fn ($state) => 
+                        '<a href="' . $state . '" target="_blank" rel="noopener noreferrer" style="color: white;">Lihat Foto</a>' // Create clickable link
+                    )
+                    ->html(), // Enable HTML rendering
+                TextColumn::make('lattitude')
+                    ->badge() // Use badge for location
+                    ->label('Lihat Lokasi') // Display Location
+                    ->formatStateUsing(fn ($state, $record) => 
+                        '<a href="https://www.google.com/maps?q=' . $record->lattitude . ',' . $record->longtitude . '" target="_blank" rel="noopener noreferrer" style="color: white;">Lihat Lokasi</a>' // Create clickable link
+                    )
+                    ->html(), // Enable HTML rendering
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->filters([
+                SelectFilter::make('status')
+                    ->options([
+                        'masuk on time' => 'Tepat Waktu',
+                        'terlambat' => 'Terlambat',
+                    ])
+                    ->placeholder('Pilih Status'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

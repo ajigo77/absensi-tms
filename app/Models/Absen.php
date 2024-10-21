@@ -25,23 +25,29 @@ class Absen extends Model
         $today = Carbon::today();
 
         return [
-            'on_time' => self::whereDate('created_at', $today)->where('status', 'on time')->count(), // On time count
-            'terlambat' => self::whereDate('created_at', $today)->where('status', 'terlambat')->count(), // Late count
-            'masuk' => self::whereDate('created_at', $today)->where('type', 'masuk kerja')->count(), // Present count
-            'tidak_masuk' => self::whereDate('created_at', $today)->where('type', 'tidak masuk')->count(), // Absent count
-            'izin' => self::whereDate('created_at', $today)->where('status', 'Izin')->count(),
-            'sakit' => self::whereDate('created_at', $today)->where('status', 'Sakit')->count(),
-            'cuti' => self::whereDate('created_at', $today)->where('status', 'Cuti')->count(),
+            'on_time' => self::whereDate('created_at', $today)->where('status', 'masuk on time')->count(), // Corrected status
+            'terlambat' => self::whereDate('created_at', $today)->where('status', 'terlambat')->count(),
+            'masuk' => self::whereDate('created_at', $today)->where('type', 'masuk kerja')->count(),
+            'tidak_masuk' => self::whereDate('created_at', $today)->where('type', 'tidak masuk')->count(),
+            'izin' => self::whereDate('created_at', $today)->where('status', 'ijin')->count(),
+            'sakit' => self::whereDate('created_at', $today)->where('status', 'sakit')->count(),
+            'cuti' => self::whereDate('created_at', $today)->where('status', 'cuti')->count(),
         ];
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_user'); // Pastikan 'user_id' dan 'id_user' sesuai
+        return $this->belongsTo(User::class, 'user_id', 'id_user'); // Ensure 'user_id' is correct
     }
 
     public function member()
     {
         return $this->belongsTo(Member::class, 'member_id'); // Pastikan 'member_id' sesuai
+    }
+
+    // Define the relationship if needed
+    public function absens()
+    {
+        return $this->belongsTo(Absen::class, 'user_id'); // Adjust 'foreign_key' as necessary
     }
 }

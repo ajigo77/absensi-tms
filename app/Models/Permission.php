@@ -17,7 +17,7 @@ class Permission extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class); // Adjust this if necessary
+        return $this->belongsTo(User::class, 'id_user'); // Specify the foreign key
     }
 
     // Method to check if a role has a specific permission

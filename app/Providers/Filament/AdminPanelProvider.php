@@ -73,17 +73,17 @@ class AdminPanelProvider extends PanelProvider
                         NavigationItem::make('Kantor')
                             ->icon('heroicon-o-building-office')
                             ->url(route('filament.admin.resources.offices.index')),
-                        NavigationItem::make('Jabatan')
-                            ->icon('heroicon-o-key')
-                            ->url(route('filament.admin.resources.permissions.index')),
+                        // NavigationItem::make('Jabatan')
+                        //     ->icon('heroicon-o-key')
+                        //     ->url(route('#')),
                         NavigationItem::make('Shift')
                             ->icon('heroicon-o-clock')
                             ->url(route('filament.admin.resources.shifts.index')),
                     ])
                     ->group('menejemen Absensi', [
-                        NavigationItem::make('Jadwal')
-                            ->icon('heroicon-o-calendar')
-                            ->url(route('filament.admin.resources.schedules.index')),
+                        // NavigationItem::make('Jadwal')
+                        //     ->icon('heroicon-o-calendar')
+                        //     ->url(route('filament.admin.resources.schedules.index')),
                         NavigationItem::make('Absensi')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),

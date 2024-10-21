@@ -11,10 +11,20 @@ class Member extends Model
 
 
     protected $primaryKey= "id_member";
-    protected $tabel = 'members';
+    protected $table = 'members'; // Corrected 'tabel' to 'table'
+
+    protected $fillable = [
+        'nama', // Ensure this is included
+        // other fields...
+    ];
 
     //soal cari relasi ini 😈
     public function User(){
 
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'id_member', 'id'); // If a member can have multiple users
     }
 }

@@ -11,6 +11,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade as PDF; // Import PDF
 use Filament\Tables\Filters\Filter; // Import Filter
 use Filament\Forms\Components\DatePicker; // Import DatePicker
+use App\Models\Member;
+use App\Models\User;
 
 
 class ListAttendances extends ListRecords
@@ -32,17 +34,20 @@ class ListAttendances extends ListRecords
 
     protected function export()
     {
-        // Ambil data attendance dengan nama user dan shift
-        $attendances = Attendance::with(['user:id,name', 'shift:id,name']) // Ambil nama user dan shift
-            ->get()
+        // Ambil semua data attendance dengan nama user dan shift
+        $attendances = Attendance::with(['member', 'shift']) // Ambil nama user dan shift
+            ->get() // Get all records
             ->map(function ($attendance) {
                 return [
-                    'Nama' => $attendance->user ? $attendance->user->name : 'Unknown', // Ganti ID dengan nama user
+                    'Nama' => $attendance->member->nama ?? 'Unknown', // Ganti ID dengan nama member atau ID jika tidak ada
                     'Tipe Absen' => $attendance->type, // Pastikan ini sesuai dengan kolom yang ada
-                    'Shift' => $attendance->shift ? $attendance->shift->name : 'Unknown', // Ganti ID dengan nama shift
+                    'Shift' => $attendance->shift->name ?? 'Unknown', // Ganti ID dengan nama shift atau ID jika tidak ada
                     'Status' => $attendance->status,
-                    'Waktu Pulang' => $attendance->time_out ?? 'Unknown', // Pastikan ini sesuai dengan kolom yang ada
-                    'Waktu Datang' => $attendance->time_in ?? 'Unknown', // Pastikan ini sesuai dengan kolom yang ada
+                    'Waktu Datang' => $attendance->type === 'masuk kerja' ? $attendance->created_at->format('H:i:s') : 'N/A', // Set Waktu Datang
+                    'Waktu Pulang' => $attendance->type === 'pulang' ? $attendance->created_at->format('H:i:s') : 'N/A', // Set Waktu Pulang
+                    'Foto' => $attendance->foto ?? 'No Photo',
+                    'Latitude' => $attendance->lattitude ?? 'Unknown',
+                    'Longitude' => $attendance->longtitude ?? 'Unknown',
                 ];
             });
 

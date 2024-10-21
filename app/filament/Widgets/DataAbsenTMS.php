@@ -44,10 +44,10 @@ class DataAbsenTMS extends BaseWidget
     {
         return $table
             ->query(
-                Absen::with(['shift', 'user.member']) // Eager load user and member relationships
+                Absen::with(['shift', 'user.member']) // Corrected eager loading
             )
             ->columns([
-                TextColumn::make('user.member.nama') // Ambil nama dari tabel members
+                TextColumn::make('member.nama') // Corrected column reference
                     ->label('Nama'), // Label untuk kolom
                 TextColumn::make('type')->label('Tipe Absensi'), // Display Attendance Type
                 TextColumn::make('shift.name')
@@ -70,23 +70,26 @@ class DataAbsenTMS extends BaseWidget
                 TextColumn::make('status')
                     ->label('Status') // Display Status
                     ->badge() // Use badge for status
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'on time' => 'Tepat Waktu',
+                    ->formatStateUsing(fn ($state) => match (strtolower(trim($state))) { // Normalize the status
+                        'masuk on time' => 'Tepat Waktu',
                         'terlambat' => 'Terlambat',
-                        'Izin' => 'Izin',
-                        'Sakit' => 'Sakit',
-                        'Cuti' => 'Cuti',
+                        'ijin' => 'Izin', // Update to match database
+                        'sakit' => 'Sakit',
+                        'cuti' => 'Cuti',
                         default => 'Tidak Diketahui',
                     })
-                    ->color(fn ($state) => match ($state) {
-                        'on time' => 'success', // Green
+                    ->color(fn ($state) => match (strtolower(trim($state))) { // Normalize the status for color
+                        'masuk on time' => 'success', // Green
                         'terlambat' => 'danger', // Red
-                        'Izin' => 'warning', // Orange
-                        'Sakit' => 'info', // Blue
-                        'Cuti' => 'primary', // Purple
+                        'ijin' => 'warning', // Orange
+                        'sakit' => 'info', // Blue
+                        'cuti' => 'primary', // Purple
                         default => 'secondary', // Gray
                     }),
-                TextColumn::make('created_at')->label('Tanggal Masuk'), // Display Entry Date
+                TextColumn::make('created_at')
+                    ->label('Tanggal Masuk') // Display Entry Date
+                    ->formatStateUsing(fn ($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y')) // Format date without time
+                    ->sortable(), // Optional: make it sortable
             ])
             ->actions([
                 Action::make('view') // Define the view action

@@ -84,7 +84,7 @@ class User extends Authenticatable
 
     public function hasPermission($permission)
     {
-        // Assuming the user has a role and permissions are stored in the Permission model
+        // Get the user's permissions
         $userPermissions = $this->permissions()->pluck('permissions')->flatten()->toArray();
         return in_array($permission, $userPermissions);
     }
