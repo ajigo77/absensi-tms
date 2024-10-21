@@ -8,7 +8,8 @@ use App\Models\Devisi;
 use App\Models\Jenisizin;
 use App\Models\Izinkaryawans;
 use App\Models\Cutikaryawan;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 class FormKaryawanController extends Controller
 {
     public function izinKaryawan()
@@ -20,6 +21,7 @@ class FormKaryawanController extends Controller
     }
     public function post_izin_karyawan(Request $request)
     {
+        // dd($request->all());
         $customMessageValidate = [
             'jenis_izin.required' => 'Tidak boleh kosong',
             'nama_karyawan.required' => 'Tidak boleh kosong',
@@ -59,6 +61,7 @@ class FormKaryawanController extends Controller
             'sampai_tanggal' => $request->sampai_tanggal,
             'jam_pulang_awal' => $request->jam_pulang_awal, // Memastikan format jam menit (misalnya 14:30)
             'alasan' => strip_tags($request->input('alasan')),
+            'user_id' => $request->user_id
         ]);
 
         if ($izin) {
@@ -70,18 +73,20 @@ class FormKaryawanController extends Controller
 
     public function cutiKaryawan()
     {
-        $jabatan = Jabatan::all();
-        $divisi = Devisi::all();
-        return view('Test.form-cuti', compact('jabatan', 'divisi'));
+        return view('Test.form-cuti');
     }
 
     public function post_cuti_karyawan(Request $request)
     {
+        // dd($request->all());
         $validateCustomMessage = [
             'nama_karyawan.required' => 'Tidak boleh kosong',
             'divisi.required' => 'Tidak boleh kosong',
             'jabatan.required' => 'Tidak boleh kosong',
-            'tanggal_cuti.required' => 'Tidak boleh kosong',
+            'dari_tanggal.required' => 'Tidak boleh kosong',
+            'dari_tanggal.date' => 'Bukan format tanggal',
+            'sampai_tanggal.required' => 'Tidak boleh kosong',
+            'sampai_tanggal.date' => 'Bukan format tanggal',
             'alasan.required' => 'Tidak boleh kosong',
             'alasan.max' => 'Maximal 50 karakter',
         ];
@@ -91,7 +96,8 @@ class FormKaryawanController extends Controller
                 'nama_karyawan' => 'required',
                 'divisi' => 'required|exists:divisis,nama',
                 'jabatan' => 'required|exists:jabatans,nama',
-                'tanggal_cuti' => 'required|date',
+                'dari_tanggal' => 'required|date',
+                'sampai_tanggal' => 'required|date',
                 'alasan' => 'required|max:50',
             ],
             $validateCustomMessage,
@@ -101,8 +107,10 @@ class FormKaryawanController extends Controller
             'nama_karyawan' => $request->nama_karyawan,
             'divisi' => $request->divisi,
             'jabatan' => $request->jabatan,
-            'tanggal_cuti' => $request->tanggal_cuti,
+            'dari_tanggal' => $request->dari_tanggal,
             'alasan' => $request->alasan,
+            'sampai_tanggal' => $request->sampai_tanggal,
+            'user_id' => $request->user_id,
         ]);
 
         if ($cuti) {
@@ -112,37 +120,34 @@ class FormKaryawanController extends Controller
         }
     }
 
-    // public function notifIzinView()
-    // {
-    // }
-
     public function serachNotifIzin(Request $request)
     {
         // Mengambil data dari model Izinkaryawans
         $notificationIzin = Izinkaryawans::all();
+
         // Mengambil data dari model Jenisizin
         $jenis_izin_karyawan = Jenisizin::all();
 
         // Ambil semua input dari form
-        $filters = $request->only(['type', 'approved', 'nama_karyawan', 'dari_tanggal', 'sampai_tanggal', 'jam_pulang_awal']);
+        $filters = $request->only(['type', 'approved', 'dari_tanggal', 'sampai_tanggal', 'created_at']);
 
         // Mulai query
         $query = IzinKaryawans::query();
 
-        // Filter berdasarkan tipe izin
-        if (!empty($filters['type'])) {
-            $query->where('jenis_izin', $filters['type']);
-        }
+        // // Filter berdasarkan tipe izin
+        // if (!empty($filters['type'])) {
+        //     $query->where('jenis_izin', $filters['type']);
+        // }
 
         // Filter berdasarkan status
         if (!empty($filters['approved'])) {
             $query->where('approved', $filters['approved']);
         }
 
-        // Filter berdasarkan nama karyawan
-        if (!empty($filters['nama_karyawan'])) {
-            $query->where('nama_karyawan', 'LIKE', '%' . $filters['nama_karyawan'] . '%');
-        }
+        // // Filter berdasarkan nama karyawan
+        // if (!empty($filters['nama_karyawan'])) {
+        //     $query->where('nama_karyawan', 'LIKE', '%' . $filters['nama_karyawan'] . '%');
+        // }
 
         // Filter berdasarkan dari tanggal
         if (!empty($filters['dari_tanggal'])) {
@@ -154,19 +159,77 @@ class FormKaryawanController extends Controller
             $query->where('sampai_tanggal',[$filters['sampai_tanggal']]);
         }
 
-        // Filter berdasarkan jam pulang awal
-        if (!empty($filters['jam_pulang_awal'])) {
-            $query->where('jam_pulang_awal', $filters['jam_pulang_awal']);
+        // Filter berdasarkan hari ini
+        if (!empty($filters['created_at'])) {
+            $query->where('created_at',[$filters['created_at']]);
         }
 
+        // // Filter berdasarkan jam pulang awal
+        // if (!empty($filters['jam_pulang_awal'])) {
+        //     $query->where('jam_pulang_awal', $filters['jam_pulang_awal']);
+        // }
+
          // Ambil hasil query
-        $notificationIzin = $query->orderBy('created_at','desc')->paginate(5);
+        $notificationIzin = $query->where('user_id', Auth::user()->id_user)->orderBy('created_at','desc')->paginate(5);
 
         return view('Test.notif-form-izin', compact('notificationIzin', 'jenis_izin_karyawan'));
     }
 
-    public function notifCutiView()
+    public function searchNotifCuti(Request $request)
     {
-        return view('Test.notif-form-cuti');
+        // // Mengambil semua data jabatan dari tabel jabatan
+        // $jabatan = Jabatan::all();
+
+        // // Mengambil semua data divisi dari tabel devisi
+        // $divisi = Devisi::all();
+
+        // Mengambil data dari model Izinkaryawans
+        $notificationCuti = Cutikaryawan::all();
+
+        // Ambil semua input dari form
+        $filters = $request->only(['approved', 'dari_tanggal', 'sampai_tanggal','created_at']);
+
+        // Mulai query
+        $query = Cutikaryawan::query();
+
+        // Filter berdasarkan status
+        if (!empty($filters['approved'])) {
+            $query->where('approved', $filters['approved']);
+        }
+
+        // // Filter berdasarkan nama karyawan
+        // if (!empty($filters['nama_karyawan'])) {
+        //     $query->where('nama_karyawan', 'LIKE', '%' . $filters['nama_karyawan'] . '%');
+        // }
+
+        // Filter berdasarkan dari tanggal
+        if (!empty($filters['dari_tanggal'])) {
+            $query->whereDate('dari_tanggal',$filters['dari_tanggal']);
+        }
+
+        // Filter berdasarkan sampai tanggal
+        if (!empty($filters['sampai_tanggal'])) {
+            $query->whereDate('sampai_tanggal',$filters['sampai_tanggal']);
+        }
+
+        // // Filter berdasarkan sampai jabatan
+        // if (!empty($filters['jabatan'])) {
+        //     $query->where('jabatan',[$filters['jabatan']]);
+        // }
+
+        // // Filter berdasarkan sampai jabatan
+        // if (!empty($filters['divisi'])) {
+        //     $query->where('divisi',[$filters['divisi']]);
+        // }
+
+        // Filter berdasarkan sampai tanggal sekarang
+        if (!empty($filters['created_at'])) {
+            $query->whereDate('created_at',$filters['created_at']);
+        }
+
+         // Ambil hasil query
+         $notificationCuti = $query->where('user_id',Auth::user()->id_user)->orderBy('created_at','desc')->paginate(5);
+
+        return view('Test.notif-form-cuti', compact('notificationCuti'));
     }
 }

@@ -63,4 +63,9 @@ class User extends Authenticatable
     public function Jabatan(){
         return $this->belongsTo(Jabatan::class ,'jabatan_id','id_jabatan');
     }
+
+    // Relasi ke model cutikaryawan
+    public function CutiKaryawan(){
+       return $this->hasMany(Cutikaryawan::class, 'user_id', 'id_user');
+    }
 }

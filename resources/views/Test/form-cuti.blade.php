@@ -99,58 +99,54 @@
                 @csrf
                 <div class="row g-2">
                     <!-- Informasi Karyawan -->
+                    <input type="text" hidden name="user_id" value="{{ Auth::user()->id_user }}">
                     <div class="col-sm-6">
                         <label for="nama" class="form-label fw-semibold">Nama Karyawan <span
                                 class="text-danger">*</span></label>
-                        <input type="text" id="nama" name="nama_karyawan" placeholder="Masukkan nama"
-                            class="form-control" value="{{ old('nama_karyawan') }}">
-                        @error('nama_karyawan')
+                        <input type="text" id="nama" name="nama_karyawan" value="{{ Auth::user()->Member->nama }}"
+                            class="form-control" readonly>
+                        {{-- @error('nama_karyawan')
                             <small class="text-danger" style="font-style: italic">{{ $message }}</small>
-                        @enderror
+                        @enderror --}}
                     </div>
 
                     <div class="col-sm-6">
-                        <label for="divisi" class="form-label fw-semibold">Divisi <span
-                                class="text-danger">*</span></label>
-                        <select id="divisi" name="divisi" class="form-select">
-                            <option value="" selected>Pilih Divisi Anda</option>
-                            @forelse ($divisi as $dvs)
-                                <option value="{{ $dvs->nama }}"
-                                    {{ old('divisi') == $dvs->nama ? 'selected' : '' }}>{{ $dvs->nama }}</option>
-                            @empty
-                                <option value="">Tidak Ada Divisi</option>
-                            @endforelse
-                        </select>
-                        @error('divisi')
+                        <label for="divisi" class="form-label fw-semibold">
+                            Divisi <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" id="divisi" name="divisi" value="{{ Auth::user()->Devisi->nama }}"
+                            class="form-control" readonly>
+                        {{-- @error('divisi')
                             <small class="text-danger" style="font-style: italic">{{ $message }}</small>
-                        @enderror
+                        @enderror --}}
                     </div>
 
                     <div class="col-sm-12">
                         <label for="jabatan" class="form-label fw-semibold">Jabatan <span
                                 class="text-danger">*</span></label>
-                        <select id="jabatan" name="jabatan" class="form-select">
-                            <option value="" selected>Pilih Jabatan Anda</option>
-                            @forelse ($jabatan as $jab)
-                                <option value="{{ $jab->nama }}"
-                                    {{ old('jabatan') == $jab->nama ? 'selected' : '' }}>{{ $jab->nama }}
-                                </option>
-                            @empty
-                                <option value="">Tidak Ada Jabatan</option>
-                            @endforelse
-                        </select>
-                        @error('jabatan')
+                        <input type="text" id="jabatan" name="jabatan" value="{{ Auth::user()->Jabatan->nama }}"
+                            class="form-control" readonly>
+                        {{-- @error('jabatan')
                             <small class="text-danger" style="font-style: italic">{{ $message }}</small>
-                        @enderror
+                        @enderror --}}
                     </div>
 
                     <!-- Detail Izin -->
                     <div class="col-sm-12">
-                        <label for="tanggal_cuti" class="form-label fw-semibold">Tanggal Cuti <span
+                        <label for="tanggal_cuti" class="form-label fw-semibold">Dari tanggal <span
                                 class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="tanggal_cuti" name="tanggal_cuti"
-                            value="{{ old('tanggal_cuti') }}">
-                        @error('tanggal_cuti')
+                        <input type="date" class="form-control" id="tanggal_cuti" name="dari_tanggal"
+                            value="{{ old('dari_tanggal') }}">
+                        @error('dari_tanggal')
+                            <small class="text-danger" style="font-style: italic">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="tanggal_cuti" class="form-label fw-semibold">Sampai tanggal <span
+                                class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="tanggal_cuti" name="sampai_tanggal"
+                            value="{{ old('sampai_tanggal') }}">
+                        @error('sampai_tanggal')
                             <small class="text-danger" style="font-style: italic">{{ $message }}</small>
                         @enderror
                     </div>

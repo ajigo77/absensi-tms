@@ -94,14 +94,6 @@
                         </path>
                     </svg></a></div>
 
-            <!-- Search Form-->
-            <!--<div class="top-search-form">
-          <form action="" method="">
-            <input class="form-control" type="search" placeholder="Enter your keyword">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div>-->
-
             <!-- Navbar Toggler-->
             <div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
                 <i class="bi bi-list fs-3 icon"></i>
@@ -220,28 +212,17 @@
                     <div class="card-body">
                         <form action="{{ route('post.search.izin') }}" method="POST">
                             @csrf
-                            <div class="row">
+                            {{-- <div class="row">
                                 <!-- Filter by Type -->
                                 <div class="col-md-4 mb-3">
                                     <label for="filterType" class="form-label">Type</label>
                                     <select class="form-select" id="filterType" name="type">
                                         <option value="">Pilih</option>
-                                        @foreach ($jenis_izin_karyawan as $data )
+                                        @foreach ($jenis_izin_karyawan as $data)
                                         <option value="{{ $data->nama }}">
                                             {{ $data->nama }}
                                         </option>
                                         @endforeach
-                                    </select>
-                                </div>
-
-                                <!-- Filter by Status -->
-                                <div class="col-md-4 mb-3">
-                                    <label for="filterStatus" class="form-label">Status</label>
-                                    <select class="form-select" id="filterStatus" name="approved">
-                                        <option value="">Pilih</option>
-                                        <option value="disetujui" class="text-capitalize">setujui</option>
-                                        <option value="ditolak" class="text-capitalize">tolak</option>
-                                        <option value="pending" class="text-capitalize">pending</option>
                                     </select>
                                 </div>
 
@@ -251,9 +232,24 @@
                                     <input type="text" class="form-control" id="filterName"
                                         placeholder="Cari nama" name="nama_karyawan">
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row">
+                                <!-- Filter by Status -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="filterStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="filterStatus" name="approved">
+                                        <option value="">Pilih</option>
+                                        <option value="disetujui" class="text-capitalize">setujui</option>
+                                        <option value="ditolak" class="text-capitalize">tolak</option>
+                                        <option value="pending" class="text-capitalize">pending</option>
+                                    </select>
+                                </div>
+                                <!-- Filter by to day -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="filterStatus" class="form-label">Hari ini</label>
+                                    <input type="date" class="form-control" id="filterName" name="created_at">
+                                </div>
                                 <!-- Filter by Date Range -->
                                 <div class="col-md-6 mb-3">
                                     <label for="filterDateRange" class="form-label">Rentang tanggal</label>
@@ -265,12 +261,12 @@
                                             name="sampai_tanggal">
                                     </div>
                                 </div>
-                                <!-- Filter by Time -->
+                                {{-- <!-- Filter by Time -->
                                 <div class="col-md-6 mb-3">
                                     <label for="filterTime" class="form-label">Waktu pulang</label>
                                     <input type="time" class="form-control" id="filterTime"
                                         name="jam_pulang_awal">
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- Filter Button -->
                             <div class="d-grid gap-2 d-md-block text-end">

@@ -15,7 +15,13 @@ class Cutikaryawan extends Model
         'nama_karyawan',
         'divisi',
         'jabatan',
-        'tanggal_cuti',
-        'alasan'
+        'dari_tanggal',
+        'alasan',
+        'sampai_tanggal',
+        'user_id'
     ];
+
+    public function User(){
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
+    }
 }

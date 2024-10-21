@@ -29,11 +29,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/webcamp-absen/{id}/{type}', [AbsenController::class, 'webcamp'])->name('webcamp.absen');
 
     // Notif izin dan cuti karyawan
-    Route::get('/notif-cuti', [FormKaryawanController::class, 'notifCutiView'])->name('notif.cuti');
+    Route::get('/notif-cuti', [FormKaryawanController::class, 'searchNotifCuti'])->name('notif.cuti');
     Route::get('/notif-izin', [FormKaryawanController::class, 'serachNotifIzin'])->name('notif.izin');
 
     // Search form izin dan cuti karyawan
-    Route::post('/serach-list-izin', [FormKaryawanController::class, 'serachNotifIzin'])->name('post.search.izin');
+    Route::post('/notif-izin', [FormKaryawanController::class, 'serachNotifIzin'])->name('post.search.izin');
+    Route::post('/notif-cuti', [FormKaryawanController::class, 'searchNotifCuti'])->name('post.search.cuti');
 });
 
 Route::middleware(['guest'])->group(function () {

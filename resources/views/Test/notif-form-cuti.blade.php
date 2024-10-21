@@ -124,7 +124,7 @@
         <div class="container">
             <!-- Section Heading-->
             <div class="section-heading d-flex align-items-center pt-3 justify-content-between">
-                <h6>Daftar pengajuan cuti karyawan</h6>
+                <h6>Daftar pengajuan cuti anda hari ini</h6>
                 <a class="btn btn-success text-white border-none outline-none" href="{{ route('cuti.karyawan') }}">
                     <i class="lni lni-plus"></i>
                     Buat Baru
@@ -133,27 +133,170 @@
             <!-- Notifications Area-->
             <div class="pb-2">
                 <div class="list-group">
-                    <div class="list-group-item d-flex align-items-center py-4" style="border: 2px solid rgb(76, 75, 75); border-radius:8px;">
-                        <!-- Icon Notifikasi -->
-                        <span class="noti-icon me-3 p-3">
-                            <i class="bi bi-bell-fill" style="font-size: 30px;"></i>
-                        </span>
-                        <!-- Informasi -->
-                        <div class="noti-info d-flex justify-content-between align-items-center w-100">
-                            <div class="text-info">
-                                <h6 class="mb-1">CTI/2/20241015082406</h6>
-                                <p class="mb-1">
-                                    <span class="text-primary">Nama: Budi Santoso</span><br>
-                                    <span>Divisi: Teknologi Informasi</span><br>
-                                    <span>Jabatan: Manager</span><br>
-                                    <span>Jenis Izin: Anak Khitan / Babtis</span><br>
-                                    <span>Awal Izin: 15 October 2024</span> -
-                                    <span>Akhir Izin: 15 October 2024</span>
-                                </p>
+                    @if ($notificationCuti->isEmpty())
+                        <div class="d-flex justify-content-center align-items-center"
+                            style="min-height: 400px; flex-direction: column;">
+                            <img src="{{ asset('image/src/no-data.png') }}" alt="No Data Illustration"
+                                class="img-fluid mb-4" style="max-width: 500px; height:auto;">
+                            <p class="text-muted fs-5 text-center responsive-text">Sepertinya tidak ada data
+                                pengajuan cuti untuk saat ini.
+                            </p>
+                        </div>
+                    @else
+                        @foreach ($notificationCuti as $data_cuti)
+                            <div class="list-group-item d-flex py-4 mb-2"
+                                style="border: 2px solid rgb(76, 75, 75); border-radius:8px;">
+                                <!-- Icon Notifikasi -->
+                                <span class="noti-icon me-3 p-3">
+                                    <img src="{{ asset('image/src/icon-notif.png') }}" alt="Icon Nofif" width="80"
+                                        height="auto">
+                                </span>
+                                <!-- Informasi -->
+                                <div class="noti-info d-flex justify-content-between align-items-center w-100">
+                                    <div class="text-info">
+                                        <h6 class="mb-1 text-secondary text-capitalize fw-bold fs-5">
+                                            {{ $data_cuti->nama_karyawan }}</h6>
+                                        <p class="mb-1">
+                                            <span>
+                                                <i class="bi bi-people-fill me-2 text-secondary"
+                                                    style="font-size: 10px;"></i>
+                                                Divisi : {{ $data_cuti->divisi }}
+                                            </span><br>
+                                            <span>
+                                                <i class="bi bi-briefcase-fill me-2 text-warning"
+                                                    style="font-size: 10px;"></i>
+                                                Jabatan : {{ $data_cuti->jabatan }}
+                                            </span><br>
+                                            <span>
+                                                <i class="bi bi-calendar-date-fill me-2 text-success"
+                                                    style="font-size: 10px;"></i>
+                                                Tanggal :
+                                                {{ \Carbon\Carbon::parse($data_cuti->dari_tanggal)->translatedFormat('d F Y') }}
+                                            </span> -
+                                            <span>
+                                                {{ \Carbon\Carbon::parse($data_cuti->sampai_tanggal)->translatedFormat('d F Y') }}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    @if ($data_cuti->approved == 'disetujui')
+                                        <span class="btn btn-sm btn-success text-white text-capitalize"
+                                            style="margin-left: auto;">
+                                            {{ $data_cuti->approved }}
+                                        </span>
+                                    @elseif($data_cuti->approved == 'ditolak')
+                                        <span class="btn btn-sm btn-danger text-white text-capitalize"
+                                            style="margin-left: auto;">
+                                            {{ $data_cuti->approved }}
+                                        </span>
+                                    @else
+                                        <span class="btn btn-sm btn-warning text-white text-capitalize"
+                                            style="margin-left: auto;">
+                                            {{ $data_cuti->approved }}
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                            <span class="btn btn-sm btn-warning text-white" style="margin-left: auto;">
-                                Pending
-                            </span>
+                        @endforeach
+                    @endif
+                </div>
+
+                <!-- Pagination -->
+                <div>
+                    {{ $notificationCuti->links('pagination::bootstrap-5') }}
+                </div>
+
+                {{-- Filter Data --}}
+                <div class="mt-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-funnel-fill"></i>
+                            Filter
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('post.search.cuti') }}" method="POST">
+                                @csrf
+                                {{-- <div class="row">
+                                    <input type="text" name="user_id" hidden value="{{ Auth::user()->id_user }}">
+                                    <!-- Filter by Name -->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="filterName" class="form-label">Nama</label>
+                                        <input type="text" class="form-control" id="filterName"
+                                            placeholder="Cari nama" name="nama_karyawan">
+                                    </div>
+
+                                    <!-- Filter by jabatan -->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="filterName" class="form-label">Jabatan</label>
+                                        <select class="form-control" name="jabatan">
+                                            <option value="">Pilih Jabatan</option>
+                                            @forelse ($jabatan as $jab)
+                                            <option value="{{ $jab->nama }}">
+                                                {{ $jab->nama }}
+                                            </option>
+                                            @empty
+                                            <option value="">
+                                                Tidak Ada Jabatan
+                                            </option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+
+                                    <!-- Filter by Divisi -->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="filterName" class="form-label">Divisi</label>
+                                        <select class="form-control" name="divisi">
+                                            <option value="">Pilih Divisi</option>
+                                            @forelse ($divisi as $dvs)
+                                                <option value="{{ $dvs->nama }}">
+                                                    {{ $dvs->nama }}
+                                                </option>
+                                            @empty
+                                                <option value="">
+                                                    Tidak Ada Divisi
+                                                </option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+
+                                </div> --}}
+
+                                <div class="row">
+                                    <!-- Filter by Status -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="filterStatus" class="form-label">Status</label>
+                                        <select class="form-select" id="filterStatus" name="approved">
+                                            <option value="">Pilih</option>
+                                            <option value="disetujui" class="text-capitalize">setujui</option>
+                                            <option value="ditolak" class="text-capitalize">tolak</option>
+                                            <option value="pending" class="text-capitalize">pending</option>
+                                        </select>
+                                    </div>
+                                    <!-- Filter by to day -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="filterStatus" class="form-label">Hari ini</label>
+                                        <input type="date" class="form-control" id="filterName" name="created_at">
+                                    </div>
+                                    <!-- Filter by Date Range -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="filterDateRange" class="form-label">Rentang tanggal</label>
+                                        <div class="d-flex align-items-center">
+                                            <input type="date" class="form-control" id="startDate"
+                                                name="dari_tanggal">
+                                            <span class="mx-3 text-secondary fw-bold">-</span>
+                                            <input type="date" class="form-control" id="endDate"
+                                                name="sampai_tanggal">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="d-grid gap-2 d-md-block text-end">
+                                    <button type="submit"
+                                        class="btn btn-success text-white outline-none border-none">Terapkan</button>
+                                    <button type="reset"
+                                        class="btn btn-primary text-white outline-none border-none">Reset</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

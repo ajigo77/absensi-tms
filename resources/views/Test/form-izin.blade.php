@@ -60,14 +60,6 @@
                         </path>
                     </svg></a></div>
 
-            <!-- Search Form-->
-            <!--<div class="top-search-form">
-          <form action="" method="">
-            <input class="form-control" type="search" placeholder="Enter your keyword">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div>-->
-
             <!-- Navbar Toggler-->
             <div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
                 <i class="bi bi-list fs-3 icon"></i>
@@ -97,50 +89,37 @@
             <form action="{{ route('post.izin') }}" method="POST" class="mx-auto mt-4" style="max-width: 600px;">
                 @csrf
                 <div class="row g-3">
+                    <input type="text" hidden name="user_id" value="{{ Auth::user()->id_user }}">
                     <!-- Informasi Karyawan -->
-                    <div class="col-12">
-                        <label for="nama" class="form-label">Nama Karyawan <span
+                    <div class="col-sm-6">
+                        <label for="nama" class="form-label fw-semibold">Nama Karyawan <span
                                 class="text-danger">*</span></label>
-                        <input type="text" id="nama" name="nama_karyawan" placeholder="Masukkan nama"
-                            class="form-control" value="{{ old('nama_karyawan') }}">
-                        @error('nama_karyawan')
-                            <span class="text-danger" style="font-style: italic">{{ $message }}</span>
-                        @enderror
+                        <input type="text" id="nama" name="nama_karyawan" value="{{ Auth::user()->Member->nama }}"
+                            class="form-control" readonly>
+                        {{-- @error('nama_karyawan')
+                            <small class="text-danger" style="font-style: italic">{{ $message }}</small>
+                        @enderror --}}
                     </div>
 
-                    <div class="col-12">
-                        <label for="divisi" class="form-label">Divisi <span class="text-danger">*</span></label>
-                        <select id="divisi" name="divisi" class="form-select">
-                            <option value="" selected>Pilih Divisi Anda</option>
-                            @forelse ($divisi as $dvs)
-                                <option value="{{ $dvs->nama }}" {{ old('divisi') == $dvs->nama ? 'selected' : '' }}>
-                                    {{ $dvs->nama }}
-                                </option>
-                            @empty
-                                <option value="">Tidak Ada Divisi</option>
-                            @endforelse
-                        </select>
-                        @error('divisi')
-                            <span class="text-danger" style="font-style: italic">{{ $message }}</span>
-                        @enderror
+                    <div class="col-sm-6">
+                        <label for="divisi" class="form-label fw-semibold">
+                            Divisi <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" id="divisi" name="divisi" value="{{ Auth::user()->Devisi->nama }}"
+                            class="form-control" readonly>
+                        {{-- @error('divisi')
+                            <small class="text-danger" style="font-style: italic">{{ $message }}</small>
+                        @enderror --}}
                     </div>
 
-                    <div class="col-12">
-                        <label for="jabatan" class="form-label">Jabatan <span class="text-danger">*</span></label>
-                        <select id="jabatan" name="jabatan" class="form-select">
-                            <option value="" selected>Pilih Jabatan Anda</option>
-                            @forelse ($jabatan as $jab)
-                                <option value="{{ $jab->nama }}"
-                                    {{ old('jabatan') == $jab->nama ? 'selected' : '' }}>
-                                    {{ $jab->nama }}
-                                </option>
-                            @empty
-                                <option value="">Tidak Ada Jabatan</option>
-                            @endforelse
-                        </select>
-                        @error('jabatan')
-                            <span class="text-danger" style="font-style: italic">{{ $message }}</span>
-                        @enderror
+                    <div class="col-sm-12">
+                        <label for="jabatan" class="form-label fw-semibold">Jabatan <span
+                                class="text-danger">*</span></label>
+                        <input type="text" id="jabatan" name="jabatan" value="{{ Auth::user()->Jabatan->nama }}"
+                            class="form-control" readonly>
+                        {{-- @error('jabatan')
+                            <small class="text-danger" style="font-style: italic">{{ $message }}</small>
+                        @enderror --}}
                     </div>
 
                     <!-- Detail Izin -->

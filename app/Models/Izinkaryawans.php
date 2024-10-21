@@ -22,6 +22,7 @@ class Izinkaryawans extends Model
         'alasan',
         'sampai_tanggal',
         'approved',
+        'user_id',
     ];
 
     // public function JenisIzin(){

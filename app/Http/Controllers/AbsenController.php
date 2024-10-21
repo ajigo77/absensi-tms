@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth; // Untuk mengambil user yang sedang login
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+
 class AbsenController extends Controller
 {
     public function getStats(): JsonResponse
@@ -25,7 +27,6 @@ class AbsenController extends Controller
 
     public function postAbsen(Request $request)
     {
-        // dd($request->all());
         // Proses data dari canvas (base64 ke file)
         if ($request->has('webcam')) {
             $imageData = $request->input('webcam');
@@ -36,19 +37,21 @@ class AbsenController extends Controller
         }
 
         // Ambil data shift dari tabel shifts berdasarkan shift_id dari request
-        $shift = Shift::find($request->shift_id);
+        $shift = Shift::find($request->shift);
 
         // Ambil waktu saat ini
 
         $status = 'masuk on time';
 
         // Logika untuk menentukan status Mendapatkan waktu shift di kolom waktu di tabel shift dan membandingkan menitnya
-        $waktuSaatIni = Carbon::now();
-        $waktuShiftTerlambat = Carbon::parse($shift->waktu); // Mengubah waktu shift ke Carbon untuk manipulasi
+        if($shift){
+            $waktuSaatIni = Carbon::now();
+            $waktuShiftTerlambat = Carbon::parse($shift->waktu); // Mengubah waktu shift ke Carbon untuk manipulasi
 
-        $menitHariIni = $waktuSaatIni->format('H:i'); // Ambil jam dan menit waktu sekarang
+            $menitHariIni = $waktuSaatIni->format('H:i'); // Ambil jam dan menit waktu sekarang
 
-        $menitShift = $waktuShiftTerlambat->format('H:i'); // Ambil jam dan menit dari waktu shift
+            $menitShift = $waktuShiftTerlambat->format('H:i'); // Ambil jam dan menit dari waktu shift
+        }
 
         // Logika untuk menentukan status
         if ($menitHariIni > $menitShift) {
@@ -60,7 +63,7 @@ class AbsenController extends Controller
         $absen = new Absen();
         $absen->user_id = Auth::user()->id_user;
         $absen->type = $request->type;
-        $absen->shift_id = $request->shift_id;
+        $absen->shift_id = $request->shift;
         $absen->foto = isset($imageName) ? $imageName : null; // Menyimpan nama file gambar
         $absen->lattitude = $request->lattitude;
         $absen->longtitude = $request->longtitude;
@@ -79,7 +82,8 @@ class AbsenController extends Controller
     public function absen(Request $request)
     {
         // Ambil data absen dengan relasi member
-        $absens = Absen::with('user.Member')->orderBy('created_at', 'desc');
+        $absens = Absen::with('user.Member')
+        ->where('user_id', Auth::user()->id_user)->orderBy('created_at', 'desc');
 
         // Jika ada query pencarian, terapkan filter
         if ($request->get('search')) {
@@ -101,7 +105,6 @@ class AbsenController extends Controller
 
     public function webcamp($id, $type)
     {
-        // dd($id, $type);
         $shift = Shift::find($id);
 
         // Mencari data absen hari ini dengan user_id
