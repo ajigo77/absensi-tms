@@ -12,7 +12,6 @@ use Filament\Tables\Enums\FiltersLayout; // Import FiltersLayout
 use Filament\Tables\Filters\Filter; // Import Filter
 use Filament\Forms\Components\DatePicker; // Import DatePicker
 use Illuminate\Database\Eloquent\Builder; // Import Builder
-use Filament\Tables\Actions\Action; // Import Action
 
 class DataAbsenTMS extends BaseWidget
 {
@@ -44,10 +43,10 @@ class DataAbsenTMS extends BaseWidget
     {
         return $table
             ->query(
-                Absen::with(['shift', 'user.member']) // Corrected eager loading
+                Absen::with(['shift', 'user.member']) // Load user and member relationships
             )
             ->columns([
-                TextColumn::make('member.nama') // Corrected column reference
+                TextColumn::make('user.member.nama') // Accessing nama through user and member
                     ->label('Nama'), // Label untuk kolom
                 TextColumn::make('type')->label('Tipe Absensi'), // Display Attendance Type
                 TextColumn::make('shift.name')
@@ -90,18 +89,6 @@ class DataAbsenTMS extends BaseWidget
                     ->label('Tanggal Masuk') // Display Entry Date
                     ->formatStateUsing(fn ($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y')) // Format date without time
                     ->sortable(), // Optional: make it sortable
-            ])
-            ->actions([
-                Action::make('view') // Define the view action
-                    ->label('View') // Label for the action
-                    ->action(fn ($record) => [
-                        'modal' => [
-                            'title' => 'Detail Absensi', // Title of the modal
-                            'content' => view('filament.widgets.absen-detail', ['record' => $record]), // Use a view to display the record details
-                        ],
-                    ])
-                    ->icon('heroicon-o-eye') // Optional: Add an icon
-                    ->color('primary'), // Optional: Set the color
             ])
             ->filters([
                 Filter::make('created_at')

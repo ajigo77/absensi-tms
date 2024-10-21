@@ -42,7 +42,7 @@ class Absen extends Model
 
     public function member()
     {
-        return $this->belongsTo(Member::class, 'member_id'); // Pastikan 'member_id' sesuai
+        return $this->belongsTo(Member::class, 'member_id', 'id_member'); // Pastikan 'member_id' sesuai
     }
 
     // Define the relationship if needed

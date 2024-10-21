@@ -81,11 +81,7 @@ class CutikaryawanResource extends Resource
                     ->default('0'), // Prioritize the 'menunggu' status
             ])
             ->actions([
-                Tables\Actions\Action::make('view') // Aksi untuk melihat detail
-                    ->action(function ($record) {
-                        return redirect()->route('cutikaryawan.show', $record->id); // Sesuaikan rute sesuai kebutuhan
-                    }),
-                    Tables\Actions\Action::make('approve') // Action for approval
+                Tables\Actions\Action::make('approve') // Action for approval
                     ->action(function ($record) {
                         $record->update(['approved' => 'disetujui']); // Update to 'disetujui'
                         // Optionally, add a notification here

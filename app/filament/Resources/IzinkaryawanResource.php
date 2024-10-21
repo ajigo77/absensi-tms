@@ -45,7 +45,7 @@ class IzinkaryawanResource extends Resource
                     ->formatStateUsing(fn ($state) => match ($state) {
                         '0' => 'Menunggu Persetujuan',
                         'menunggu' => 'Menunggu Persetujuan',
-                        'disetujui' => 'Sudah Disetujui',
+                        'disetujui' => 'Sudah Disetujuhi',
                         'ditolak' => 'Ditolak',
                         default => 'Tidak Diketahui',
                     })
@@ -62,16 +62,12 @@ class IzinkaryawanResource extends Resource
                     ->label('Status Persetujuan')
                     ->options([
                         '0' => 'Menunggu Persetujuan', // Status 0
-                        'disetujui' => 'Sudah Disetujui',
+                        'disetujui' => 'Sudah Disetujuhi',
                         'ditolak' => 'Ditolak',
                     ])
                     ->default('0'), // Prioritaskan yang belum di-approve
             ])
             ->actions([
-                Tables\Actions\Action::make('view') // Action to view details
-                    ->action(function ($record) {
-                        return redirect()->route('izinkaryawan.show', $record->id); // Adjust the route as needed
-                    }),
                 Tables\Actions\Action::make('approve') // Action for approval
                     ->action(function ($record) {
                         $record->update(['approved' => 'disetujui']);

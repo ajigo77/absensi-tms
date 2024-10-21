@@ -84,8 +84,8 @@ class User extends Authenticatable
 
     public function hasPermission($permission)
     {
-        // Get the user's permissions
-        $userPermissions = $this->permissions()->pluck('permissions')->flatten()->toArray();
+        // Use the correct column name 'id_user'
+        $userPermissions = $this->permissions()->where('id_user', $this->id)->pluck('permissions')->flatten()->toArray();
         return in_array($permission, $userPermissions);
     }
 }

@@ -33,7 +33,7 @@ class AttendanceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('member.nama')->label('Nama'), // Ensure this is correct
+                Tables\Columns\TextColumn::make('user.member.nama')->label('Nama'), // Ensure this is correct
                 Tables\Columns\TextColumn::make('shift.name')->label('Shift'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status') // Display Status
