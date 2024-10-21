@@ -48,5 +48,16 @@ Route::resource('schedules', ScheduleController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
 
-require __DIR__ . '\Auth\auth.php';
-require __DIR__ . '\Uploaded\upload.php';
+// Route::middleware(['auth'])->group(function () {
+//     AttendanceResource::routes();
+// });
+
+// Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
+
+// Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');
+
+// Route::get('/view/{id}', [ViewController::class, 'show'])->name('view.show');
+
+// Route::group(['middleware' => ['auth', 'permission:view_dashboard']], function () {
+//     // Your routes here
+// });

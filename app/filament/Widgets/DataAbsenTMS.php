@@ -12,7 +12,6 @@ use Filament\Tables\Enums\FiltersLayout; // Import FiltersLayout
 use Filament\Tables\Filters\Filter; // Import Filter
 use Filament\Forms\Components\DatePicker; // Import DatePicker
 use Illuminate\Database\Eloquent\Builder; // Import Builder
-use Filament\Tables\Actions\Action; // Import Action
 
 class DataAbsenTMS extends BaseWidget
 {
@@ -22,7 +21,7 @@ class DataAbsenTMS extends BaseWidget
 
     private function getAddressFromCoordinates($latitude, $longitude)
     {
-        $apiKey = 'AIzaSyDSHqADowuZnM0Uo_NaijCHhLLwFwq86pg'; // Ganti dengan API Key Anda
+        $apiKey = env('GOOGLE_MAPS_API_KEY'); // Ambil API Key dari .env
         $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$latitude},{$longitude}&key={$apiKey}";
 
         $response = @file_get_contents($url); // Suppress errors with @
@@ -44,11 +43,11 @@ class DataAbsenTMS extends BaseWidget
     {
         return $table
             ->query(
-                Absen::with(['shift', 'user']) // Eager load the shift and user relationships
+                Absen::with(['shift', 'user.member']) // Load user and member relationships
             )
             ->columns([
-                TextColumn::make('user.name') // Change this line to fetch the user's name
-                    ->label('Nama'), // Update the label
+                TextColumn::make('user.member.nama') // Accessing nama through user and member
+                    ->label('Nama'), // Label untuk kolom
                 TextColumn::make('type')->label('Tipe Absensi'), // Display Attendance Type
                 TextColumn::make('shift.name')
                     ->label('Shift') // Ubah label menjadi 'Shift'
@@ -70,46 +69,37 @@ class DataAbsenTMS extends BaseWidget
                 TextColumn::make('status')
                     ->label('Status') // Display Status
                     ->badge() // Use badge for status
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'on time' => 'Tepat Waktu',
+                    ->formatStateUsing(fn ($state) => match (strtolower(trim($state))) { // Normalize the status
+                        'masuk on time' => 'Tepat Waktu',
                         'terlambat' => 'Terlambat',
-                        'Izin' => 'Izin',
-                        'Sakit' => 'Sakit',
-                        'Cuti' => 'Cuti',
+                        'ijin' => 'Izin', // Update to match database
+                        'sakit' => 'Sakit',
+                        'cuti' => 'Cuti',
                         default => 'Tidak Diketahui',
                     })
-                    ->color(fn ($state) => match ($state) {
-                        'on time' => 'success', // Green
+                    ->color(fn ($state) => match (strtolower(trim($state))) { // Normalize the status for color
+                        'masuk on time' => 'success', // Green
                         'terlambat' => 'danger', // Red
-                        'Izin' => 'warning', // Orange
-                        'Sakit' => 'info', // Blue
-                        'Cuti' => 'primary', // Purple
+                        'ijin' => 'warning', // Orange
+                        'sakit' => 'info', // Blue
+                        'cuti' => 'primary', // Purple
                         default => 'secondary', // Gray
                     }),
-                TextColumn::make('created_at')->label('Tanggal Masuk'), // Display Entry Date
-            ])
-            ->actions([
-                Action::make('view') // Define the view action
-                    ->label('View') // Label for the action
-                    ->action(fn ($record) => [
-                        'modal' => [
-                            'title' => 'Detail Absensi', // Title of the modal
-                            'content' => view('filament.widgets.absen-detail', ['record' => $record]), // Use a view to display the record details
-                        ],
-                    ])
-                    ->icon('heroicon-o-eye') // Optional: Add an icon
-                    ->color('primary'), // Optional: Set the color
+                TextColumn::make('created_at')
+                    ->label('Tanggal Masuk') // Display Entry Date
+                    ->formatStateUsing(fn ($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y')) // Format date without time
+                    ->sortable(), // Optional: make it sortable
             ])
             ->filters([
                 Filter::make('created_at')
                     ->form([
                         DatePicker::make('created_from')
-                            ->label('Created from') // Label for start date
+                            ->label('Dari Tanggal') // Label for start date
                             ->placeholder('dd/mm/yyyy'), // Placeholder for clarity
                         DatePicker::make('created_until')
-                            ->label('Created until') // Label for end date
+                            ->label('Sampai Tanggal') // Label for end date
                             ->default(now()), // Default to current date
-                    ])
+                    ]) 
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
@@ -121,7 +111,7 @@ class DataAbsenTMS extends BaseWidget
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     }),
-            ], layout: FiltersLayout::AboveContentCollapsible) // Set filters layout to above content and collapsible
+            ])
             ->bulkActions([
                 // Define your bulk actions here
             ]);

@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Enums\FiltersLayout;
 
 
 class IzinkaryawanResource extends Resource
@@ -42,26 +43,32 @@ class IzinkaryawanResource extends Resource
                     ->label('Status Persetujuan')
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
+                        '0' => 'Menunggu Persetujuan',
                         'menunggu' => 'Menunggu Persetujuan',
-                        'disetujui' => 'Sudah Disetujui',
+                        'disetujui' => 'Sudah Disetujuhi',
                         'ditolak' => 'Ditolak',
                         default => 'Tidak Diketahui',
                     })
                     ->colors([
-                        'menunggu' => 'warning', // Yellow
-                        'disetujui' => 'success', // Green
-                        'ditolak' => 'danger', // Red
+                        '0' => 'warning', // Yellow for status 0
+                        'menunggu' => 'warning', // Yellow for waiting
+                        'disetujui' => 'success', // Green for approved
+                        'ditolak' => 'danger', // Red for rejected
                         'default' => 'secondary', // Gray for unknown status
                     ]),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('approved')
+                    ->label('Status Persetujuan')
+                    ->options([
+                        '0' => 'Menunggu Persetujuan', // Status 0
+                        'disetujui' => 'Sudah Disetujuhi',
+                        'ditolak' => 'Ditolak',
+                    ])
+                    ->default('0'), // Prioritaskan yang belum di-approve
             ])
             ->actions([
-                Tables\Actions\Action::make('view') // Action to view details
-                    ->action(function ($record) {
-                        return redirect()->route('izinkaryawan.show', $record->id); // Adjust the route as needed
-                    }),
+                // Fitur view telah dihapus sesuai instruksi
                 Tables\Actions\Action::make('approve') // Action for approval
                     ->action(function ($record) {
                         $record->update(['approved' => 'disetujui']);

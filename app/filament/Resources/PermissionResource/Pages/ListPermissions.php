@@ -12,8 +12,12 @@ class ListPermissions extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        $actions = [];
+
+        if (auth()->user()->hasPermission('create_permissions')) {
+            $actions[] = Actions\CreateAction::make();
+        }
+
+        return $actions;
     }
 }

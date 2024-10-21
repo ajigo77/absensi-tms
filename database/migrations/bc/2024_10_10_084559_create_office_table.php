@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 10, 8);
-            $table->integer('radius');
+            $table->decimal('longitude', 11, 8);
+            $table->decimal('radius', 8, 2);
             // $table->string('location')->nullable(); // Jika ingin menyimpan lokasi
             $table->timestamps();
         });

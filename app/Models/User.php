@@ -15,8 +15,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $tabel = 'users';
-    protected $primaryKey = 'id_user'; // Jika primary key adalah id_user
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
     protected $fillable = [
         'member_id',
         'password',
@@ -43,29 +43,45 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Menyatakan bahwa member_id akan digunakan sebagai field login
-    public function getAuthIdentifierName()
+
+//soal cari relasi ini 😈
+//relasi kan bahwa uswr hanya meiliki 1 Devisi
+    public function devisi()
     {
-        return 'member_id';
+        return $this->belongsTo(Devisi::class);
     }
-    //soal cari relasi ini 😈
-    public function Member(){
-        return $this->belongsTo(Member::class, 'member_id','id_member');
-    }
-    //relasi kan bahwa user hanya meiliki 1 Divisi
-    public function Devisi(){
-        return $this->belongsTo(Devisi::class,'divisi_id','id_divisi');
-    }
-    public function Absens(){
-        return $this->hasMany(Absen::class ,'user_id','id_user');
-    }
-    //relasi kan bahwa user hanya memiliki 1 Jabatan
-    public function Jabatan(){
-        return $this->belongsTo(Jabatan::class ,'jabatan_id','id_jabatan');
+//relasi kan bahwa user hanya memiliki 1 Jabatan
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan_id');
     }
 
-    // Relasi ke model cutikaryawan
-    public function CutiKaryawan(){
-       return $this->hasMany(Cutikaryawan::class, 'user_id', 'id_user');
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class);
+    }
+
+    public function user()
+       {
+           return $this->belongsTo(User::class, 'id_member', 'id'); // Sesuaikan dengan kolom yang relevan
+       }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'member_id', 'id_member'); // Pastikan 'member_id' dan 'id_member' sesuai
+    }
+
+    public function getUserName(): string
+    {
+        // Ambil nama dari relasi member
+        $member = $this->member; // Mengambil relasi member
+        return $member ? $member->nama : 'Default User'; // Mengembalikan nama atau nilai default
+    }
+
+    public function hasPermission($permission)
+    {
+        // Use the correct column name 'id_user'
+        $userPermissions = $this->permissions()->where('id_user', $this->id)->pluck('permissions')->flatten()->toArray();
+        return in_array($permission, $userPermissions);
     }
 }

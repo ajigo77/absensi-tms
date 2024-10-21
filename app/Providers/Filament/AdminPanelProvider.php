@@ -38,6 +38,7 @@ class AdminPanelProvider extends PanelProvider
                 'success' => Color::Green,
                 'warning' => Color::Amber,
             ])
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -72,20 +73,17 @@ class AdminPanelProvider extends PanelProvider
                         NavigationItem::make('Kantor')
                             ->icon('heroicon-o-building-office')
                             ->url(route('filament.admin.resources.offices.index')),
-                        NavigationItem::make('Jabatan')
-                            ->icon('heroicon-o-key')
-                            ->url(route('filament.admin.resources.permissions.index')),
+                        // NavigationItem::make('Jabatan')
+                        //     ->icon('heroicon-o-key')
+                        //     ->url(route('#')),
                         NavigationItem::make('Shift')
                             ->icon('heroicon-o-clock')
                             ->url(route('filament.admin.resources.shifts.index')),
-                        NavigationItem::make('Karyawan')
-                            ->icon('heroicon-o-users')
-                            ->url(route('filament.admin.resources.users.index')),
                     ])
                     ->group('menejemen Absensi', [
-                        NavigationItem::make('Jadwal')
-                            ->icon('heroicon-o-calendar')
-                            ->url(route('filament.admin.resources.schedules.index')),
+                        // NavigationItem::make('Jadwal')
+                        //     ->icon('heroicon-o-calendar')
+                        //     ->url(route('filament.admin.resources.schedules.index')),
                         NavigationItem::make('Absensi')
                             ->icon('heroicon-o-clipboard-document-list')
                             ->url(route('filament.admin.resources.attendances.index')),
