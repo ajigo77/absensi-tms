@@ -11,13 +11,21 @@ class Devisi extends Model
 
     protected $table = 'divisis';
 
-    protected $fillable = [
+    protected $primaryKey = 'id_divisi';
 
-    ];
+    // protected $fillable = [
 
-//relasi kan bahwa devisi memiliki banyak user
+    // ];
+
+    //relasi kan bahwa devisi memiliki banyak user
     public function User(){
-        return $this->belongsTo(User::class);
+        // return $this->belongsTo(User::class);
+        return $this->hasMany(User::class, 'divisi_id', 'id_divisi');
     }
+
+    // public function Izinkaryawan(){
+    //     // return $this->belongsTo(User::class);
+    //     return $this->hasMany(Izinkaryawans::class, 'divisi_id', 'id_divisi');
+    // }
 
 }

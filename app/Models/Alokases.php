@@ -9,6 +9,6 @@ class Alokases extends Model
 {
     use HasFactory;
 
-    protected $tabel = 'lokasi';
+    protected $tabel = 'alokases';
     protected $fillable = ['latitude', 'longitude'];
 }

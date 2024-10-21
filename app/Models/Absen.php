@@ -11,7 +11,8 @@ class Absen extends Model
     use HasFactory;
 
     protected $table = 'absens';
-    protected $primaryKey = 'id_absen'; // Ensure this matches the column name in the database
+
+    protected $fillable = ['user_id', 'type', 'shift_id', 'foto', 'lattitude', 'longtitude', 'status'];
 
     // Relasi ke model Shift
     public function shift()
@@ -50,4 +51,5 @@ class Absen extends Model
     {
         return $this->belongsTo(Absen::class, 'user_id'); // Adjust 'foreign_key' as necessary
     }
+
 }

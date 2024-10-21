@@ -15,10 +15,10 @@ class Shift extends Model
 
     protected $fillable = ['name', 'start_time', 'end_time', 'created_at', 'updated_at']; // Adjusted fillable fields
 
-    protected $casts = [
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'start_time' => 'datetime',
+    //     'end_time' => 'datetime',
+    // ];
 
     public function setStartTimeAttribute($value)
     {

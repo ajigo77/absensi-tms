@@ -18,13 +18,10 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $primaryKey = 'id_user';
     protected $fillable = [
-        'id_user',
         'member_id',
         'password',
-        'divisi_id',
         'jabatan_id',
-        'status',
-        'name', // Add 'name' if not already present
+        'divisi_id',
     ];
 
     /**
@@ -43,7 +40,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
