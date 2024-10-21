@@ -68,6 +68,7 @@ class IzinkaryawanResource extends Resource
                     ->default('0'), // Prioritaskan yang belum di-approve
             ])
             ->actions([
+                // Fitur view telah dihapus sesuai instruksi
                 Tables\Actions\Action::make('approve') // Action for approval
                     ->action(function ($record) {
                         $record->update(['approved' => 'disetujui']);
