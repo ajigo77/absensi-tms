@@ -11,6 +11,7 @@ class Absen extends Model
     use HasFactory;
 
     protected $table = 'absens';
+    protected $primaryKey = 'id_absen';
 
     protected $fillable = ['user_id', 'type', 'shift_id', 'foto', 'lattitude', 'longtitude', 'status'];
 

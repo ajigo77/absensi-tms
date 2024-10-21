@@ -9,6 +9,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Carbon\Carbon;
 
 class ShiftResource extends Resource
 {
@@ -40,10 +41,10 @@ class ShiftResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('Shift Name'),
                 Tables\Columns\TextColumn::make('start_time')
                     ->label('Start Time')
-                    ->formatStateUsing(fn ($state) => $state->format('H:i')), // Show only hour
+                    ->formatStateUsing(fn ($state) => $state ? Carbon::parse($state)->format('H:i') : null),
                 Tables\Columns\TextColumn::make('end_time')
                     ->label('End Time')
-                    ->formatStateUsing(fn ($state) => $state->format('H:i')), // Show only hour
+                    ->formatStateUsing(fn ($state) => $state ? Carbon::parse($state)->format('H:i') : null),
             ])
             ->filters([
                 // Add any filters if needed
