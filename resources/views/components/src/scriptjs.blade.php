@@ -1,3 +1,5 @@
+{{-- SweetAlert2 --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const video = document.querySelector("#video");
     const imageIlustrator = document.querySelector("#img-ilustrator");
@@ -221,15 +223,27 @@
                     contentType: false, // Agar tidak mengubah tipe konten
                     success: function(response) {
                         if (response.success) {
-                            console.log('Data berhasil disimpan');
+                            Swal.fire({
+                                title: "Sukses",
+                                text: "Absen berhasil disimpan",
+                                icon: "success"
+                            });
                         }
                     },
                     error: function(xhr) {
                         // Cek apakah respons memiliki pesan kesalahan
                         if (xhr.responseJSON && xhr.responseJSON.message) {
-                            console.log(xhr.responseJSON.message);
-                        } else {
-                            console.log('Terjadi kesalahan saat mengirim data.');
+                                Swal.fire({
+                                    title: "Gagal",
+                                    text: `${xhr.responseJSON.message}`,
+                                    icon: "error"
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Oops!",
+                                    text: "Terjadi kesalahan saat mengirim data",
+                                    icon: "error"
+                                });
                         }
                     }
                 });

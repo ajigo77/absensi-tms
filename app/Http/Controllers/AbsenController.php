@@ -70,7 +70,7 @@ class AbsenController extends Controller
         $absen->status = $status;
         $absen->save();
 
-        return response()->json(['success' => 'Absen berhasil.']);
+        return redirect()->route('absen');
     }
 
     public function index()
