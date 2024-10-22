@@ -13,12 +13,14 @@ class Cutikaryawan extends Model
         'nama_karyawan', // Nama Karyawan
         'divisi', // Divisi
         'jabatan', // Jabatan
-        'tanggal_cuti', // Tanggal Cuti
+        'dari_tanggal', // Changed from 'tanggal_cuti' to 'dari_tanggal'
+        'sampai_tanggal', // Added 'sampai_tanggal'
         'alasan', // Alasan
         'approved', // Status Persetujuan
     ];
 
     protected $casts = [
-        'tanggal_cuti' => 'date', // Tanggal Cuti
+       'dari_tanggal' => 'date', // Tanggal Cuti
+        'sampai_tanggal' => 'date', // Added for 'sampai_tanggal'
     ];
 }

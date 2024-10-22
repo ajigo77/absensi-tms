@@ -27,7 +27,7 @@ class Absen extends Model
         return [
             'on_time' => self::whereDate('created_at', $today)->where('status', 'masuk on time')->count(), // Corrected status
             'terlambat' => self::whereDate('created_at', $today)->where('status', 'terlambat')->count(),
-            'masuk' => self::whereDate('created_at', $today)->where('type', 'masuk kerja')->count(),
+            'masuk' => self::whereDate('created_at', $today)->where('type', 'masuk')->count(),
             'tidak_masuk' => self::whereDate('created_at', $today)->where('type', 'tidak masuk')->count(),
             'izin' => self::whereDate('created_at', $today)->where('status', 'ijin')->count(),
             'sakit' => self::whereDate('created_at', $today)->where('status', 'sakit')->count(),

@@ -14,7 +14,8 @@ class Izinkaryawan extends Model
         'nama_karyawan',
         'divisi',
         'jabatan', 
-        'tanggal_izin',
+        'dari_tanggal', // Changed from 'tanggal_izin' to 'dari_tanggal'
+        'sampai_tanggal', // Added 'sampai_tanggal'
         'jam_pulang_awal',
         'alasan',
         'approved', // Tambahkan kolom approved

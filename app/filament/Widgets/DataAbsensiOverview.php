@@ -5,7 +5,6 @@ namespace App\Filament\Widgets;
 use App\Models\Absen; // Import the Absen model
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Carbon\Carbon; // Import Carbon for date handling
 
 class DataAbsensiOverview extends BaseWidget
 {
@@ -15,17 +14,20 @@ class DataAbsensiOverview extends BaseWidget
         $stats = Absen::getStats(); // Call getStats() directly from the model
 
         return [
-            Stat::make('Karyawan Masuk', $stats['masuk'])
+            // Karyawan Masuk
+            Stat::make('Karyawan Masuk', $stats['masuk'] ?? 0) // Fallback to 0 if 'masuk' is not set
                 ->description('Total Karyawan Masuk Hari Ini')
                 ->color('success'),
-            Stat::make('Karyawan Tidak Masuk', $stats['tidak_masuk'])
-                ->description('Total Karyawan Tidak Masuk Hari Ini')
-                ->descriptionIcon('')
-                ->color('danger'),
-            Stat::make('Karyawan On Time', $stats['on_time'])
+            // Karyawan Keluar
+            Stat::make('Karyawan Keluar', $stats['keluar'] ?? 0) // Fallback to 0 if 'keluar' is not set
+                ->description('Total Karyawan Keluar Hari Ini')
+                ->color('info'),
+            // Karyawan On Time
+            Stat::make('Karyawan On Time', $stats['on_time'] ?? 0) // Fallback to 0 if 'on_time' is not set
                 ->description('Total Karyawan On Time Hari Ini')
                 ->color('success'),
-            Stat::make('Karyawan Terlambat', $stats['terlambat'])
+            // Karyawan Terlambat
+            Stat::make('Karyawan Terlambat', $stats['terlambat'] ?? 0) // Fallback to 0 if 'terlambat' is not set
                 ->description('Total Karyawan Terlambat Hari Ini')
                 ->color('danger'),
         ];

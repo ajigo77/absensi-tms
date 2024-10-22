@@ -29,14 +29,16 @@ class CutikaryawanResource extends Resource
                 Forms\Components\TextInput::make('jabatan')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DatePicker::make('tanggal_cuti')
+                Forms\Components\DatePicker::make('dari_tanggal')
+                    ->required(),
+                Forms\Components\DatePicker::make('sampai_tanggal')
                     ->required(),
                 Forms\Components\Textarea::make('alasan')
                     ->required()
                     ->maxLength(65535),
                 Forms\Components\Select::make('approved')
                     ->options([
-                        'menunggu' => 'Menunggu Persetujuan',
+                        'pending' => 'Menunggu Persetujuan',
                         'disetujui' => 'Sudah Disetujui',
                         'ditolak' => 'Ditolak',
                     ])
@@ -51,45 +53,43 @@ class CutikaryawanResource extends Resource
                 Tables\Columns\TextColumn::make('nama_karyawan')->label('Nama Karyawan'),
                 Tables\Columns\TextColumn::make('divisi')->label('Divisi'),
                 Tables\Columns\TextColumn::make('jabatan')->label('Jabatan'),
-                Tables\Columns\TextColumn::make('tanggal_cuti')->label('Tanggal Cuti')->date(),
+                Tables\Columns\TextColumn::make('dari_tanggal')->label('Dari Tanggal')->date(),
+                Tables\Columns\TextColumn::make('sampai_tanggal')->label('Sampai Tanggal')->date(),
                 Tables\Columns\TextColumn::make('alasan')->label('Alasan'),
                 Tables\Columns\BadgeColumn::make('approved')
                     ->label('Status Persetujuan')
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
-                        '0' => 'Menunggu Persetujuan', // Handle status 0
+                        'pending' => 'Menunggu Persetujuan',
                         'disetujui' => 'Sudah Disetujui',
                         'ditolak' => 'Ditolak',
                         default => 'Tidak Diketahui',
                     })
                     ->colors([
-                        '0' => 'warning', // Yellow for status 0
-                        'menunggu' => 'warning', // Yellow
-                        'disetujui' => 'success', // Green
-                        'ditolak' => 'danger', // Red
-                        'default' => 'secondary', // Gray for unknown status
+                        'pending' => 'warning',
+                        'disetujui' => 'success',
+                        'ditolak' => 'danger',
+                        'default' => 'secondary',
                     ]),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('approved')
                     ->label('Status Persetujuan')
                     ->options([
-                        '0' => 'Menunggu Persetujuan', // Keep this option
+                        'pending' => 'Menunggu Persetujuan',
                         'disetujui' => 'Sudah Disetujui',
                         'ditolak' => 'Ditolak',
                     ])
-                    ->default('0'), // Prioritize the 'menunggu' status
+                    ->default('pending'),
             ])
             ->actions([
-                Tables\Actions\Action::make('approve') // Aksi untuk menyetujui
+                Tables\Actions\Action::make('approve')
                     ->action(function ($record) {
-                        $record->update(['approved' => 'disetujui']); // Update to 'disetujui'
-                        // Optionally, add a notification here
+                        $record->update(['approved' => 'disetujui']);
                     }),
-                Tables\Actions\Action::make('reject') // Action for rejection
+                Tables\Actions\Action::make('reject')
                     ->action(function ($record) {
-                        $record->update(['approved' => 'ditolak']); // Update to 'ditolak'
-                        // Optionally, add a notification here
+                        $record->update(['approved' => 'ditolak']);
                     }),
             ])
             ->bulkActions([
@@ -111,7 +111,7 @@ class CutikaryawanResource extends Resource
         return [
             'index' => Pages\ListCutikaryawans::route('/'),
             'create' => Pages\CreateCutikaryawan::route('/create'),
-            'edit' => Pages\EditCutikaryawan::route('/{record}/edit'), // Jika Anda masih memerlukan halaman edit
+            'edit' => Pages\EditCutikaryawan::route('/{record}/edit'),
         ];
     }
 }

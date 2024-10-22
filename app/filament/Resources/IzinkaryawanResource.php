@@ -24,7 +24,10 @@ class IzinkaryawanResource extends Resource
     {
         return $form
             ->schema([
-                //
+                // Update fields to match the new schema
+                Forms\Components\DatePicker::make('dari_tanggal')->required(),
+                Forms\Components\DatePicker::make('sampai_tanggal')->required(), // Added field
+                // ... other fields remain unchanged
             ]);
     }
 
@@ -32,26 +35,25 @@ class IzinkaryawanResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama_karyawan')->label('Nama Karyawan'), // Moved to the top
+                Tables\Columns\TextColumn::make('nama_karyawan')->label('Nama Karyawan'),
                 Tables\Columns\TextColumn::make('jenis_izin')->label('Jenis Izin'),
                 Tables\Columns\TextColumn::make('divisi')->label('Divisi'),
                 Tables\Columns\TextColumn::make('jabatan')->label('Jabatan'),
-                Tables\Columns\TextColumn::make('tanggal_izin')->label('Tanggal Izin'),
+                Tables\Columns\TextColumn::make('dari_tanggal')->label('Dari Tanggal'), // Updated column
+                Tables\Columns\TextColumn::make('sampai_tanggal')->label('Sampai Tanggal'), // Added column
                 Tables\Columns\TextColumn::make('jam_pulang_awal')->label('Jam Pulang Awal'),
                 Tables\Columns\TextColumn::make('alasan')->label('Alasan'),
                 Tables\Columns\BadgeColumn::make('approved')
                     ->label('Status Persetujuan')
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
-                        '0' => 'Menunggu Persetujuan',
-                        'menunggu' => 'Menunggu Persetujuan',
-                        'disetujui' => 'Sudah Disetujuhi',
+                        'pending' => 'Pending', // Updated status
+                        'disetujui' => 'Disetujui',
                         'ditolak' => 'Ditolak',
                         default => 'Tidak Diketahui',
                     })
                     ->colors([
-                        '0' => 'warning', // Yellow for status 0
-                        'menunggu' => 'warning', // Yellow for waiting
+                        'pending' => 'warning', // Yellow for pending
                         'disetujui' => 'success', // Green for approved
                         'ditolak' => 'danger', // Red for rejected
                         'default' => 'secondary', // Gray for unknown status
@@ -61,8 +63,8 @@ class IzinkaryawanResource extends Resource
                 Tables\Filters\SelectFilter::make('approved')
                     ->label('Status Persetujuan')
                     ->options([
-                        '0' => 'Menunggu Persetujuan', // Status 0
-                        'disetujui' => 'Sudah Disetujuhi',
+                        'pending' => 'Pending', // Status 0
+                        'disetujui' => 'Disetujui',
                         'ditolak' => 'Ditolak',
                     ])
                     ->default('0'), // Prioritaskan yang belum di-approve
