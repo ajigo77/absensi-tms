@@ -56,7 +56,7 @@ class DataAbsenTMS extends BaseWidget
                     ->badge()
                     ->label('Foto') // Display Photo
                     ->formatStateUsing(fn ($state) => 
-                        '<a href="' . $state . '" target="_blank" rel="noopener noreferrer" style="color: white;">Lihat Foto</a>' // Create clickable link
+                        '<a href="/webcam/' . $state . '" target="_blank" rel="noopener noreferrer" style="color: white;">Lihat Foto</a>' // Create clickable link
                     )
                     ->html(), // Enable HTML rendering
                 TextColumn::make('lattitude')
