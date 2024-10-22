@@ -8,6 +8,7 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\View;
+use Filament\Forms\Components\Text;
 
 class EditIzinkaryawan extends EditRecord
 {
@@ -27,14 +28,10 @@ class EditIzinkaryawan extends EditRecord
                 Text::make('nama_karyawan')->label('Nama Karyawan')->disabled(),
                 Text::make('divisi')->label('Divisi')->disabled(),
                 Text::make('jabatan')->label('Jabatan')->disabled(),
-                Text::make('tanggal_izin')->label('Tanggal Izin')->disabled(),
+                Text::make('dari_tanggal')->label('Dari Tanggal')->disabled(), // Updated from 'tanggal_izin' to 'dari_tanggal'
+                Text::make('sampai_tanggal')->label('Sampai Tanggal')->disabled(), // Added 'sampai_tanggal'
                 Text::make('jam_pulang_awal')->label('Jam Pulang Awal')->disabled(),
-                Text::make('alasan')->label('Alasan')->disabled(),
-                Textarea::make('signature')->label('Tanda Tangan Admin')->required(),
-                View::make('signature-pad') // Area untuk tanda tangan
-                    ->label('Tanda Tangan')
-                    ->view('signature-pad'),
-            ]);
+                Text::make('alasan')->label('Alasan')->disabled(),            ]);
     }
 
     protected function afterSave(): void

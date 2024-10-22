@@ -1,10 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
-    content: ["./resources/**/*.blade.php", "!./resources/views/vendor/**/*.blade.php"],
     content: [
-        "./resources/views//*.blade.php", // Memasukkan semua file Blade di resources/views
-        "!./resources/views/vendor//*.blade.php", // Mengecualikan folder vendor
+        "./resources/views/**/*.blade.php", // Memasukkan semua file Blade di resources/views
+        "!./resources/views/vendor/**/*.blade.php", // Mengecualikan folder vendor
     ],
     theme: {
         extend: {},
