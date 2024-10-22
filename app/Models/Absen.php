@@ -20,6 +20,9 @@ class Absen extends Model
     }
 
     // Method to get attendance statistics
+    protected $fillable = ['user_id', 'type', 'shift_id', 'foto', 'lattitude', 'longtitude', 'status'];
+
+    // Tambahkan metode untuk mengambil data
     public static function getStats()
     {
         $today = Carbon::today();
@@ -50,4 +53,14 @@ class Absen extends Model
     {
         return $this->belongsTo(Absen::class, 'user_id'); // Adjust 'foreign_key' as necessary
     }
+    // public function member()
+    // {
+    //     return $this->belongsTo(Member::class, 'member_id', 'id_member');
+    // }
+
+//     public function user()
+//     {
+//         return $this->belongsTo(User::class, 'user_id', 'id_user');
+//     }
+
 }

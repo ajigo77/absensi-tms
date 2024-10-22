@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Pages\Dashboard\DashboardController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\RegisterUserController;
-use App\Http\Controllers\Pages\Dashboard\DashboardController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -12,9 +12,14 @@ use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CardShiftController;
+use App\Http\Controllers\FormKaryawanController;
 use App\Http\Controllers\LeaveController;
 use App\Filament\Resources\AttendanceResource;
 use App\Http\Controllers\ViewController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PostAbsensiController;
+use App\Models\Absen;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,33 +32,15 @@ use App\Http\Controllers\ViewController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('Pages.HeroSection');
+})->name('hero');
 
-Route::get('/', [LoginUserController::class, 'login'])->name('auth.login');
-Route::get('/register', [RegisterUserController::class, 'register'])->name('auth.register');
-
-Route::post('/proses-login', [LoginUserController::class, 'proses_login'])->name('proses.login');
-Route::post('/proses-register', [RegisterUserController::class, 'proses_register'])->name('proses.register');
-
-// Logout
-Route::get('/logout', [LoginUserController::class, 'logout'])->name('auth.logout');
-
-// Leaflet
-Route::get('/simple-map', function () {
-    return view('Leaflet.simple-map');
-})->name('simple.map');
-
-Route::get('/dashboard', [DashboardController::class, 'dash']);
-Route::get('/webcamp', function () {
-    return view('Leaflet.webcam');
-})->name('absensi.karyawan');
-
-require __DIR__ . '/Uploaded/upload.php';
-require __DIR__ . '/Auth/auth.php';
-
+Route::get('/absen', [AbsenController::class, 'getDataAbsen']);
 Route::get('/absen/stats', [AbsenController::class, 'getStats']);
+
+// Route::get('/test', [AbsenController::class, 'index']);
+// Route::post('/post-absensi', [AbsenController::class, 'postAbsen'])->name('post.absen');
 
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
@@ -76,3 +63,5 @@ Route::get('/view/{id}', [ViewController::class, 'show'])->name('view.show');
 Route::group(['middleware' => ['auth', 'permission:view_dashboard']], function () {
     // Your routes here
 });
+require __DIR__ . '\Auth\auth.php';
+require __DIR__ . '\Uploaded\upload.php';

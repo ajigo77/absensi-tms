@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Member extends Model
+class Member extends Authenticatable
 {
     use HasFactory;
 
@@ -16,11 +17,23 @@ class Member extends Model
     protected $fillable = [
         'nama', // Ensure this is included
         // other fields...
+        'id_member'
     ];
+    protected $tabel = 'members';
+
+    // protected $primaryKey = 'id_member';
+
+    // protected $fillable = ['id_member'];
 
     //soal cari relasi ini 😈
-    public function User(){
+    public function User()
+    {
+        return $this->hasOne(User::class, 'member_id', 'id_member');
+    }
 
+    public function absens()
+    {
+        return $this->hasMany(Absen::class, 'member_id', 'id_member');
     }
 
     public function users()

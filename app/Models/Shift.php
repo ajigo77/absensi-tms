@@ -14,11 +14,13 @@ class Shift extends Model
     protected $primaryKey = 'id'; // Primary key (ensure this matches your database)
 
     protected $fillable = ['name', 'start_time', 'end_time', 'created_at', 'updated_at']; // Adjusted fillable fields
+    // protected $table = 'shifts';
+    // protected $fillable = ['name', 'start_time', 'end_time'];
 
-    protected $casts = [
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'start_time' => 'datetime',
+    //     'end_time' => 'datetime',
+    // ];
 
     public function setStartTimeAttribute($value)
     {

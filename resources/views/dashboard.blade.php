@@ -6,26 +6,13 @@
     <title>Dashboard | TMS</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="TMS | Dashboard">
-    <!--end::Primary Meta Tags--><!--begin::Fonts-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous">
-    <!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css"
-        integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"
-        integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous">
-    <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{ asset('./tdash/dist/css/adminlte.css') }}">
-    <!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
-        integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous">
+    <x-link-cdn></x-link-cdn>
 </head>
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         {{-- Navbar --}}
-        <x-dashboard.nav></x-dashboard.nav>
+        {{-- <x-navbar.navbar></x-navbar.navbar> --}}
         {{-- Sidebar --}}
         <x-dashboard.sidebar></x-dashboard.sidebar>
         <main class="app-main">
@@ -60,31 +47,49 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>Id Member</th>
-                                                    <th>Id Jabatan</th>
-                                                    <th>Waktu Masuk</th>
-                                                    <th>Waktu Keluar</th>
-                                                    <th>Posisi/Divisi</th>
+                                                    <th>User Id</th>
+                                                    <th>Jenis Absen</th>
+                                                    <th>Shift Id</th>
+                                                    <th>Status</th>
+                                                    <th>Tanggal/Jam</th>
                                                     <th>Foto</th>
-                                                    <th>Keterangan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($usrs as $index => $user)
+                                                @foreach ($absen as $abs)
                                                     <tr>
                                                         <td class="text-dark-100">
-                                                            {{ $index + 1 }}
+                                                            {{ $loop->iteration }}
                                                         </td>
-                                                        <td>{{ $user->member_id }}</td>
-                                                        <td>{{ $user->jabatan_id }}</td>
-                                                        <td>{{ $user->created_at }}</td>
-                                                        <td>{{ $user->created_at }}</td>
-                                                        <td>{{ $user->divisi_id }}</td>
+                                                        <td>{{ $abs->user_id }}</td>
+                                                        <td>{{ $abs->type }}</td>
+                                                        <td>{{ $abs->shift_id }}</td>
+                                                        <td>{{ $abs->status }}</td>
+                                                        <td>{{ $abs->created_at }}</td>
                                                         <td>
-                                                            <a href="#" class="text-blue-600 underline">Belum
-                                                                ada</a>
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                Lihat foto
+                                                            </button>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">Foto</h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body p-3">
+                                                                            <img src="{{ asset('webcam/' . $abs->foto) }}" alt="My Foto" class="w-100 h-100 rounded">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
-                                                        <td>{{ $user->status }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
