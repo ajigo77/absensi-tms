@@ -85,7 +85,13 @@ class AbsenController extends Controller
         $absen->status = $status;
         $absen->save();
 
+         // Return response for AJAX request
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Absen berhasil disimpan.']);
+        }
+
         return redirect()->route('absen');
+
     }
 
     public function index()

@@ -195,6 +195,7 @@
 
     $(document).ready(function() {
         $('#submit').click(function(event) {
+            event.preventDefault(); // Prevent default form submission
             let lat = $('#lattitude').val();
             let lon = $('#longtitude').val();
             let type = document.getElementById('type').value;
@@ -228,22 +229,30 @@
                                 text: "Absen berhasil disimpan",
                                 icon: "success"
                             });
+                            // ketika absen berhasil akan dibawa langsung ke halaman ini
+                            window.location.href = "{{ route('absen') }}";
+                        } else {
+                            Swal.fire({
+                                title: "Gagal",
+                                text: response.message || "Terjadi kesalahan saat menyimpan data.",
+                                icon: "error"
+                            });
                         }
                     },
                     error: function(xhr) {
                         // Cek apakah respons memiliki pesan kesalahan
                         if (xhr.responseJSON && xhr.responseJSON.message) {
-                                Swal.fire({
-                                    title: "Gagal",
-                                    text: `${xhr.responseJSON.message}`,
-                                    icon: "error"
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: "Oops!",
-                                    text: "Terjadi kesalahan saat mengirim data",
-                                    icon: "error"
-                                });
+                            Swal.fire({
+                                title: "Gagal",
+                                text: `${xhr.responseJSON.message}`,
+                                icon: "error"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Oops!",
+                                text: "Terjadi kesalahan saat mengirim data",
+                                icon: "error"
+                            });
                         }
                     }
                 });
