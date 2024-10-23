@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->belongsTo(Member::class, 'member_id', 'id_member');
     }
 
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class, 'shift_id', 'id_shift');
+    }
+
     public function getUserName(): string
     {
         $member = $this->member;

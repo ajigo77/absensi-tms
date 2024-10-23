@@ -90,13 +90,6 @@
                         </path>
                     </svg></a></div>
 
-            <!-- Search Form-->
-            <!--<div class="top-search-form">
-          <form action="" method="">
-            <input class="form-control" type="search" placeholder="Enter your keyword">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div>-->
             <div class="d-flex justify-content-between align-items-center">
                 <!-- Form Search -->
                 <form action="{{ route('absen') }}" method="GET" class="d-flex px-5"
@@ -154,7 +147,7 @@
                                 <div class="noti-info flex-grow-1">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="mb-0 fw-bold text-uppercase">
-                                            {{ $absen->user->Member->nama ?? 'user.Member'}}
+                                            {{ $absen->user->Member->nama }}
                                         </h5>
                                         <span class="mb-2 text-secondary" style="font-size: 12px;">
                                             {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}
@@ -162,17 +155,13 @@
                                     </div>
                                     <h6 class="mb-3">
                                         @if ($absen->status == 'terlambat')
-                                            <span class="text-danger text-capitalize fw-bold"
-                                                style="font-size: 15px;">
-                                                <i class="lni lni-calendar-alt"></i>
-                                                {{ $absen->status }}
-                                            </span>
-                                        @else
-                                            <span class="text-success text-capitalize fw-bold"
-                                                style="font-size: 15px;">
-                                                <i class="lni lni-calendar-alt"></i>
-                                                {{ $absen->status }}
-                                            </span>
+                                                <span class="badge bg-danger text-capitalize fw-semibold" style="font-size: 10px; word-spacing: 2px;">
+                                                    {{ $absen->status }}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-success text-capitalize fw-semibold" style="font-size: 10px; word-spacing: 2px;">
+                                                    {{ $absen->status }}
+                                                </span>
                                         @endif
                                     </h6>
                                     <div class="row row-cols-1 row-cols-md-2 g-2">

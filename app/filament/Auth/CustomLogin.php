@@ -26,7 +26,7 @@ class CustomLogin extends Login
     protected function getLoginFormComponent(): Component
     {
         return TextInput::make('login')
-            ->label(__('ID member / Email'))
+            ->label(__('ID member'))
             ->required()
             ->autocomplete()
             ->autofocus()

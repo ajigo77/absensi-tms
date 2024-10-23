@@ -10,6 +10,9 @@ use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\FormKaryawanController;
 use Illuminate\Support\Facades\Auth;
 
+Route::get('/dashboard', [AbsenController::class, 'index'])->name('dash.main');
+Route::get('/dashboard-absen', [AbsenController::class, 'showTabelAbsenDashboard'])->name('dash.absensi');
+
 // Middleware
 Route::middleware(['auth'])->group(function () {
 

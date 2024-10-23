@@ -16,7 +16,7 @@ class Absen extends Model
     // Relasi ke model Shift
     public function shift()
     {
-        return $this->belongsTo(Shift::class, 'shift_id'); // Ensure 'shift_id' is correct
+        return $this->belongsTo(Shift::class, 'shift_id','id'); // Ensure 'shift_id' is correct
     }
 
     // Method to get attendance statistics
@@ -53,6 +53,7 @@ class Absen extends Model
     {
         return $this->belongsTo(Absen::class, 'user_id'); // Adjust 'foreign_key' as necessary
     }
+
     // public function member()
     // {
     //     return $this->belongsTo(Member::class, 'member_id', 'id_member');

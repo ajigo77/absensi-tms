@@ -22,9 +22,9 @@ class ListAttendances extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make()->label('New attendance'),
+            Actions\CreateAction::make()->label('kehadiran Terbaru'),
             Actions\Action::make('export')
-                ->label('Export to Excel')
+                ->label('Export ke Exel')
                 ->action(fn () => $this->export()),
             // Actions\Action::make('exportPdf')
             //     ->label('Export to PDF')

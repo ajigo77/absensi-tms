@@ -90,14 +90,19 @@ class AbsenController extends Controller
             return response()->json(['success' => true, 'message' => 'Absen berhasil disimpan.']);
         }
 
-        return redirect()->route('absen');
+        return response()->json(['error' => false, 'message' => 'Absen gagal disimpan.']);
 
     }
 
     public function index()
     {
-        $users = User::with('Jabatan', 'Devisi', 'Member')->latest()->paginate(5);
-        return view('Test.test', compact('users'));
+        $absens = Absen::orderBy('created_at', 'desc')->paginate(5);
+        return view('dashboard', compact('absens'));
+    }
+    public function showTabelAbsenDashboard()
+    {
+        $absens = Absen::orderBy('created_at', 'desc')->paginate(5);
+        return view('dashboard-absen', compact('absens'));
     }
 
     public function absen(Request $request)
@@ -133,7 +138,7 @@ class AbsenController extends Controller
             ->whereDate('created_at', now())
             ->first();
 
-        // Jika sudah ada absen hari ini dengan shift yang berbeda
+        // Jika sudah ada absen hari ini dan mencoba absen dengan shift yang berbeda maka tidak bisa
         if ($absenToday && $absenToday->shift_id != $id) {
             return redirect()->route('card.shift')->with('info', 'Anda tidak boleh absen di shift yang berbeda pada hari yang sama.');
         }
