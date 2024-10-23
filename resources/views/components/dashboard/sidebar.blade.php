@@ -16,13 +16,14 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item"> <a href="" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
+                <li class="nav-item"> <a href="{{ route('offices.index') }}" class="nav-link"> <i
+                            class="nav-icon bi bi-pencil-square"></i>
                         <p>
                             Kantor
                         </p>
                     </a>
                 </li>
-                <li class="nav-item"> <a href="" class="nav-link"> <i
+                <li class="nav-item"> <a href="{{ route('dash.shift') }}" class="nav-link"> <i
                             class="nav-icon bi bi-table"></i>
                         <p>
                             Shift

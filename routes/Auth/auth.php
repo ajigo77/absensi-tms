@@ -8,10 +8,16 @@ use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\FormKaryawanController;
+use App\Http\Controllers\OfficeController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ShiftController;
 
 Route::get('/dashboard', [AbsenController::class, 'index'])->name('dash.main');
 Route::get('/dashboard-absen', [AbsenController::class, 'showTabelAbsenDashboard'])->name('dash.absensi');
+Route::get('/dashboard-shifts', [ShiftController::class, 'index'])->name('dash.shifts');
+Route::get('/kantor', [OfficeController::class, 'index'])->name('kantor');
+Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
+Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
 
 // Middleware
 Route::middleware(['auth'])->group(function () {
@@ -54,4 +60,3 @@ Route::middleware(['guest'])->group(function () {
 
 // Logout
 Route::post('/logout', [LoginUserController::class, 'logout'])->name('auth.logout');
-
