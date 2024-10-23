@@ -42,7 +42,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item"> <a href="{{ route('dash.absensi') }}" class="nav-link"> <i class="bi bi-file-earmark-person"></i>
+                <li class="nav-item"> <a href="{{ route('dash.cuti') }}" class="nav-link"> <i class="bi bi-file-earmark-person"></i>
                         <p>
                             Pengajuan cuti
                         </p>

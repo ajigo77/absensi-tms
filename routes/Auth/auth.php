@@ -11,6 +11,7 @@ use App\Http\Controllers\FormKaryawanController;
 use App\Http\Controllers\OfficeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\CutiKaryawanController;
 
 Route::get('/dashboard', [AbsenController::class, 'index'])->name('dash.main');
 Route::get('/dashboard-absen', [AbsenController::class, 'showTabelAbsenDashboard'])->name('dash.absensi');
@@ -19,6 +20,7 @@ Route::get('/kantor', [OfficeController::class, 'index'])->name('kantor');
 Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
 Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
 Route::get('/dashboard-izin', [FormKaryawanController::class, 'showTabelIzinDashboard'])->name('dash.izin');
+Route::get('/dashboard-cuti', [CutiKaryawanController::class, 'showTabelCutiDashboard'])->name('dash.cuti');
 
 // Middleware
 Route::middleware(['auth'])->group(function () {
@@ -61,3 +63,5 @@ Route::middleware(['guest'])->group(function () {
 
 // Logout
 Route::post('/logout', [LoginUserController::class, 'logout'])->name('auth.logout');
+
+Route::post('/cuti/store', [CutiKaryawanController::class, 'post_cuti_karyawan'])->name('cuti.store');
