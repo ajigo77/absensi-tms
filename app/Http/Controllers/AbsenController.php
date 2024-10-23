@@ -166,4 +166,10 @@ class AbsenController extends Controller
 
         return view('Test.webcam', compact('shift', 'type'));
     }
+
+    public function getDailyStats()
+    {
+        $stats = Absen::getStats(); // Call the method to get stats
+        return response()->json($stats);
+    }
 }

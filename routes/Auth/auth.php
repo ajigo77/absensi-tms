@@ -65,3 +65,5 @@ Route::middleware(['guest'])->group(function () {
 Route::post('/logout', [LoginUserController::class, 'logout'])->name('auth.logout');
 
 Route::post('/cuti/store', [CutiKaryawanController::class, 'post_cuti_karyawan'])->name('cuti.store');
+
+Route::get('/daily-stats', [AbsenController::class, 'getDailyStats'])->name('daily.stats');

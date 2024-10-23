@@ -64,6 +64,7 @@ Route::get('/shift', [ShiftController::class, 'index'])->name('dash.shift');
 
 Route::get('/shifts/create', [ShiftController::class, 'create'])->name('shifts.create'); // Tambahkan rute untuk membuat shift
 Route::post('/shifts', [ShiftController::class, 'store'])->name('shifts.store'); // Tambahkan rute untuk menyimpan shift
+Route::delete('/shifts/{id}', [ShiftController::class, 'destroy'])->name('shifts.destroy');
 
 Route::group(['middleware' => ['auth', 'permission:view_dashboard']], function () {
     // Your routes here

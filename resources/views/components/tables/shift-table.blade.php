@@ -68,6 +68,29 @@
         </div>
     </div>
 
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus shift ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <form id="deleteForm" action="" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -78,6 +101,7 @@
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Waktu</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +112,10 @@
                             <td>{{ \Carbon\Carbon::parse($shift->start_time)->format('H:i') }}</td>
                             <td>{{ \Carbon\Carbon::parse($shift->end_time)->format('H:i') }}</td>
                             <td>{{ \Carbon\Carbon::parse($shift->waktu)->format('H:i') }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" 
+                                    onclick="setDeleteFormAction('{{ route('shifts.destroy', $shift->id) }}')">Delete</button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -121,4 +149,8 @@
             });
         });
     });
+
+    function setDeleteFormAction(action) {
+        document.getElementById('deleteForm').action = action;
+    }
 </script>
