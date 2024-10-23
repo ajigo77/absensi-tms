@@ -7,13 +7,24 @@
     </div> <!-- /.card-header -->
 
     <div class="card-body">
+        <!-- Filter Section -->
+        <div class="mb-3 d-flex align-items-center">
+            <label for="statusFilter" class="form-label me-2">Filter by Status:</label>
+            <i class="bi bi-funnel-fill me-2"></i> <!-- Filter icon -->
+            <select id="statusFilter" class="form-select" onchange="filterStatus()">
+                <option value="">All</option>
+                <option value="pending">Pending</option>
+                <option value="disetujui">Disetujui</option>
+                <option value="ditolak">Ditolak</option>
+            </select>
+        </div>
+
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="cutiTable">
                 <thead class="table-light">
                     <tr>
                         <th>No.</th>
                         <th>Nama Karyawan</th>
-                        <th>Jenis Izin</th> <!-- Added Jenis Izin -->
                         <th>Divisi</th>
                         <th>Jabatan</th>
                         <th>Dari Tanggal</th>
@@ -25,19 +36,26 @@
                 </thead>
                 <tbody>
                     @foreach ($cutis as $cuti) <!-- Changed from 'shifts' to 'cutis' -->
-                        <tr class="align-middle" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor='white'">
+                        <tr class="align-middle" onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor='white'" data-status="{{ $cuti->approved }}">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $cuti->nama_karyawan }}</td>
-                            <td>{{ $cuti->jenis_izin }}</td> <!-- Added Jenis Izin -->
                             <td>{{ $cuti->divisi }}</td>
                             <td>{{ $cuti->jabatan }}</td>
                             <td>{{ \Carbon\Carbon::parse($cuti->dari_tanggal)->format('Y-m-d') }}</td>
                             <td>{{ \Carbon\Carbon::parse($cuti->sampai_tanggal)->format('Y-m-d') }}</td>
                             <td>{{ $cuti->alasan }}</td>
-                            <td>{{ $cuti->approved }}</td> <!-- Assuming 'approved' is a field -->
                             <td>
-                                <button class="btn btn-success btn-sm" onclick="approveCuti({{ $cuti->id }})">✔️</button> <!-- Approve button -->
-                                <button class="btn btn-danger btn-sm" onclick="rejectCuti({{ $cuti->id }})">❌</button> <!-- Reject button -->
+                                <span class="badge 
+                                    @if($cuti->approved == 'ditolak') bg-danger 
+                                    @elseif($cuti->approved == 'disetujui') bg-success 
+                                    @elseif($cuti->approved == 'pending') bg-warning 
+                                    @endif">
+                                    {{ $cuti->approved }}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="approveCuti({{ $cuti->id }})">✓</button> <!-- Approve button -->
+                                <button class="btn btn-danger btn-sm" onclick="rejectCuti({{ $cuti->id }})">✗</button> <!-- Reject button -->
                             </td>
                         </tr>
                     @endforeach
@@ -51,6 +69,20 @@
 </div> <!-- /.card -->
 
 <script>
+    function filterStatus() {
+        const filterValue = document.getElementById('statusFilter').value.toLowerCase();
+        const rows = document.querySelectorAll('#cutiTable tbody tr');
+
+        rows.forEach(row => {
+            const status = row.getAttribute('data-status').toLowerCase();
+            if (filterValue === '' || status === filterValue) {
+                row.style.display = ''; // Show row
+            } else {
+                row.style.display = 'none'; // Hide row
+            }
+        });
+    }
+
     function approveCuti(id) {
         // Implement AJAX call to approve the cuti
         $.ajax({
