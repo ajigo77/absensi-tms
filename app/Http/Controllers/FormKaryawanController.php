@@ -12,6 +12,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 class FormKaryawanController extends Controller
 {
+    public function showTabelIzinDashboard(){
+        $formizin = Izinkaryawans::orderBy('created_at', 'desc')->paginate(5);
+        return view('dashboard-izin', compact('formizin'));
+    }
+
     public function izinKaryawan()
     {
         $jabatan = Jabatan::all();

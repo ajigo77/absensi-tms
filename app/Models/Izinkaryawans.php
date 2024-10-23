@@ -25,6 +25,10 @@ class Izinkaryawans extends Model
         'user_id',
     ];
 
+    public function User(){
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
+    }
+
     // public function JenisIzin(){
     //     $this->belongsTo(Jenisizin::class, 'id_jenis_izin', 'id');
     // }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/dashboard', [AbsenController::class, 'index'])->name('dash.main');
 Route::get('/dashboard-absen', [AbsenController::class, 'showTabelAbsenDashboard'])->name('dash.absensi');
+Route::get('/dashboard-izin', [FormKaryawanController::class, 'showTabelIzinDashboard'])->name('dash.izin');
 
 // Middleware
 Route::middleware(['auth'])->group(function () {

@@ -56,6 +56,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($absens->isEmpty())
+                        <tr>
+                            <td colspan="8" class="text-center py-4">
+                                <!-- Menambahkan img-fluid untuk gambar yang responsif -->
+                                <img src="{{ asset('image/src/not-data-ilustration.png') }}" alt="Tidak ada data"
+                                    class="img-fluid" style="max-width: 100%; height: auto;" width="180">
+                                <p class="mt-3 text-muted">Tidak ada data dalam database</p>
+                            </td>
+                        </tr>
+                    @else
                     @foreach ($absens as $absen)
                         <tr class="align-middle">
                             <td class="text-capitalize">{{ $loop->iteration }}</td>
@@ -94,6 +104,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div> <!-- /.table-responsive -->
