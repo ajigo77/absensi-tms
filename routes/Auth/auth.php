@@ -18,6 +18,7 @@ Route::get('/dashboard-shifts', [ShiftController::class, 'index'])->name('dash.s
 Route::get('/kantor', [OfficeController::class, 'index'])->name('kantor');
 Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
 Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
+Route::get('/dashboard-izin', [FormKaryawanController::class, 'showTabelIzinDashboard'])->name('dash.izin');
 
 // Middleware
 Route::middleware(['auth'])->group(function () {

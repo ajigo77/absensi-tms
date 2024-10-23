@@ -16,13 +16,9 @@
         {{-- Sidebar --}}
         <x-dashboard.sidebar></x-dashboard.sidebar>
         <main class="app-main">
-            <x-dashboard.navigation></x-dashboard.navigation>
+            <x-dashboard.navigation-izin></x-dashboard.navigation-izin>
             <div class="app-content">
                 <div class="container-fluid">
-                    {{-- Card --}}
-                    <x-dashboard.card></x-dashboard.card>
-                    {{-- Card Grafik --}}
-                    {{-- <x-dashboard.card-grafik></x-dashboard.card-grafik> --}}
                     <div class="row">
                         <div class="col-md-12">
                             {{-- <div class="row g-4 mb-4">
@@ -31,7 +27,7 @@
                                 </div>
                             </div> --}}
                             {{-- Border - table --}}
-                            <x-tables.table-dashboard :absens="$absens"></x-tables.table-dashboard>
+                            <x-tables.table-izin :formizin="$formizin"></x-tables.table->
                         </div>
                     </div>
                 </div>
@@ -41,4 +37,5 @@
     </div>
     <x-script></x-script>
 </body>
+
 </html>

@@ -30,10 +30,21 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item"> <a href="{{ route('dash.absensi') }}" class="nav-link"> <i
-                            class="nav-icon bi bi-table"></i>
+                <li class="nav-item"> <a href="{{ route('dash.absensi') }}" class="nav-link"> <i class="bi bi-calendar-check"></i>
                         <p>
                             Absensi
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item"> <a href="{{ route('dash.izin') }}" class="nav-link"> <i class="bi bi-file-earmark-check"></i>
+                        <p>
+                            Pengajuan Izin
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item"> <a href="{{ route('dash.absensi') }}" class="nav-link"> <i class="bi bi-file-earmark-person"></i>
+                        <p>
+                            Pengajuan cuti
                         </p>
                     </a>
                 </li>
