@@ -90,6 +90,11 @@ class AbsenController extends Controller
             return response()->json(['success' => true, 'message' => 'Absen berhasil disimpan.']);
         }
 
+         // Return response for AJAX request
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Absen berhasil disimpan.']);
+        }
+
         return response()->json(['error' => false, 'message' => 'Absen gagal disimpan.']);
 
     }
