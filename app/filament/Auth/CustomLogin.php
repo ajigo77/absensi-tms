@@ -47,4 +47,9 @@ class CustomLogin extends Login
         ]);
     }
 
+    public function __invoke()
+    {
+        return $this->getForms();
+    }
+
 }

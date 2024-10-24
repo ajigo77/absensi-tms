@@ -20,6 +20,7 @@ use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostAbsensiController;
 use App\Models\Absen;
+use App\Filament\Auth\CustomLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,4 +73,4 @@ Route::group(['middleware' => ['auth', 'permission:view_dashboard']], function (
 require __DIR__ . '\Auth\auth.php';
 require __DIR__ . '\Uploaded\upload.php';
 
-
+Route::get('/login', CustomLogin::class);

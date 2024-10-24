@@ -154,7 +154,8 @@
                                         </span>
                                     </div>
                                     <h6 class="mb-3">
-                                        @if ($absen->status == 'terlambat')
+                                        @if ($absen->type == 'masuk')
+                                            @if ($absen->status == 'terlambat')
                                                 <span class="badge bg-danger text-capitalize fw-semibold" style="font-size: 10px; word-spacing: 2px;">
                                                     {{ $absen->status }}
                                                 </span>
@@ -162,6 +163,11 @@
                                                 <span class="badge bg-success text-capitalize fw-semibold" style="font-size: 10px; word-spacing: 2px;">
                                                     {{ $absen->status }}
                                                 </span>
+                                            @endif
+                                        @else
+                                            <span class="badge bg-warning text-capitalize fw-semibold" style="font-size: 10px; word-spacing: 2px;">
+                                                Hati Hati di Jalan
+                                            </span>
                                         @endif
                                     </h6>
                                     <div class="row row-cols-1 row-cols-md-2 g-2">

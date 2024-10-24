@@ -54,7 +54,7 @@
                 // Update your card content with the fetched data
                 $('#totalMasuk').text(data.masuk);
                 $('#totalPulang').text(data.tidak_masuk);
-                $('#masukTepatWaktu').text(data.on_time);
+                $('#masukTepatWaktu').text(data.on_time); // Pastikan data.on_time hanya untuk hari ini
                 $('#terlambatMasuk').text(data.terlambat);
                 // Add other updates as needed
             }

@@ -66,44 +66,101 @@
                             </td>
                         </tr>
                     @else
-                    @foreach ($absens as $absen)
-                        <tr class="align-middle">
-                            <td class="text-capitalize">{{ $loop->iteration }}</td>
-                            <td class="text-capitalize">{{ $absen->user->member->nama }}</td>
-                            <td class="text-capitalize">
-                                @if ($absen->type == 'masuk')
-                                    <span class="badge bg-success">
-                                        {{ $absen->type }}
-                                    </span>
-                                @else
-                                    <span class="badge bg-danger">
-                                        {{ $absen->type }}
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="text-capitalize">{{ $absen->shift->name }}</td>
-                            <td class="text-capitalize">
-                                <span class="badge bg-dark">
-                                    <a href="{{ asset('webcam/' . $absen->foto) }}" class="text-white">Lihat foto</a>
-                                </span>
-                            </td>
-                            <td class="text-capitalize">lihat lokasi</td>
-                            <td class="text-capitalize">
-                                @if ($absen->status == 'terlambat')
-                                    <span class="badge bg-danger">
-                                        {{ $absen->status }}
-                                    </span>
-                                @else
-                                    <span class="badge bg-success">
-                                        {{ $absen->status }}
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="text-capitalize">
-                                {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}
-                            </td>
-                        </tr>
-                    @endforeach
+                        @foreach ($absens as $absen)
+                            @if (\Carbon\Carbon::parse($absen->created_at)->isToday()) <!-- Filter for today's data -->
+                                <tr class="align-middle">
+                                    <td class="text-capitalize">{{ $loop->iteration }}</td>
+                                    <td class="text-capitalize">{{ $absen->user->member->nama }}</td>
+                                    <td class="text-capitalize">
+                                        @if ($absen->type == 'masuk')
+                                            <span class="badge bg-success">
+                                                {{ $absen->type }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-danger">
+                                                {{ $absen->type }}
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="text-capitalize">{{ $absen->shift->name }}</td>
+                                    <td class="text-capitalize">
+                                        <!-- Mengubah link foto menjadi modal trigger -->
+                                        <span class="badge bg-dark" data-bs-toggle="modal"
+                                            data-bs-target="#fotoModal{{ $absen->id }}">
+                                            Lihat foto
+                                        </span>
+
+                                        <!-- Modal untuk menampilkan foto -->
+                                        <div class="modal fade" id="fotoModal{{ $absen->id }}" tabindex="-1"
+                                            aria-labelledby="fotoModalLabel{{ $absen->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="fotoModalLabel{{ $absen->id }}">Foto Absen</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{ asset('webcam/' . $absen->foto) }}" class="img-fluid"
+                                                            alt="Foto Absen">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-capitalize">
+                                        <a href="#" class="icn badge bg-dark" id="mdl" data-bs-toggle="modal"
+                                            data-bs-target="#locationModal{{ $absen->id }}" data-lat="{{ $absen->lattitude }}"
+                                            data-lon="{{ $absen->longtitude }}">
+                                            <span class="mb-2 text-white">
+                                                Lihat Lokasi
+                                            </span>
+                                        </a>
+                                    </td>
+
+                                    <!-- Modal for location -->
+                                    <div class="modal fade" id="locationModal{{ $absen->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Lokasi Karyawan</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                    <div id="map{{ $absen->id }}" style="width: 100%; height:300px;"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger"
+                                                        data-bs-dismiss="modal">Keluar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <td class="text-capitalize">
+                                        @if ($absen->type == 'masuk')
+                                            @if ($absen->status == 'terlambat')
+                                                <span class="badge bg-danger">
+                                                    {{ $absen->status }}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-success">
+                                                    {{ $absen->status }}
+                                                </span>
+                                            @endif
+                                        @else
+                                            <span class="badge bg-warning text-dark">
+                                                Hati Hati di Jalan
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="text-capitalize">
+                                        {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
                     @endif
                 </tbody>
             </table>
@@ -113,3 +170,15 @@
         {{ $absens->links('pagination::bootstrap-5') }}
     </div>
 </div> <!-- /.card -->
+
+<!-- Update the filter form to handle date filtering -->
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const fromDate = document.getElementById('from-date').value;
+        const toDate = document.getElementById('to-date').value;
+
+        // Redirect to the same page with query parameters for filtering
+        window.location.href = `?from=${fromDate}&to=${toDate}`;
+    });
+</script>
