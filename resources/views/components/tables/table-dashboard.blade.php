@@ -66,44 +66,51 @@
                             </td>
                         </tr>
                     @else
-                    @foreach ($absens as $absen)
-                        <tr class="align-middle">
-                            <td class="text-capitalize">{{ $loop->iteration }}</td>
-                            <td class="text-capitalize">{{ $absen->user->member->nama }}</td>
-                            <td class="text-capitalize">
-                                @if ($absen->type == 'masuk')
-                                    <span class="badge bg-success">
-                                        {{ $absen->type }}
+                        @foreach ($absens as $absen)
+                            <tr class="align-middle">
+                                <td class="text-capitalize">{{ $loop->iteration }}</td>
+                                <td class="text-capitalize">{{ $absen->user->member->nama }}</td>
+                                <td class="text-capitalize">
+                                    @if ($absen->type == 'masuk')
+                                        <span class="badge bg-success">
+                                            {{ $absen->type }}
+                                        </span>
+                                    @else
+                                        <span class="badge bg-danger">
+                                            {{ $absen->type }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="text-capitalize">{{ $absen->shift->name }}</td>
+                                <td class="text-capitalize">
+                                    <span class="badge bg-dark">
+                                        <a href="{{ asset('webcam/' . $absen->foto) }}" class="text-white">Lihat
+                                            foto</a>
                                     </span>
-                                @else
-                                    <span class="badge bg-danger">
-                                        {{ $absen->type }}
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="text-capitalize">{{ $absen->shift->name }}</td>
-                            <td class="text-capitalize">
-                                <span class="badge bg-dark">
-                                    <a href="{{ asset('webcam/' . $absen->foto) }}" class="text-white">Lihat foto</a>
-                                </span>
-                            </td>
-                            <td class="text-capitalize">lihat lokasi</td>
-                            <td class="text-capitalize">
-                                @if ($absen->status == 'terlambat')
-                                    <span class="badge bg-danger">
-                                        {{ $absen->status }}
-                                    </span>
-                                @else
-                                    <span class="badge bg-success">
-                                        {{ $absen->status }}
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="text-capitalize">
-                                {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}
-                            </td>
-                        </tr>
-                    @endforeach
+                                </td>
+                                <td class="text-capitalize">lihat lokasi</td>
+                                <td class="text-capitalize">
+                                    @if ($absen->type == 'masuk')
+                                        @if ($absen->status == 'terlambat')
+                                            <span class="badge bg-danger">
+                                                {{ $absen->status }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-success">
+                                                {{ $absen->status }}
+                                            </span>
+                                        @endif
+                                    @else
+                                        <span class="badge bg-warning text-dark">
+                                            Hati hati di jalan
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="text-capitalize">
+                                    {{ \Carbon\Carbon::parse($absen->created_at)->translatedFormat('l, d F Y') }}
+                                </td>
+                            </tr>
+                        @endforeach
                     @endif
                 </tbody>
             </table>

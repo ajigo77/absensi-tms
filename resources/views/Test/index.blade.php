@@ -49,7 +49,6 @@
         }
     </style>
     <meta name="shimejiBrowserExtensionId" content="gohjpllcolmccldfdggmamodembldgpc" data-version="2.0.5">
-    {{-- @vite('resources/css/app.css') --}}
 </head>
 
 <body>
@@ -142,22 +141,27 @@
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ asset('image/src/slide-1.jpeg') }}" class="d-block w-full h-full" alt="..." height="300" style="border-radius:10px;">
+                            <img src="{{ asset('image/src/slide-1.jpeg') }}" class="d-block w-full h-full"
+                                alt="..." height="300" style="border-radius:10px;">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('image/src/slide-2.png') }}" class="d-block w-full h-full" alt="..." height="300" style="border-radius:10px;">
+                            <img src="{{ asset('image/src/slide-2.png') }}" class="d-block w-full h-full"
+                                alt="..." height="300" style="border-radius:10px;">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('image/src/slide-3.jpeg') }}" class="d-block w-full h-full" alt="..." height="300" style="border-radius:10px;">
+                            <img src="{{ asset('image/src/slide-3.jpeg') }}" class="d-block w-full h-full"
+                                alt="..." height="300" style="border-radius:10px;">
                         </div>
                     </div>
-                    <button class="carousel-control-prev" style="background: transparent; outline: none; border:none; color:red;" type="button" data-bs-target="#carouselExampleControls"
-                        data-bs-slide="prev">
+                    <button class="carousel-control-prev"
+                        style="background: transparent; outline: none; border:none; color:red;" type="button"
+                        data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" style="background: transparent; outline: none; border:none; color:red;" type="button" data-bs-target="#carouselExampleControls"
-                        data-bs-slide="next">
+                    <button class="carousel-control-next"
+                        style="background: transparent; outline: none; border:none; color:red;" type="button"
+                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
@@ -206,17 +210,17 @@
                             </div>
                         </div>
                         <!-- Single Catagory Card-->
-                        @if(Auth::user()->jabatan_id == 15 || Auth::user()->jabatan_id == 21)
-                        <div class="col-4">
-                            <div class="card catagory-card">
-                                <div class="card-body">
-                                    <a class="text-success" href="{{ route('filament.admin.pages.dashboard') }}">
-                                        <i class="bi bi-speedometer text-warning"></i>
-                                        <span>Dashboard</span>
-                                    </a>
+                        @if (Auth::user()->jabatan_id == 15 || Auth::user()->jabatan_id == 21)
+                            <div class="col-4">
+                                <div class="card catagory-card">
+                                    <div class="card-body">
+                                        <a class="text-success" href="{{ route('filament.admin.pages.dashboard') }}">
+                                            <i class="bi bi-speedometer text-warning"></i>
+                                            <span>Dashboard</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>

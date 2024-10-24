@@ -171,6 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FilamentServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Ladumor\LaravelPwa\PWAServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -186,7 +187,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => Barryvdh\DomPDF\ServiceProvider::class,
+        'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class,
     ])->toArray(),
 
 ];

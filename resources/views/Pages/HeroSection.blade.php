@@ -42,11 +42,11 @@
                 </div>
 
                 <!-- Menu Items for Desktop -->
-                {{-- @auth
-                    <div class="flex flex-col space-y-5 fw-bold text-secondary-600 fs-5 text-capitalize">
+                @auth
+                    <div class="hidden lg:flex lg:justify-end gap-x-5 flex-col space-y-5 fw-bold text-secondary-600 fs-6 text-capitalize">
                         <h1>Selamat Datang, {{ Auth::user()->Member->nama }}</h1>
                     </div>
-                @endauth --}}
+                @endauth
                 @guest
                     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-5">
                         <a href="{{ route('auth.register') }}"
@@ -76,7 +76,7 @@
                     </div>
                     <!-- Mobile Menu Links -->
                     @auth
-                        <div class="flex flex-col space-y-5">
+                        <div class="flex flex-col space-y-5 fw-bold text-secondary-600 fs-6 text-capitalize">
                             <h1>Selamat Datang, {{ Auth::user()->Member->nama }}</h1>
                         </div>
                     @endauth

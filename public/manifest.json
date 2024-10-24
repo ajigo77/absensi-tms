@@ -1,0 +1,17 @@
+{
+    "name": "Aplikasi Absensi TMS",
+    "short_name": "AAT",
+    "start_url": "/index.php",
+    "background_color": "#D71313",
+    "description": "Absen lebih mudah dan cepat",
+    "display": "fullscreen",
+    "theme_color": "#D71313",
+    "icons": [
+        {
+            "src": "favicon-tms.PNG",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
