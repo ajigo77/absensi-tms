@@ -120,3 +120,15 @@
         {{ $absens->links('pagination::bootstrap-5') }}
     </div>
 </div> <!-- /.card -->
+
+<!-- Update the filter form to handle date filtering -->
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const fromDate = document.getElementById('from-date').value;
+        const toDate = document.getElementById('to-date').value;
+
+        // Redirect to the same page with query parameters for filtering
+        window.location.href = `?from=${fromDate}&to=${toDate}`;
+    });
+</script>

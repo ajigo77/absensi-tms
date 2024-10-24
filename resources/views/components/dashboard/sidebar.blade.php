@@ -16,13 +16,15 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item"> <a href="" class="nav-link"> <i class="bi bi-building"></i>
+                <li class="nav-item"> <a href="{{ route('offices.index') }}" class="nav-link"> <i
+                            class="nav-icon bi bi-pencil-square"></i>
                         <p>
                             Kantor
                         </p>
                     </a>
                 </li>
-                <li class="nav-item"> <a href="" class="nav-link"> <i class="bi bi-clock"></i>
+                <li class="nav-item"> <a href="{{ route('dash.shift') }}" class="nav-link"> <i
+                            class="nav-icon bi bi-table"></i>
                         <p>
                             Shift
                         </p>
@@ -40,7 +42,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item"> <a href="{{ route('dash.absensi') }}" class="nav-link"> <i class="bi bi-file-earmark-person"></i>
+                <li class="nav-item"> <a href="{{ route('dash.cuti') }}" class="nav-link"> <i class="bi bi-file-earmark-person"></i>
                         <p>
                             Pengajuan cuti
                         </p>

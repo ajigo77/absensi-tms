@@ -20,6 +20,7 @@ use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostAbsensiController;
 use App\Models\Absen;
+use App\Filament\Auth\CustomLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,8 +61,16 @@ Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');
 
 Route::get('/view/{id}', [ViewController::class, 'show'])->name('view.show');
 
+Route::get('/shift', [ShiftController::class, 'index'])->name('dash.shift');
+
+Route::get('/shifts/create', [ShiftController::class, 'create'])->name('shifts.create'); // Tambahkan rute untuk membuat shift
+Route::post('/shifts', [ShiftController::class, 'store'])->name('shifts.store'); // Tambahkan rute untuk menyimpan shift
+Route::delete('/shifts/{id}', [ShiftController::class, 'destroy'])->name('shifts.destroy');
+
 Route::group(['middleware' => ['auth', 'permission:view_dashboard']], function () {
     // Your routes here
 });
 require __DIR__ . '\Auth\auth.php';
 require __DIR__ . '\Uploaded\upload.php';
+
+Route::get('/login', CustomLogin::class);

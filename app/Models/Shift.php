@@ -13,7 +13,7 @@ class Shift extends Model
     protected $table = 'shifts'; // Table name
     protected $primaryKey = 'id'; // Primary key (ensure this matches your database)
 
-    protected $fillable = ['name', 'start_time', 'end_time', 'created_at', 'updated_at']; // Adjusted fillable fields
+    protected $fillable = ['name', 'start_time', 'end_time', 'waktu', 'created_at', 'updated_at']; // Added 'waktu' to fillable fields
     // protected $table = 'shifts';
     // protected $fillable = ['name', 'start_time', 'end_time'];
 
@@ -43,6 +43,18 @@ class Shift extends Model
             )->format('H:i:s');
         } elseif (is_string($value)) {
             $this->attributes['end_time'] = $value;
+        }
+    }
+
+    public function setWaktuAttribute($value) // Added setter for 'waktu'
+    {
+        if (is_array($value) && isset($value['hour']) && isset($value['ampm'])) {
+            $this->attributes['waktu'] = Carbon::createFromFormat(
+                'h A',
+                $value['hour'] . ' ' . $value['ampm']
+            )->format('H:i:s');
+        } elseif (is_string($value)) {
+            $this->attributes['waktu'] = $value;
         }
     }
 

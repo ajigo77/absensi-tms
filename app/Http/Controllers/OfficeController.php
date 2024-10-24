@@ -9,7 +9,8 @@ class OfficeController extends Controller
 {
     public function index()
     {
-        // Logic to display the list of offices
+        $offices = Office::paginate(10);
+        return view('kantor', compact('offices'));
     }
 
     public function create()
@@ -19,20 +20,16 @@ class OfficeController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
             'radius' => 'required|numeric',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
         ]);
 
-        // Simpan data ke database
         Office::create($request->all());
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('offices.index')->with('success', 'Office created successfully.');
+        return response()->json(['success' => 'Office created successfully.']);
     }
 
     public function show($id)

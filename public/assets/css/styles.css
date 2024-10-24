@@ -1,0 +1,17 @@
+/* Custom background colors for dashboard cards */
+.bg-lightblue {
+    background-color: #00aaff; /* Light blue */
+}
+
+.bg-red {
+    background-color: #ff4d4d; /* Red */
+}
+
+.bg-green {
+    background-color: #4caf50; /* Green */
+}
+
+.bg-yellow {
+    background-color: #ffeb3b; /* Yellow */
+}
+

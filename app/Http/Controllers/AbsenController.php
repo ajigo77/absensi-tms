@@ -101,12 +101,12 @@ class AbsenController extends Controller
 
     public function index()
     {
-        $absens = Absen::orderBy('created_at', 'desc')->paginate(5);
+        $absens = Absen::orderBy('created_at', 'desc')->paginate(10);
         return view('dashboard', compact('absens'));
     }
     public function showTabelAbsenDashboard()
     {
-        $absens = Absen::orderBy('created_at', 'desc')->paginate(5);
+        $absens = Absen::orderBy('created_at', 'desc')->paginate(10);
         return view('dashboard-absen', compact('absens'));
     }
 
@@ -165,5 +165,11 @@ class AbsenController extends Controller
         }
 
         return view('Test.webcam', compact('shift', 'type'));
+    }
+
+    public function getDailyStats()
+    {
+        $stats = Absen::getStats(); // Call the method to get stats
+        return response()->json($stats);
     }
 }

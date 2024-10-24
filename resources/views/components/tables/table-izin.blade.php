@@ -3,46 +3,21 @@
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center position-relative">
         <h3 class="card-title mb-0">Data Pengajuan Izin</h3>
-        <!-- Menggunakan position-absolute untuk menempatkan icon di pojok kanan -->
-        <i class="bi bi-funnel-fill text-secondary position-absolute"
-            style="right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; cursor: pointer;"
-            data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
     </div> <!-- /.card-header -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="from-date" class="form-label">Status</label>
-                            <select class="form-select" id="inputGroupSelect03"
-                                aria-label="Example select with button addon">
-                                <option selected>Pilih status</option>
-                                <option value="disetujui">Disetujui</option>
-                                <option value="ditolak">Ditolak</option>
-                                <option value="pending">Pending</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Terapkan</button>
-                    </form>
-                </div>
-                <div class="modal-footer d-flex justify-content-between align-items-center">
-                    <span class="text-capitalize text-danger me-auto" style="cursor: pointer;">Atur ulang filter</span>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <div class="card-body">
-        <!-- Tambahkan class table-responsive untuk membuat tabel menjadi responsif -->
+        <div class="mb-3 d-flex align-items-center">
+            <label for="statusFilter" class="form-label me-2">Filter by Status:</label>
+            <i class="bi bi-funnel-fill me-2"></i> <!-- Filter icon -->
+            <select id="statusFilter" class="form-select" onchange="filterStatus()">
+                <option value="">All</option>
+                <option value="pending">Pending</option>
+                <option value="disetujui">Disetujui</option>
+                <option value="ditolak">Ditolak</option>
+            </select>
+        </div>
+
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -50,21 +25,20 @@
                         <th class="text-capitalize">No.</th>
                         <th class="text-capitalize">Nama</th>
                         <th class="text-capitalize">Jenis izin</th>
-                        <th class="text-capitalize">divisi</th>
-                        <th class="text-capitalize">jabatan</th>
-                        <th class="text-capitalize">dari tanggal</th>
-                        <th class="text-capitalize">sampai tanggal</th>
-                        <th class="text-capitalize">Waktu pulang</th>
+                        <th class="text-capitalize">Divisi</th>
+                        <th class="text-capitalize">Jabatan</th>
+                        <th class="text-capitalize">Dari Tanggal</th>
+                        <th class="text-capitalize">Sampai Tanggal</th>
+                        <th class="text-capitalize">Waktu Pulang</th>
                         <th class="text-capitalize">Alasan</th>
                         <th class="text-capitalize">Status</th>
                         <th class="text-capitalize">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="izinTableBody">
                     @if ($formizin->isEmpty())
                         <tr>
-                            <td colspan="12" class="text-center py-4">
-                                <!-- Menambahkan img-fluid untuk gambar yang responsif -->
+                            <td colspan="11" class="text-center py-4">
                                 <img src="{{ asset('image/src/not-data-ilustration.png') }}" alt="Tidak ada data"
                                     class="img-fluid" style="max-width: 100%; height: auto;" width="180">
                                 <p class="mt-3 text-muted">Tidak ada data dalam database</p>
@@ -72,49 +46,30 @@
                         </tr>
                     @else
                         @foreach ($formizin as $izin)
-                            <tr class="align-middle">
+                            <tr class="align-middle" data-status="{{ $izin->approved }}">
                                 <td class="text-capitalize">{{ $loop->iteration }}</td>
                                 <td class="text-capitalize">{{ $izin->nama_karyawan }}</td>
                                 <td class="text-capitalize">{{ $izin->jenis_izin }}</td>
                                 <td class="text-capitalize">{{ $izin->divisi }}</td>
                                 <td class="text-capitalize">{{ $izin->jabatan }}</td>
-                                <td class="text-capitalize">
-                                    {{ \Carbon\Carbon::parse($izin->dari_tanggal)->translatedFormat('d F Y') }}</td>
-                                <td class="text-capitalize">
-                                    {{ \Carbon\Carbon::parse($izin->sampai_tanggal)->translatedFormat('d F Y') }}
-                                </td>
-                                <td class="text-capitalize">
-                                    {{ \Carbon\Carbon::parse($izin->jam_pulang_awal)->format('H:i') }}</td>
+                                <td class="text-capitalize">{{ \Carbon\Carbon::parse($izin->dari_tanggal)->translatedFormat('d F Y') }}</td>
+                                <td class="text-capitalize">{{ \Carbon\Carbon::parse($izin->sampai_tanggal)->translatedFormat('d F Y') }}</td>
+                                <td class="text-capitalize">{{ \Carbon\Carbon::parse($izin->jam_pulang_awal)->format('H:i') }}</td>
                                 <td class="text-capitalize">{{ $izin->alasan }}</td>
                                 <td class="text-capitalize">
                                     @if ($izin->approved == 'disetujui')
-                                        <span class="badge bg-success">
-                                            {{ $izin->approved }}
-                                        </span>
+                                        <span class="badge bg-success">{{ $izin->approved }}</span>
                                     @elseif ($izin->approved == 'ditolak')
-                                        <span class="badge bg-danger">
-                                            {{ $izin->approved }}
-                                        </span>
+                                        <span class="badge bg-danger">{{ $izin->approved }}</span>
                                     @else
-                                        <span class="badge bg-warning text-dark">
-                                            {{ $izin->approved }}
-                                        </span>
+                                        <span class="badge bg-warning text-dark">{{ $izin->approved }}</span>
                                     @endif
                                 </td>
-                                <td>
-                                    <form action="" class="d-flex justify-content-center align-items-center">
-                                        <!-- Tombol untuk aksi batal -->
-                                        <button type="submit" class="btn p-0 me-3"
-                                            style="border: none; background: none;">
-                                            <i class="bi bi-x-square text-danger fs-5" style="cursor: pointer;"></i>
-                                        </button>
-
-                                        <!-- Tombol untuk aksi terima -->
-                                        <button type="submit" class="btn p-0" style="border: none; background: none;">
-                                            <i class="bi bi-check2-square text-success fs-5"
-                                                style="cursor: pointer;"></i>
-                                        </button>
-                                    </form>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-success btn-sm" onclick="approveCuti({{ $izin->id }})">✓</button>
+                                        <button class="btn btn-danger btn-sm" onclick="rejectCuti({{ $izin->id }})">✗</button>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -127,3 +82,91 @@
         {{ $formizin->links('pagination::bootstrap-5') }}
     </div>
 </div> <!-- /.card -->
+
+<script>
+    function filterStatus() {
+        const filterValue = document.getElementById('statusFilter').value.toLowerCase();
+        const rows = Array.from(document.querySelectorAll('tbody tr'));
+
+        // Sort rows to prioritize "Pending" status
+        rows.sort((a, b) => {
+            const statusA = a.getAttribute('data-status').toLowerCase();
+            const statusB = b.getAttribute('data-status').toLowerCase();
+
+            if (statusA === 'pending' && statusB !== 'pending') return -1;
+            if (statusA !== 'pending' && statusB === 'pending') return 1;
+            return 0; // Keep original order for other statuses
+        });
+
+        // Filter and display rows
+        rows.forEach(row => {
+            const status = row.getAttribute('data-status').toLowerCase();
+            if (filterValue === '' || status === filterValue) {
+                row.style.display = ''; // Show row
+            } else {
+                row.style.display = 'none'; // Hide row
+            }
+        });
+
+        // Append sorted rows back to the table body
+        const tbody = document.getElementById('izinTableBody');
+        tbody.innerHTML = ''; // Clear existing rows
+        rows.forEach(row => tbody.appendChild(row)); // Append sorted rows
+    }
+
+    function approveCuti(id) {
+        $.ajax({
+            type: 'POST',
+            url: '/cuti/approve/' + id,
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('Error approving cuti: ' + xhr.responseText);
+            }
+        });
+    }
+
+    function rejectCuti(id) {
+        $.ajax({
+            type: 'POST',
+            url: '/cuti/reject/' + id,
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('Error rejecting cuti: ' + xhr.responseText);
+            }
+        });
+    }
+</script>
+
+<style>
+    /* Additional CSS for better styling */
+    .table th, .table td {
+        vertical-align: middle; /* Center align text vertically */
+    }
+
+    .table th {
+        background-color: #f8f9fa; /* Light background for header */
+    }
+
+    .badge {
+        font-size: 0.9rem; /* Slightly smaller badge font */
+    }
+
+    .btn-group {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+    }
+
+    .btn {
+        min-width: 30px; /* Minimum width for buttons */
+    }
+</style>

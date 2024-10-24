@@ -107,8 +107,7 @@
                                 </td>
                                 <td class="text-capitalize">
                                     <span class="badge bg-dark">
-                                        <a href="{{ asset('webcam/' . $absen->foto) }}" class="text-white">Lihat
-                                            foto</a>
+                                        <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#photoModal" data-photo="{{ asset('webcam/' . $absen->foto) }}">Lihat foto</a>
                                     </span>
                                 </td>
                                 <td class="text-capitalize">
@@ -141,6 +140,23 @@
                 <div class="modal-body text-center">
                     <!-- Menampilkan modal lokasi dari leaflet -->
                     <div id="map" style="width: 100%; height:300px;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for displaying photo -->
+    <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="photoModalLabel">Foto Absen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalPhoto" src="" alt="Foto Absen" class="img-fluid" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
@@ -205,4 +221,12 @@
             map.invalidateSize();
         }, 500); // Memberi sedikit delay agar layout modal benar-benar siap
     }
+
+    const photoModal = document.getElementById('photoModal');
+    photoModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const photoUrl = button.getAttribute('data-photo'); // Extract info from data-* attributes
+        const modalPhoto = document.getElementById('modalPhoto'); // Get the image element
+        modalPhoto.src = photoUrl; // Update the modal's image source
+    });
 </script>
