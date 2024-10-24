@@ -21,13 +21,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            {{-- <div class="row g-4 mb-4">
-                                <div class="col-md-6">
-                                    <x-dashboard.card-profile-karyawan></x-dashboard.card-profile-karyawan>
-                                </div>
-                            </div> --}}
-                            {{-- Border - table --}}
-                            {{-- <x-tables.border-table :absens="$absens"></x-tables.border-table> --}}
                             <x-tables.cuti-table :cutis="$formcuti"></x-tables.cuti-table>
                         </div>
                     </div>
@@ -37,6 +30,24 @@
         <x-dashboard.footer></x-dashboard.footer>
     </div>
     <x-script></x-script>
+    @if ($pesan_error = Session::get('error'))
+        <script>
+            Swal.fire({
+                title: "Gagal",
+                text: "{{ $pesan_error }}",
+                icon: "error"
+            });
+        </script>
+    @endif
+    @if ($pesan_error = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: "Sukses",
+                text: "{{ $pesan_error }}",
+                icon: "success"
+            });
+        </script>
+    @endif
 </body>
 
 </html>

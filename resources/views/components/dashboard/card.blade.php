@@ -5,7 +5,7 @@
             <span class="info-box-icon"><i class="bi bi-check-circle-fill"></i></span> <!-- Updated icon -->
             <div class="info-box-content">
                 <span class="info-box-text">Total Karyawan yang Masuk</span>
-                <span class="info-box-number" id="totalMasuk">12</span> <!-- Updated ID -->
+                <span class="info-box-number" id="totalMasuk"></span> <!-- Updated ID -->
             </div> <!-- /.info-box-content -->
         </div> <!-- /.info-box -->
     </div> <!-- /.col -->
@@ -16,7 +16,7 @@
             <span class="info-box-icon"><i class="bi bi-door-open"></i></span> <!-- Updated icon -->
             <div class="info-box-content">
                 <span class="info-box-text">Total Karyawan yang Pulang</span>
-                <span class="info-box-number" id="totalPulang">5</span> <!-- Updated ID -->
+                <span class="info-box-number" id="totalPulang"></span> <!-- Updated ID -->
             </div> <!-- /.info-box-content -->
         </div> <!-- /.info-box -->
     </div> <!-- /.col -->
@@ -27,7 +27,7 @@
             <span class="info-box-icon"><i class="bi bi-clock-fill"></i></span> <!-- Updated icon -->
             <div class="info-box-content">
                 <span class="info-box-text">Masuk Tepat Waktu</span>
-                <span class="info-box-number" id="masukTepatWaktu">15</span> <!-- Updated ID -->
+                <span class="info-box-number" id="masukTepatWaktu"></span> <!-- Updated ID -->
             </div> <!-- /.info-box-content -->
         </div> <!-- /.info-box -->
     </div> <!-- /.col -->
@@ -38,7 +38,7 @@
             <span class="info-box-icon"><i class="bi bi-clock-history"></i></span> <!-- Updated icon -->
             <div class="info-box-content">
                 <span class="info-box-text">Terlambat Masuk</span>
-                <span class="info-box-number" id="terlambatMasuk">3</span> <!-- Updated ID -->
+                <span class="info-box-number" id="terlambatMasuk"></span> <!-- Updated ID -->
             </div> <!-- /.info-box-content -->
         </div> <!-- /.info-box -->
     </div> <!-- /.col -->

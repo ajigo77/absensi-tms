@@ -36,6 +36,24 @@
         <x-dashboard.footer></x-dashboard.footer>
     </div>
     <x-script></x-script>
+    @if ($pesan_error = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: "Sukses",
+                text: "{{ $pesan_error }}",
+                icon: "success"
+            });
+        </script>
+    @endif
+    @if ($pesan_error = Session::get('error'))
+        <script>
+            Swal.fire({
+                title: "Gagal",
+                text: "{{ $pesan_error }}",
+                icon: "error"
+            });
+        </script>
+    @endif
 </body>
 
 </html>

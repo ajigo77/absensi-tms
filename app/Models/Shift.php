@@ -14,8 +14,6 @@ class Shift extends Model
     protected $primaryKey = 'id'; // Primary key (ensure this matches your database)
 
     protected $fillable = ['name', 'start_time', 'end_time', 'waktu', 'created_at', 'updated_at']; // Added 'waktu' to fillable fields
-    // protected $table = 'shifts';
-    // protected $fillable = ['name', 'start_time', 'end_time'];
 
     // protected $casts = [
     //     'start_time' => 'datetime',

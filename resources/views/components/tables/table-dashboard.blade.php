@@ -38,6 +38,24 @@
         </div>
     </div>
 
+    <!-- Modal untuk lokasi -->
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Lokasi Karyawan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <!-- Menampilkan modal lokasi dari leaflet -->
+                    <div id="map" style="width: 100%; height:300px;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="card-body">
         <!-- Tambahkan class table-responsive untuk membuat tabel menjadi responsif -->
@@ -88,7 +106,15 @@
                                             foto</a>
                                     </span>
                                 </td>
-                                <td class="text-capitalize">lihat lokasi</td>
+                                <td class="text-capitalize">
+                                    <a href="#" class="icn badge bg-dark" id="mdl" data-bs-toggle="modal"
+                                        data-bs-target="#locationModal" data-lat="{{ $absen->lattitude }}"
+                                        data-lon="{{ $absen->longtitude }}">
+                                        <span class="mb-2 text-white">
+                                            Lihat Lokasi
+                                        </span>
+                                    </a>
+                                </td>
                                 <td class="text-capitalize">
                                     @if ($absen->type == 'masuk')
                                         @if ($absen->status == 'terlambat')
@@ -130,5 +156,70 @@
 
         // Redirect to the same page with query parameters for filtering
         window.location.href = `?from=${fromDate}&to=${toDate}`;
+    });
+</script>
+<script>
+    let map = null;
+    const locationModal = document.getElementById('locationModal');
+
+    locationModal.addEventListener('show.bs.modal', function(event) {
+        // Ambil button yang memicu modal
+        const button = event.relatedTarget;
+        // Ambil data-lat dan data-lon dari button
+        const lat = parseFloat(button.getAttribute('data-lat')); // Ambil lat dan konversi ke float
+        const lon = parseFloat(button.getAttribute('data-lon')); // Ambil lon dan konversi ke float
+
+        // Panggil fungsi untuk menampilkan peta
+        showMap(lat, lon);
+    });
+
+    // Hapus peta ketika modal ditutup
+    locationModal.addEventListener('hide.bs.modal', function() {
+        if (map !== null) {
+            map.remove(); // Hapus peta saat modal ditutup
+            map = null; // Reset variabel map
+        }
+    });
+
+    function showMap(lat, lon) {
+        const mapDiv = document.getElementById("map");
+        mapDiv.style.display = 'block';
+        mapDiv.style.borderRadius = '10px';
+
+        // Inisialisasi peta
+        map = L.map(mapDiv).setView([lat, lon], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Titik koordinat kantor
+        const latLokasiKantor = -6.9206016;
+        const longLokasiKantor = 107.610112;
+
+        const circle = L.circle([latLokasiKantor, longLokasiKantor], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 400
+        }).addTo(map);
+
+        // Tambahkan marker pada lokasi karyawan
+        const marker = L.marker([lat, lon]).addTo(map)
+            .bindPopup('Lokasi Anda').openPopup();
+
+        // Perbarui ukuran peta setelah modal sepenuhnya terbuka
+        setTimeout(function() {
+            map.invalidateSize();
+        }, 500); // Memberi sedikit delay agar layout modal benar-benar siap
+    }
+
+    const photoModal = document.getElementById('photoModal');
+    photoModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const photoUrl = button.getAttribute('data-photo'); // Extract info from data-* attributes
+        const modalPhoto = document.getElementById('modalPhoto'); // Get the image element
+        modalPhoto.src = photoUrl; // Update the modal's image source
     });
 </script>

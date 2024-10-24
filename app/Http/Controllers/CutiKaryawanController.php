@@ -11,8 +11,25 @@ use App\Models\Devisi;
 
 class CutiKaryawanController extends Controller
 {
-    public function showTabelCutiDashboard(){
+    public function showTabelCutiDashboard(Request $request){
         $formcuti = Cutikaryawan::orderBy('created_at', 'desc')->paginate(5);
+
+        // Ambil semua input dari form
+        $filters = $request->only(['approved']);
+
+        // Mulai query
+        $query = Cutikaryawan::query();
+
+        // Filter berdasarkan status
+        if (!empty($filters['approved'])) {
+            $query->where('approved', $filters['approved']);
+        }
+
+        // Ambil hasil query
+        $formcuti = $query
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
         return view('dashboard-cuti', compact('formcuti'));
     }
 
@@ -98,5 +115,16 @@ class CutiKaryawanController extends Controller
     public function showCutiTable() {
         $cutis = Cutikaryawan::orderBy('created_at', 'desc')->paginate(5);
         return view('components.tables.cuti-table', compact('cutis'));
+    }
+
+    public function updateStatusCuti(Request $request, $id)
+    {
+        $izin = Cutikaryawan::where('id', $id) ->update(['approved' => $request->input('status')]);;
+
+        if ($izin) {
+            return redirect()->route('dash.cuti')->with('success', 'Status berhasil diperbarui.');
+        }
+
+        return redirect()->route('dash.cuti')->with('error', 'Gagal memperbarui status.');
     }
 }

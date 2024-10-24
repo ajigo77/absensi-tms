@@ -7,15 +7,24 @@
 
 
     <div class="card-body">
-        <div class="mb-3 d-flex align-items-center">
-            <label for="statusFilter" class="form-label me-2">Filter by Status:</label>
-            <i class="bi bi-funnel-fill me-2"></i> <!-- Filter icon -->
-            <select id="statusFilter" class="form-select" onchange="filterStatus()">
-                <option value="">All</option>
-                <option value="pending">Pending</option>
-                <option value="disetujui">Disetujui</option>
-                <option value="ditolak">Ditolak</option>
-            </select>
+        <div class="mb-4"> <!-- Diberi margin bawah agar tidak terlalu menempel dengan tabel -->
+            <form action="{{ route('filter.izin') }}" method="POST" class="row g-3">
+                @csrf
+                <!-- Filter by Status -->
+                <div class="col-md-6">
+                    <label for="filterStatus" class="form-label">Status</label>
+                    <select class="form-select" id="filterStatus" name="approved">
+                        <option value="">Pilih</option>
+                        <option value="disetujui" class="text-capitalize">Setujui</option>
+                        <option value="ditolak" class="text-capitalize">Tolak</option>
+                        <option value="pending" class="text-capitalize">Pending</option>
+                    </select>
+                </div>
+                <!-- Filter buttons -->
+                <div class="col-md-6 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success me-2">Terapkan</button>
+                </div>
+            </form>
         </div>
 
         <div class="table-responsive">
@@ -52,9 +61,12 @@
                                 <td class="text-capitalize">{{ $izin->jenis_izin }}</td>
                                 <td class="text-capitalize">{{ $izin->divisi }}</td>
                                 <td class="text-capitalize">{{ $izin->jabatan }}</td>
-                                <td class="text-capitalize">{{ \Carbon\Carbon::parse($izin->dari_tanggal)->translatedFormat('d F Y') }}</td>
-                                <td class="text-capitalize">{{ \Carbon\Carbon::parse($izin->sampai_tanggal)->translatedFormat('d F Y') }}</td>
-                                <td class="text-capitalize">{{ \Carbon\Carbon::parse($izin->jam_pulang_awal)->format('H:i') }}</td>
+                                <td class="text-capitalize">
+                                    {{ \Carbon\Carbon::parse($izin->dari_tanggal)->translatedFormat('d F Y') }}</td>
+                                <td class="text-capitalize">
+                                    {{ \Carbon\Carbon::parse($izin->sampai_tanggal)->translatedFormat('d F Y') }}</td>
+                                <td class="text-capitalize">
+                                    {{ \Carbon\Carbon::parse($izin->jam_pulang_awal)->format('H:i') }}</td>
                                 <td class="text-capitalize">{{ $izin->alasan }}</td>
                                 <td class="text-capitalize">
                                     @if ($izin->approved == 'disetujui')
@@ -67,8 +79,23 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-success btn-sm" onclick="approveCuti({{ $izin->id }})">✓</button>
-                                        <button class="btn btn-danger btn-sm" onclick="rejectCuti({{ $izin->id }})">✗</button>
+                                        <!-- Form tunggal untuk approve/reject -->
+                                        <form action="{{ route('update.izin', $izin->id) }}" method="POST">
+                                            @csrf
+                                            <!-- Input tersembunyi untuk mengirim status -->
+                                            <input type="hidden" name="status"
+                                                id="status-input-{{ $izin->id }}">
+
+                                            <!-- Tombol approve -->
+                                            <button type="submit"
+                                                onclick="document.getElementById('status-input-{{ $izin->id }}').value = 'disetujui'"
+                                                style="background: transparent; outline:none; border:none">✅</button>
+
+                                            <!-- Tombol reject -->
+                                            <button type="submit"
+                                                onclick="document.getElementById('status-input-{{ $izin->id }}').value = 'ditolak'"
+                                                style="background: transparent; outline:none; border:none">❌</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -83,90 +110,32 @@
     </div>
 </div> <!-- /.card -->
 
-<script>
-    function filterStatus() {
-        const filterValue = document.getElementById('statusFilter').value.toLowerCase();
-        const rows = Array.from(document.querySelectorAll('tbody tr'));
-
-        // Sort rows to prioritize "Pending" status
-        rows.sort((a, b) => {
-            const statusA = a.getAttribute('data-status').toLowerCase();
-            const statusB = b.getAttribute('data-status').toLowerCase();
-
-            if (statusA === 'pending' && statusB !== 'pending') return -1;
-            if (statusA !== 'pending' && statusB === 'pending') return 1;
-            return 0; // Keep original order for other statuses
-        });
-
-        // Filter and display rows
-        rows.forEach(row => {
-            const status = row.getAttribute('data-status').toLowerCase();
-            if (filterValue === '' || status === filterValue) {
-                row.style.display = ''; // Show row
-            } else {
-                row.style.display = 'none'; // Hide row
-            }
-        });
-
-        // Append sorted rows back to the table body
-        const tbody = document.getElementById('izinTableBody');
-        tbody.innerHTML = ''; // Clear existing rows
-        rows.forEach(row => tbody.appendChild(row)); // Append sorted rows
-    }
-
-    function approveCuti(id) {
-        $.ajax({
-            type: 'POST',
-            url: '/cuti/approve/' + id,
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                location.reload();
-            },
-            error: function(xhr) {
-                alert('Error approving cuti: ' + xhr.responseText);
-            }
-        });
-    }
-
-    function rejectCuti(id) {
-        $.ajax({
-            type: 'POST',
-            url: '/cuti/reject/' + id,
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                location.reload();
-            },
-            error: function(xhr) {
-                alert('Error rejecting cuti: ' + xhr.responseText);
-            }
-        });
-    }
-</script>
-
 <style>
     /* Additional CSS for better styling */
-    .table th, .table td {
-        vertical-align: middle; /* Center align text vertically */
+    .table th,
+    .table td {
+        vertical-align: middle;
+        /* Center align text vertically */
     }
 
     .table th {
-        background-color: #f8f9fa; /* Light background for header */
+        background-color: #f8f9fa;
+        /* Light background for header */
     }
 
     .badge {
-        font-size: 0.9rem; /* Slightly smaller badge font */
+        font-size: 0.9rem;
+        /* Slightly smaller badge font */
     }
 
     .btn-group {
         display: flex;
-        justify-content: center; /* Center the buttons */
+        justify-content: center;
+        /* Center the buttons */
     }
 
     .btn {
-        min-width: 30px; /* Minimum width for buttons */
+        min-width: 30px;
+        /* Minimum width for buttons */
     }
 </style>

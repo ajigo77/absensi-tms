@@ -1,10 +1,13 @@
 @props(['offices'])
 
 <div class="card mb-4">
-    <div class="card-header d-flex justify-content-between align-items-center position-relative">
+    <div class="card-header d-flex justify-content-between align-items-center">
         <h3 class="card-title mb-0">Data Offices</h3>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newOfficeModal">New Office</button>
+        <div class="ms-auto"> <!-- Menambahkan kelas ms-auto untuk margin start otomatis -->
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newOfficeModal">New Office</button>
+        </div>
     </div> <!-- /.card-header -->
+
 
     <!-- New Office Modal -->
     <div class="modal fade" id="newOfficeModal" tabindex="-1" aria-labelledby="newOfficeModalLabel" aria-hidden="true">

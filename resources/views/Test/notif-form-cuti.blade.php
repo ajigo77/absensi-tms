@@ -215,51 +215,6 @@
                         <div class="card-body">
                             <form action="{{ route('post.search.cuti') }}" method="POST">
                                 @csrf
-                                {{-- <div class="row">
-                                    <input type="text" name="user_id" hidden value="{{ Auth::user()->id_user }}">
-                                    <!-- Filter by Name -->
-                                    <div class="col-md-4 mb-3">
-                                        <label for="filterName" class="form-label">Nama</label>
-                                        <input type="text" class="form-control" id="filterName"
-                                            placeholder="Cari nama" name="nama_karyawan">
-                                    </div>
-
-                                    <!-- Filter by jabatan -->
-                                    <div class="col-md-4 mb-3">
-                                        <label for="filterName" class="form-label">Jabatan</label>
-                                        <select class="form-control" name="jabatan">
-                                            <option value="">Pilih Jabatan</option>
-                                            @forelse ($jabatan as $jab)
-                                            <option value="{{ $jab->nama }}">
-                                                {{ $jab->nama }}
-                                            </option>
-                                            @empty
-                                            <option value="">
-                                                Tidak Ada Jabatan
-                                            </option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-
-                                    <!-- Filter by Divisi -->
-                                    <div class="col-md-4 mb-3">
-                                        <label for="filterName" class="form-label">Divisi</label>
-                                        <select class="form-control" name="divisi">
-                                            <option value="">Pilih Divisi</option>
-                                            @forelse ($divisi as $dvs)
-                                                <option value="{{ $dvs->nama }}">
-                                                    {{ $dvs->nama }}
-                                                </option>
-                                            @empty
-                                                <option value="">
-                                                    Tidak Ada Divisi
-                                                </option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-
-                                </div> --}}
-
                                 <div class="row">
                                     <!-- Filter by Status -->
                                     <div class="col-md-6 mb-3">

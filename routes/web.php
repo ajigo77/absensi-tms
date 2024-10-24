@@ -37,24 +37,6 @@ Route::get('/', function () {
     return view('Pages.HeroSection');
 })->name('hero');
 
-Route::get('/absen', [AbsenController::class, 'getDataAbsen']);
-Route::get('/absen/stats', [AbsenController::class, 'getStats']);
-
-// Route::get('/test', [AbsenController::class, 'index']);
-// Route::post('/post-absensi', [AbsenController::class, 'postAbsen'])->name('post.absen');
-
-Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
-Route::resource('offices', OfficeController::class);
-Route::resource('shifts', ShiftController::class);
-Route::resource('schedules', ScheduleController::class);
-Route::resource('attendances', AttendanceController::class);
-Route::resource('leaves', LeaveController::class);
-
-// Route::middleware(['auth'])->group(function () {
-//     AttendanceResource::routes();
-// });
-
 Route::get('/api/absen/stats', [AbsenController::class, 'getStats']);
 
 Route::get('/absen/{id}', [AbsenController::class, 'show'])->name('absen.show');
@@ -72,5 +54,3 @@ Route::group(['middleware' => ['auth', 'permission:view_dashboard']], function (
 });
 require __DIR__ . '\Auth\auth.php';
 require __DIR__ . '\Uploaded\upload.php';
-
-Route::get('/login', CustomLogin::class);

@@ -145,8 +145,8 @@
                                 alt="..." height="300" style="border-radius:10px;">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('image/src/slide-2.png') }}" class="d-block w-full h-full"
-                                alt="..." height="300" style="border-radius:10px;">
+                            <img src="{{ asset('image/src/slide-2.png') }}" class="d-block w-full h-full" alt="..."
+                                height="300" style="border-radius:10px;">
                         </div>
                         <div class="carousel-item">
                             <img src="{{ asset('image/src/slide-3.jpeg') }}" class="d-block w-full h-full"
@@ -214,7 +214,7 @@
                             <div class="col-4">
                                 <div class="card catagory-card">
                                     <div class="card-body">
-                                        <a class="text-success" href="{{ route('filament.admin.pages.dashboard') }}">
+                                        <a class="text-success" href="{{ route('dash.main') }}">
                                             <i class="bi bi-speedometer text-warning"></i>
                                             <span>Dashboard</span>
                                         </a>

@@ -88,19 +88,10 @@
                                         </h5>
 
                                         {{-- Copywriting Absen Berdasarkan Waktu --}}
-                                        @if ($card->name == 'pagi')
-                                            <p class="card-text text-muted">
-                                                Jangan lupa absen pagi! Dari pukul
-                                                {{ \Carbon\Carbon::parse($card->start_time)->format('H:i') }} hingga
-                                                pukul {{ \Carbon\Carbon::parse($card->end_time)->format('H:i') }}.
-                                            </p>
-                                        @elseif($card->name == 'sore')
-                                            <p class="card-text text-muted">
-                                                Jangan lupa absen sore! Dari pukul
-                                                {{ \Carbon\Carbon::parse($card->start_time)->format('H:i') }} hingga
-                                                pukul {{ \Carbon\Carbon::parse($card->end_time)->format('H:i') }}.
-                                            </p>
-                                        @endif
+                                        <p class="card-text text-muted">
+                                            Toleransi masuk pukul
+                                            {{ \Carbon\Carbon::parse($card->waktu)->format('H:i') }} WIB.
+                                        </p>
 
                                         {{-- Kondisi Tombol Berdasarkan Status --}}
                                         @if ($card->belum_absen)

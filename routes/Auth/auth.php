@@ -19,8 +19,18 @@ Route::get('/dashboard-shifts', [ShiftController::class, 'index'])->name('dash.s
 Route::get('/kantor', [OfficeController::class, 'index'])->name('kantor');
 Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
 Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
+
 Route::get('/dashboard-izin', [FormKaryawanController::class, 'showTabelIzinDashboard'])->name('dash.izin');
+Route::post('/dashboard-izin/{id}', [FormKaryawanController::class, 'updateStatusIzin'])->name('update.izin');
+
 Route::get('/dashboard-cuti', [CutiKaryawanController::class, 'showTabelCutiDashboard'])->name('dash.cuti');
+Route::post('/dashboard-cuti/{id}', [CutiKaryawanController::class, 'updateStatusCuti'])->name('update.cuti');
+
+// Filter cuti
+Route::post('/dashboard-cuti', [CutiKaryawanController::class, 'showTabelCutiDashboard'])->name('filter.cuti');
+
+// Filter cuti
+Route::post('/dashboard-izin', [FormKaryawanController::class, 'showTabelIzinDashboard'])->name('filter.izin');
 
 // Middleware
 Route::middleware(['auth'])->group(function () {

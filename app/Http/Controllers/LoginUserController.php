@@ -17,7 +17,7 @@ class LoginUserController extends Controller
     {
         $customMessageValidate = [
             'member_id.required' => 'Id member tidak boleh kosong',
-            'member_id.exists' => 'tidak ada member',
+            'member_id.exists' => 'Tidak ada member',
             'password.required' => 'Password tidak boleh kosong',
             'password.min' => 'Minimal 5 karakter',
             'password.max' => 'Maximal 8 karakter',
